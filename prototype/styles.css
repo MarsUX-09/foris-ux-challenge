@@ -199,7 +199,7 @@ a {
 /* ========================================= */
 .screen {
   display: none;
-  margin-top: 44px;
+  margin-top: 0px; /* was 44px for screen-nav */
 }
 
 .screen.active {
@@ -211,7 +211,7 @@ a {
 /* ========================================= */
 .app-layout {
   display: flex;
-  min-height: calc(100vh - 44px);
+  min-height: 100vh; /* was calc(100vh - 44px) for screen-nav */
 }
 
 /* ========================================= */
@@ -226,7 +226,7 @@ a {
   flex-direction: column;
   padding: 24px 16px;
   position: fixed;
-  top: 44px;
+  top: 0; /* was 44px for screen-nav */
   left: 0;
   bottom: 0;
   z-index: 100;
