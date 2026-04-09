@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+  <title>Pantalla 4 — Confirmacion Error (Desktop)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { background: #f4f5f6; }
+    .screen-nav { display: none; }
+    .screen { display: block; margin-top: 0; }
+    .app-layout { min-height: 960px; width: 1440px; }
+  </style>
+</head>
+<body>
+  <div class="screen active" id="screen-4">
+    <div class="app-layout">
+      <aside class="sidebar">
+        <div class="sidebar__logo">
+          <svg class="sidebar__logo-icon" viewBox="0 0 32 32" fill="none"><path d="M16 2L28 9V23L16 30L4 23V9L16 2Z" fill="#069cb8" opacity="0.3"/><path d="M16 6L24 11V21L16 26L8 21V11L16 6Z" fill="#069cb8" opacity="0.6"/><path d="M16 10L20 13V19L16 22L12 19V13L16 10Z" fill="#069cb8"/></svg>
+          <span class="sidebar__logo-text">albus</span>
+        </div>
+        <nav class="sidebar__nav">
+          <a href="#" class="sidebar__link"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10L10 3L17 10V17H12V13H8V17H3V10Z" stroke="currentColor" stroke-width="1.5"/></svg>Inicio</a>
+          <a href="#" class="sidebar__link active"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 7H17M7 3V17" stroke="currentColor" stroke-width="1.5"/></svg>Mi Horario</a>
+          <a href="#" class="sidebar__link"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2V18M2 10H18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Malla Curricular</a>
+          <a href="#" class="sidebar__link"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M4 18C4 14.6863 6.68629 12 10 12C13.3137 12 16 14.6863 16 18" stroke="currentColor" stroke-width="1.5"/></svg>Mi Perfil</a>
+        </nav>
+        <div class="sidebar__user">
+          <div class="sidebar__avatar">SM</div>
+          <div class="sidebar__user-info">
+            <span class="sidebar__user-name">Sofia Martinez</span>
+            <span class="sidebar__user-career">Ing. Civil — 5to sem.</span>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div class="topbar__left">
+            <div>
+              <h1 class="topbar__title">Confirmar inscripcion</h1>
+              <p class="topbar__subtitle">Revisa y confirma tu seleccion de materias</p>
+            </div>
+          </div>
+          <div class="topbar__right">
+            <div class="topbar__window">
+              <div class="topbar__window-dot"></div>
+              <span>Ventana abierta — Cierra hoy 12:00 PM</span>
+            </div>
+          </div>
+        </header>
+
+        <!-- Error State -->
+        <div class="error-card">
+          <div class="error-card__icon">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+              <circle cx="24" cy="24" r="22" stroke="#EF4444" stroke-width="2.5"/>
+              <path d="M24 14V28M24 33V33.01" stroke="#EF4444" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h2 class="error-card__title">No pudimos completar tu inscripcion</h2>
+          <p class="error-card__subtitle">Pero no te preocupes, hay opciones disponibles.</p>
+          <div class="error-card__detail">
+            <div class="error-card__detail-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1L15 13H1L8 1Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M8 6V9M8 11V11.01" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <p class="error-card__detail-title">El cupo de Calculo III — Seccion B se agoto</p>
+              <p class="error-card__detail-desc">Otro estudiante confirmo el ultimo cupo mientras revisabas tu horario.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reassurance -->
+        <div class="reassurance">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2C14.4183 2 18 5.58172 18 10C18 14.4183 14.4183 18 10 18C5.58172 18 2 14.4183 2 10C2 5.58172 5.58172 2 10 2Z" stroke="currentColor" stroke-width="1.5"/><path d="M10 6V10L13 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <p>Tus demas materias estan <strong>reservadas temporalmente por 10 minutos</strong>. No perderas tu lugar en ellas mientras resuelves esto.</p>
+        </div>
+
+        <!-- Quick alternatives -->
+        <div class="error-alternatives">
+          <h3 class="error-alternatives__title">Secciones alternativas para Calculo III</h3>
+          <div class="error-alternatives__list">
+            <div class="error-alternatives__item">
+              <div class="error-alternatives__radio">
+                <input type="radio" name="errorRes" id="errA" checked>
+                <label for="errA"></label>
+              </div>
+              <div class="error-alternatives__info">
+                <span class="error-alternatives__name">Seccion C — Lu/Mi 16:00–17:30</span>
+                <span class="error-alternatives__meta">Prof. Vargas A. — Sala 305</span>
+              </div>
+              <span class="resolution__seats resolution__seats--available">8 cupos</span>
+            </div>
+            <div class="error-alternatives__item">
+              <div class="error-alternatives__radio">
+                <input type="radio" name="errorRes" id="errB">
+                <label for="errB"></label>
+              </div>
+              <div class="error-alternatives__info">
+                <span class="error-alternatives__name">Seccion D — Sab 9:00–12:00</span>
+                <span class="error-alternatives__meta">Prof. Lopez N. — Sala 102</span>
+              </div>
+              <span class="resolution__seats resolution__seats--available">18 cupos</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="bottom-actions">
+          <button class="btn btn--secondary">Intentar de nuevo</button>
+          <button class="btn btn--primary">
+            Aplicar alternativa y confirmar
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

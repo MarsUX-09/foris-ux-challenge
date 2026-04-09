@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+  <title>Pantalla 2 — Resolucion del Conflicto (Desktop)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { background: #f4f5f6; }
+    .screen-nav { display: none; }
+    .screen { display: block; margin-top: 0; }
+    .app-layout { min-height: 960px; width: 1440px; }
+  </style>
+</head>
+<body>
+  <div class="screen active" id="screen-2">
+    <div class="app-layout">
+      <aside class="sidebar">
+        <div class="sidebar__logo">
+          <svg class="sidebar__logo-icon" viewBox="0 0 32 32" fill="none"><path d="M16 2L28 9V23L16 30L4 23V9L16 2Z" fill="#069cb8" opacity="0.3"/><path d="M16 6L24 11V21L16 26L8 21V11L16 6Z" fill="#069cb8" opacity="0.6"/><path d="M16 10L20 13V19L16 22L12 19V13L16 10Z" fill="#069cb8"/></svg>
+          <span class="sidebar__logo-text">albus</span>
+        </div>
+        <nav class="sidebar__nav">
+          <a href="#" class="sidebar__link"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10L10 3L17 10V17H12V13H8V17H3V10Z" stroke="currentColor" stroke-width="1.5"/></svg>Inicio</a>
+          <a href="#" class="sidebar__link active"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 7H17M7 3V17" stroke="currentColor" stroke-width="1.5"/></svg>Mi Horario</a>
+          <a href="#" class="sidebar__link"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2V18M2 10H18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Malla Curricular</a>
+          <a href="#" class="sidebar__link"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M4 18C4 14.6863 6.68629 12 10 12C13.3137 12 16 14.6863 16 18" stroke="currentColor" stroke-width="1.5"/></svg>Mi Perfil</a>
+        </nav>
+        <div class="sidebar__user">
+          <div class="sidebar__avatar">SM</div>
+          <div class="sidebar__user-info">
+            <span class="sidebar__user-name">Sofia Martinez</span>
+            <span class="sidebar__user-career">Ing. Civil — 5to sem.</span>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div class="topbar__left">
+            <div>
+              <button class="topbar__back">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 4L6 8L10 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                Volver al horario
+              </button>
+              <h1 class="topbar__title">Resolver cruce de horario</h1>
+            </div>
+          </div>
+          <div class="topbar__right">
+            <div class="topbar__window">
+              <div class="topbar__window-dot"></div>
+              <span>Ventana abierta — Cierra hoy 12:00 PM</span>
+            </div>
+          </div>
+        </header>
+
+        <!-- Conflict Summary -->
+        <div class="conflict-summary">
+          <div class="conflict-summary__visual">
+            <div class="conflict-summary__block conflict-summary__block--a">
+              <span class="conflict-summary__name">Calculo III</span>
+              <span class="conflict-summary__time">Ma/Ju 10:00–11:30</span>
+            </div>
+            <div class="conflict-summary__divider">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H10M17 7V14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="conflict-summary__block conflict-summary__block--b">
+              <span class="conflict-summary__name">Mec. de Fluidos</span>
+              <span class="conflict-summary__time">Ma/Ju 10:00–11:30</span>
+            </div>
+          </div>
+          <p class="conflict-summary__text">Ambas materias estan programadas en el mismo horario. Elige una opcion para resolverlo.</p>
+        </div>
+
+        <!-- Resolution Options -->
+        <div class="resolution">
+          <h2 class="resolution__title">Opciones disponibles</h2>
+
+          <!-- Option A -->
+          <div class="resolution__option resolution__option--recommended" id="optionA">
+            <div class="resolution__option-header">
+              <div class="resolution__option-radio">
+                <input type="radio" name="resolution" id="resA" checked>
+                <label for="resA"></label>
+              </div>
+              <div class="resolution__option-info">
+                <div class="resolution__option-title-row">
+                  <span class="resolution__option-title">Cambiar Calculo III a Seccion B</span>
+                  <span class="resolution__ai-badge">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1L8.5 5.5L13 7L8.5 8.5L7 13L5.5 8.5L1 7L5.5 5.5L7 1Z" fill="currentColor"/></svg>
+                    Sugerida por Albus
+                  </span>
+                </div>
+                <p class="resolution__option-desc">Calculo III pasa a <strong>miercoles y viernes 14:00–15:30</strong>, Sala 401. Mecanica de Fluidos se mantiene.</p>
+              </div>
+            </div>
+            <div class="resolution__option-meta">
+              <span class="resolution__seats resolution__seats--available">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2"/><circle cx="7" cy="7" r="2" fill="currentColor"/></svg>
+                12 cupos disponibles
+              </span>
+              <span class="resolution__prof">Prof. Garcia M.</span>
+              <span class="resolution__rating">4.3/5</span>
+            </div>
+            <!-- Preview -->
+            <div class="resolution__preview">
+              <div class="resolution__preview-header">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8C2 8 4 3 8 3C12 3 14 8 14 8C14 8 12 13 8 13C4 13 2 8 2 8Z" stroke="currentColor" stroke-width="1.2"/><circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.2"/></svg>
+                Vista previa del horario
+              </div>
+              <div class="resolution__preview-mini">
+                <div class="mini-schedule">
+                  <div class="mini-schedule__day">
+                    <span class="mini-schedule__label">Ma</span>
+                    <div class="mini-block mini-block--green" style="top: 0; height: 30px;" title="Fisica III 8:00-9:30"></div>
+                    <div class="mini-block mini-block--conflict-b" style="top: 40px; height: 30px;" title="Mec. Fluidos 10:00-11:30"></div>
+                  </div>
+                  <div class="mini-schedule__day">
+                    <span class="mini-schedule__label">Mi</span>
+                    <div class="mini-block mini-block--blue" style="top: 0; height: 30px;" title="Estructuras I 8:00-9:30"></div>
+                    <div class="mini-block mini-block--teal" style="top: 30px; height: 30px;" title="Estadistica II 9:30-11:00"></div>
+                    <div class="mini-block mini-block--conflict-a" style="top: 80px; height: 30px;" title="Calculo III 14:00-15:30"></div>
+                  </div>
+                  <div class="mini-schedule__day">
+                    <span class="mini-schedule__label">Ju</span>
+                    <div class="mini-block mini-block--green" style="top: 0; height: 30px;" title="Fisica III 8:00-9:30"></div>
+                    <div class="mini-block mini-block--conflict-b" style="top: 40px; height: 30px;" title="Mec. Fluidos 10:00-11:30"></div>
+                  </div>
+                  <div class="mini-schedule__day">
+                    <span class="mini-schedule__label">Vi</span>
+                    <div class="mini-block mini-block--purple" style="top: 0; height: 50px;" title="Topografia 8:00-11:00"></div>
+                    <div class="mini-block mini-block--conflict-a" style="top: 80px; height: 30px;" title="Calculo III 14:00-15:30"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="resolution__validation resolution__validation--ok">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8L6.5 11.5L13 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Sin conflictos — Horario valido
+              </div>
+            </div>
+          </div>
+
+          <!-- Option B -->
+          <div class="resolution__option" id="optionB">
+            <div class="resolution__option-header">
+              <div class="resolution__option-radio">
+                <input type="radio" name="resolution" id="resB">
+                <label for="resB"></label>
+              </div>
+              <div class="resolution__option-info">
+                <span class="resolution__option-title">Cambiar Mecanica de Fluidos a Seccion C</span>
+                <p class="resolution__option-desc">Mecanica de Fluidos pasa a <strong>lunes y miercoles 14:00–15:30</strong>, Lab. 203. Calculo III se mantiene.</p>
+              </div>
+            </div>
+            <div class="resolution__option-meta">
+              <span class="resolution__seats resolution__seats--low">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2"/><circle cx="7" cy="7" r="2" fill="currentColor"/></svg>
+                3 cupos disponibles
+              </span>
+              <span class="resolution__prof">Prof. Ramirez T.</span>
+              <span class="resolution__rating">4.1/5</span>
+            </div>
+          </div>
+
+          <!-- Option C -->
+          <div class="resolution__option" id="optionC">
+            <div class="resolution__option-header">
+              <div class="resolution__option-radio">
+                <input type="radio" name="resolution" id="resC">
+                <label for="resC"></label>
+              </div>
+              <div class="resolution__option-info">
+                <span class="resolution__option-title">Cambiar Calculo III a Seccion D</span>
+                <p class="resolution__option-desc">Calculo III pasa a <strong>sabados 9:00–12:00</strong>, Sala 102. Mecanica de Fluidos se mantiene.</p>
+              </div>
+            </div>
+            <div class="resolution__option-meta">
+              <span class="resolution__seats resolution__seats--available">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2"/><circle cx="7" cy="7" r="2" fill="currentColor"/></svg>
+                18 cupos disponibles
+              </span>
+              <span class="resolution__prof">Prof. Lopez N.</span>
+              <span class="resolution__rating">3.8/5</span>
+            </div>
+          </div>
+
+          <button class="resolution__more">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 4V12M4 8H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Ver mas opciones
+          </button>
+        </div>
+
+        <!-- Bottom Actions -->
+        <div class="bottom-actions">
+          <button class="btn btn--secondary">Volver al horario</button>
+          <button class="btn btn--primary">
+            Aplicar y continuar
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

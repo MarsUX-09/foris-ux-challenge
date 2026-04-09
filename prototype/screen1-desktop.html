@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+  <title>Pantalla 1 — Propuesta con Conflicto (Desktop)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { background: #f4f5f6; }
+    .screen-nav { display: none; }
+    .screen { display: block; margin-top: 0; }
+    .app-layout { min-height: 960px; width: 1440px; }
+  </style>
+</head>
+<body>
+  <div class="screen active" id="screen-1">
+    <div class="app-layout">
+      <aside class="sidebar">
+        <div class="sidebar__logo">
+          <svg class="sidebar__logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 2L28 9V23L16 30L4 23V9L16 2Z" fill="#069cb8" opacity="0.3"/>
+            <path d="M16 6L24 11V21L16 26L8 21V11L16 6Z" fill="#069cb8" opacity="0.6"/>
+            <path d="M16 10L20 13V19L16 22L12 19V13L16 10Z" fill="#069cb8"/>
+          </svg>
+          <span class="sidebar__logo-text">albus</span>
+        </div>
+        <nav class="sidebar__nav">
+          <a href="#" class="sidebar__link">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10L10 3L17 10V17H12V13H8V17H3V10Z" stroke="currentColor" stroke-width="1.5"/></svg>
+            Inicio
+          </a>
+          <a href="#" class="sidebar__link active">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 7H17M7 3V17" stroke="currentColor" stroke-width="1.5"/></svg>
+            Mi Horario
+          </a>
+          <a href="#" class="sidebar__link">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2V18M2 10H18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Malla Curricular
+          </a>
+          <a href="#" class="sidebar__link">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M4 18C4 14.6863 6.68629 12 10 12C13.3137 12 16 14.6863 16 18" stroke="currentColor" stroke-width="1.5"/></svg>
+            Mi Perfil
+          </a>
+        </nav>
+        <div class="sidebar__user">
+          <div class="sidebar__avatar">SM</div>
+          <div class="sidebar__user-info">
+            <span class="sidebar__user-name">Sofia Martinez</span>
+            <span class="sidebar__user-career">Ing. Civil — 5to sem.</span>
+          </div>
+        </div>
+      </aside>
+      <main class="main">
+        <header class="topbar">
+          <div class="topbar__left">
+            <div>
+              <h1 class="topbar__title">Mi Horario</h1>
+              <p class="topbar__subtitle">Semestre 2026-1 — Inscripcion de materias</p>
+            </div>
+          </div>
+          <div class="topbar__right">
+            <div class="topbar__window">
+              <div class="topbar__window-dot"></div>
+              <span>Ventana abierta — Cierra hoy 12:00 PM</span>
+            </div>
+          </div>
+        </header>
+        <div class="ai-banner">
+          <div class="ai-banner__icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 1L12.5 7.5L19 10L12.5 12.5L10 19L7.5 12.5L1 10L7.5 7.5L10 1Z" fill="currentColor"/></svg>
+          </div>
+          <div class="ai-banner__content">
+            <p class="ai-banner__text"><strong>Recomendacion de Albus IA</strong> — Basado en tu historial academico y carga horaria ideal, seleccione 6 materias para tu semestre. <span class="ai-banner__conflict">Detecte un cruce de horario entre 2 materias que necesita tu atencion.</span></p>
+          </div>
+          <button class="ai-banner__details">Ver detalle <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+        </div>
+        <div class="conflict-alert">
+          <div class="conflict-alert__icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2L18.66 17H1.34L10 2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 8V11M10 14V14.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div class="conflict-alert__content">
+            <p class="conflict-alert__title">Cruce de horario detectado</p>
+            <p class="conflict-alert__desc"><strong>Calculo III</strong> y <strong>Mecanica de Fluidos</strong> se cruzan los <strong>martes y jueves de 10:00 a 11:30</strong>. Hay secciones alternativas con cupos disponibles.</p>
+          </div>
+          <button class="btn btn--primary conflict-alert__cta">Resolver cruce <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+        </div>
+        <div class="schedule">
+          <div class="schedule__header">
+            <div class="schedule__time-col"></div>
+            <div class="schedule__day">Lunes</div>
+            <div class="schedule__day">Martes</div>
+            <div class="schedule__day">Miercoles</div>
+            <div class="schedule__day">Jueves</div>
+            <div class="schedule__day">Viernes</div>
+          </div>
+          <div class="schedule__body">
+            <div class="schedule__row">
+              <div class="schedule__time">8:00</div>
+              <div class="schedule__cell"><div class="schedule__block schedule__block--blue" style="height:80px;"><span class="schedule__block-name">Estructuras I</span><span class="schedule__block-detail">Sala 301</span></div></div>
+              <div class="schedule__cell"><div class="schedule__block schedule__block--green" style="height:80px;"><span class="schedule__block-name">Fisica III</span><span class="schedule__block-detail">Lab. 102</span></div></div>
+              <div class="schedule__cell"><div class="schedule__block schedule__block--blue" style="height:80px;"><span class="schedule__block-name">Estructuras I</span><span class="schedule__block-detail">Sala 301</span></div></div>
+              <div class="schedule__cell"><div class="schedule__block schedule__block--green" style="height:80px;"><span class="schedule__block-name">Fisica III</span><span class="schedule__block-detail">Lab. 102</span></div></div>
+              <div class="schedule__cell"><div class="schedule__block schedule__block--purple" style="height:120px;"><span class="schedule__block-name">Topografia</span><span class="schedule__block-detail">Sala 205</span></div></div>
+            </div>
+            <div class="schedule__row"><div class="schedule__time">8:30</div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div></div>
+            <div class="schedule__row"><div class="schedule__time">9:00</div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div></div>
+            <div class="schedule__row">
+              <div class="schedule__time">9:30</div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell"><div class="schedule__block schedule__block--teal" style="height:120px;"><span class="schedule__block-name">Estadistica II</span><span class="schedule__block-detail">Sala 108</span></div></div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell"></div>
+            </div>
+            <div class="schedule__row">
+              <div class="schedule__time">10:00</div>
+              <div class="schedule__cell"><div class="schedule__block schedule__block--teal" style="height:120px;"><span class="schedule__block-name">Estadistica II</span><span class="schedule__block-detail">Sala 108</span></div></div>
+              <div class="schedule__cell schedule__cell--conflict">
+                <div class="schedule__conflict-zone" style="height:120px;">
+                  <div class="schedule__block schedule__block--conflict-a"><span class="schedule__block-name">Calculo III</span><span class="schedule__block-detail">Secc. A — Sala 401</span><span class="schedule__conflict-badge"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1L11 10H1L6 1Z" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/><path d="M6 5V7M6 8.5V8.51" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>Cruce</span></div>
+                  <div class="schedule__block schedule__block--conflict-b"><span class="schedule__block-name">Mec. Fluidos</span><span class="schedule__block-detail">Secc. A — Lab. 201</span><span class="schedule__conflict-badge"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1L11 10H1L6 1Z" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/><path d="M6 5V7M6 8.5V8.51" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>Cruce</span></div>
+                </div>
+              </div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell schedule__cell--conflict">
+                <div class="schedule__conflict-zone" style="height:120px;">
+                  <div class="schedule__block schedule__block--conflict-a"><span class="schedule__block-name">Calculo III</span><span class="schedule__block-detail">Secc. A</span><span class="schedule__conflict-badge"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1L11 10H1L6 1Z" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/><path d="M6 5V7M6 8.5V8.51" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>Cruce</span></div>
+                  <div class="schedule__block schedule__block--conflict-b"><span class="schedule__block-name">Mec. Fluidos</span><span class="schedule__block-detail">Secc. A</span><span class="schedule__conflict-badge"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1L11 10H1L6 1Z" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/><path d="M6 5V7M6 8.5V8.51" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>Cruce</span></div>
+                </div>
+              </div>
+              <div class="schedule__cell"></div>
+            </div>
+            <div class="schedule__row"><div class="schedule__time">10:30</div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div></div>
+            <div class="schedule__row"><div class="schedule__time">11:00</div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div></div>
+            <div class="schedule__row"><div class="schedule__time">11:30</div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div></div>
+          </div>
+        </div>
+        <div class="subjects-list">
+          <h3 class="subjects-list__title">Materias del semestre</h3>
+          <div class="subjects-list__grid">
+            <div class="subject-card"><div class="subject-card__color subject-card__color--blue"></div><div class="subject-card__info"><span class="subject-card__name">Estructuras I</span><span class="subject-card__meta">Secc. A — 3 cred. — Lu/Mi 8:00-9:30</span></div><span class="subject-card__status subject-card__status--ok"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7L6 10L11 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Sin conflictos</span></div>
+            <div class="subject-card"><div class="subject-card__color subject-card__color--green"></div><div class="subject-card__info"><span class="subject-card__name">Fisica III</span><span class="subject-card__meta">Secc. B — 3 cred. — Ma/Ju 8:00-9:30</span></div><span class="subject-card__status subject-card__status--ok"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7L6 10L11 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Sin conflictos</span></div>
+            <div class="subject-card"><div class="subject-card__color subject-card__color--teal"></div><div class="subject-card__info"><span class="subject-card__name">Estadistica II</span><span class="subject-card__meta">Secc. A — 3 cred. — Lu 10:00-11:30, Mi 9:30-11:00</span></div><span class="subject-card__status subject-card__status--ok"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7L6 10L11 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Sin conflictos</span></div>
+            <div class="subject-card"><div class="subject-card__color subject-card__color--purple"></div><div class="subject-card__info"><span class="subject-card__name">Topografia</span><span class="subject-card__meta">Secc. A — 3 cred. — Vi 8:00-11:00</span></div><span class="subject-card__status subject-card__status--ok"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7L6 10L11 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Sin conflictos</span></div>
+            <div class="subject-card subject-card--conflict"><div class="subject-card__color subject-card__color--conflict-a"></div><div class="subject-card__info"><span class="subject-card__name">Calculo III</span><span class="subject-card__meta">Secc. A — 3 cred. — Ma/Ju 10:00-11:30</span></div><span class="subject-card__status subject-card__status--conflict"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1L13 12H1L7 1Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M7 5V8M7 10V10.01" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>Cruce</span></div>
+            <div class="subject-card subject-card--conflict"><div class="subject-card__color subject-card__color--conflict-b"></div><div class="subject-card__info"><span class="subject-card__name">Mecanica de Fluidos</span><span class="subject-card__meta">Secc. A — 3 cred. — Ma/Ju 10:00-11:30</span></div><span class="subject-card__status subject-card__status--conflict"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1L13 12H1L7 1Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M7 5V8M7 10V10.01" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>Cruce</span></div>
+          </div>
+        </div>
+        <div class="bottom-actions">
+          <button class="btn btn--secondary">Ajustar horario manualmente</button>
+          <button class="btn btn--primary">Resolver cruce de horario <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

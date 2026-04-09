@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+  <title>Wireframes Lo-Fi — Albus Enrollment Flow</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Courier New', monospace; background: #fff; color: #333; }
+
+    .page-label {
+      text-align: center;
+      padding: 40px 0 20px;
+      font-size: 14px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #999;
+      border-top: 2px dashed #ddd;
+      margin-top: 60px;
+    }
+    .page-label:first-child { border-top: none; margin-top: 0; }
+
+    .wireframe {
+      width: 1440px;
+      min-height: 900px;
+      margin: 0 auto 0;
+      border: 2px solid #ccc;
+      display: flex;
+      position: relative;
+      background: #fafafa;
+    }
+
+    /* Sidebar */
+    .wf-sidebar {
+      width: 220px;
+      background: #e8e8e8;
+      border-right: 2px solid #ccc;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .wf-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .wf-logo-icon {
+      width: 32px;
+      height: 32px;
+      border: 2px solid #999;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+    }
+    .wf-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .wf-nav-item {
+      padding: 10px 12px;
+      border: 1px solid transparent;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .wf-nav-item.active {
+      border: 2px solid #999;
+      background: #d5d5d5;
+      font-weight: bold;
+    }
+    .wf-nav-icon {
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid #999;
+      display: inline-block;
+    }
+    .wf-user {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px;
+      border: 1px solid #ccc;
+    }
+    .wf-avatar {
+      width: 36px;
+      height: 36px;
+      border: 2px solid #999;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: bold;
+    }
+    .wf-user-info { font-size: 11px; line-height: 1.4; }
+    .wf-user-name { font-weight: bold; display: block; }
+
+    /* Main */
+    .wf-main {
+      flex: 1;
+      padding: 24px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Topbar */
+    .wf-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #ddd;
+    }
+    .wf-topbar h1 { font-size: 22px; }
+    .wf-topbar p { font-size: 12px; color: #888; margin-top: 4px; }
+    .wf-status {
+      padding: 6px 14px;
+      border: 2px solid #999;
+      font-size: 11px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .wf-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 2px solid #999;
+    }
+
+    /* Placeholder boxes */
+    .wf-box {
+      border: 2px solid #bbb;
+      padding: 16px;
+      background: #f0f0f0;
+      position: relative;
+    }
+    .wf-box--dashed {
+      border-style: dashed;
+      background: #f8f8f8;
+    }
+    .wf-box--dark {
+      background: #ddd;
+      border-color: #999;
+    }
+    .wf-box--highlight {
+      border-color: #666;
+      border-width: 3px;
+      background: #e8e8e8;
+    }
+    .wf-box-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #888;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+    .wf-box-title {
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    .wf-box-text {
+      font-size: 12px;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    /* Grid placeholder */
+    .wf-grid {
+      display: grid;
+      border: 2px solid #ccc;
+    }
+    .wf-grid-header {
+      display: grid;
+      grid-template-columns: 60px repeat(5, 1fr);
+      border-bottom: 2px solid #ccc;
+    }
+    .wf-grid-header span {
+      padding: 8px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: bold;
+      border-right: 1px solid #ddd;
+    }
+    .wf-grid-body {
+      display: grid;
+      grid-template-columns: 60px repeat(5, 1fr);
+      min-height: 200px;
+      position: relative;
+    }
+    .wf-grid-time {
+      padding: 4px 8px;
+      font-size: 10px;
+      color: #999;
+      border-right: 1px solid #ddd;
+      border-bottom: 1px solid #eee;
+    }
+    .wf-grid-cell {
+      border-right: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+      min-height: 40px;
+      position: relative;
+    }
+    .wf-block {
+      margin: 2px;
+      padding: 6px;
+      border: 2px solid #999;
+      background: #e0e0e0;
+      font-size: 10px;
+      font-weight: bold;
+    }
+    .wf-block--conflict {
+      border-color: #666;
+      background: repeating-linear-gradient(45deg, #ddd, #ddd 4px, #c8c8c8 4px, #c8c8c8 8px);
+      position: relative;
+    }
+    .wf-conflict-label {
+      position: absolute;
+      top: -8px;
+      right: 4px;
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      background: #666;
+      color: #fff;
+      padding: 1px 4px;
+    }
+
+    /* Buttons */
+    .wf-btn {
+      padding: 12px 24px;
+      border: 2px solid #999;
+      font-size: 13px;
+      font-weight: bold;
+      font-family: inherit;
+      cursor: pointer;
+      background: #f0f0f0;
+    }
+    .wf-btn--primary {
+      background: #ddd;
+      border-color: #666;
+    }
+    .wf-btn--confirm {
+      background: #ccc;
+      border-color: #666;
+      border-width: 3px;
+    }
+
+    /* Actions bar */
+    .wf-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      padding-top: 16px;
+      border-top: 1px solid #ddd;
+      margin-top: auto;
+    }
+
+    /* Subject cards */
+    .wf-subjects {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+    .wf-subject {
+      border: 2px solid #ccc;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+    }
+    .wf-subject--conflict {
+      border-style: dashed;
+      border-color: #888;
+    }
+    .wf-subject-dot {
+      width: 12px;
+      height: 12px;
+      border: 2px solid #999;
+      flex-shrink: 0;
+    }
+    .wf-subject-status {
+      margin-left: auto;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: bold;
+      color: #888;
+    }
+
+    /* Resolution options */
+    .wf-options { display: flex; flex-direction: column; gap: 12px; }
+    .wf-option {
+      border: 2px solid #ccc;
+      padding: 16px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .wf-option--selected {
+      border-color: #666;
+      border-width: 3px;
+      background: #f0f0f0;
+    }
+    .wf-radio {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #999;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .wf-radio--checked::after {
+      content: '';
+      width: 10px;
+      height: 10px;
+      background: #666;
+      border-radius: 50%;
+    }
+    .wf-option-content { flex: 1; }
+    .wf-option-title { font-size: 13px; font-weight: bold; margin-bottom: 4px; }
+    .wf-option-desc { font-size: 11px; color: #666; }
+    .wf-option-meta { font-size: 10px; color: #888; margin-top: 6px; }
+    .wf-ai-badge {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border: 1.5px solid #888;
+      padding: 2px 8px;
+      display: inline-block;
+      margin-left: 8px;
+    }
+    .wf-preview {
+      margin-top: 12px;
+      border: 1px dashed #bbb;
+      padding: 12px;
+    }
+    .wf-preview-label {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #999;
+      margin-bottom: 8px;
+    }
+    .wf-mini-grid {
+      display: flex;
+      gap: 4px;
+      height: 60px;
+    }
+    .wf-mini-day {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .wf-mini-label { font-size: 8px; text-align: center; color: #999; }
+    .wf-mini-block {
+      background: #ddd;
+      border: 1px solid #bbb;
+      height: 14px;
+    }
+    .wf-validation {
+      margin-top: 8px;
+      font-size: 10px;
+      font-weight: bold;
+      padding: 4px 8px;
+      border: 1.5px solid #999;
+      display: inline-block;
+    }
+
+    /* Checklist */
+    .wf-checklist { display: flex; flex-direction: column; gap: 8px; }
+    .wf-check-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+    }
+    .wf-checkmark {
+      width: 18px;
+      height: 18px;
+      border: 2px solid #999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    /* Table */
+    .wf-table { width: 100%; border-collapse: collapse; }
+    .wf-table th, .wf-table td {
+      border: 1px solid #ccc;
+      padding: 8px 12px;
+      text-align: left;
+      font-size: 11px;
+    }
+    .wf-table th {
+      background: #e8e8e8;
+      font-weight: bold;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .wf-table .changed { font-style: italic; }
+
+    /* Success card */
+    .wf-success {
+      text-align: center;
+      padding: 40px;
+      border: 3px solid #999;
+      background: #f0f0f0;
+    }
+    .wf-success-icon {
+      width: 64px;
+      height: 64px;
+      border: 3px solid #999;
+      border-radius: 50%;
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+    .wf-success h2 { font-size: 20px; margin-bottom: 8px; }
+    .wf-success p { font-size: 12px; color: #666; }
+    .wf-folio {
+      margin-top: 16px;
+      padding: 8px 16px;
+      border: 2px dashed #999;
+      display: inline-block;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    /* Error card */
+    .wf-error {
+      text-align: center;
+      padding: 32px;
+      border: 3px dashed #888;
+      background: #f5f0f0;
+    }
+    .wf-error-icon {
+      width: 64px;
+      height: 64px;
+      border: 3px solid #888;
+      border-radius: 50%;
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+    .wf-error h2 { font-size: 18px; margin-bottom: 8px; }
+    .wf-error p { font-size: 12px; color: #666; }
+
+    .wf-reassurance {
+      border: 2px solid #bbb;
+      padding: 12px 16px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f0f4f8;
+    }
+    .wf-clock {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #999;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* Next steps */
+    .wf-nextsteps {
+      display: flex;
+      gap: 12px;
+    }
+    .wf-nextstep {
+      flex: 1;
+      border: 2px solid #ccc;
+      padding: 16px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: bold;
+    }
+    .wf-nextstep-icon {
+      width: 32px;
+      height: 32px;
+      border: 2px solid #999;
+      margin: 0 auto 8px;
+    }
+
+    /* Conflict summary */
+    .wf-conflict-summary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 16px;
+      border: 2px solid #bbb;
+      background: #f0f0f0;
+    }
+    .wf-conflict-block {
+      border: 2px solid #999;
+      padding: 12px 20px;
+      text-align: center;
+      min-width: 180px;
+    }
+    .wf-conflict-vs {
+      font-size: 18px;
+      font-weight: bold;
+      color: #999;
+    }
+
+    .wf-back {
+      font-size: 11px;
+      color: #888;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .wf-annotation {
+      position: absolute;
+      background: #fffde7;
+      border: 1.5px solid #f0d000;
+      padding: 6px 10px;
+      font-size: 9px;
+      max-width: 180px;
+      line-height: 1.4;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================================ -->
+  <!-- SCREEN 1: Propuesta con Conflicto -->
+  <!-- ================================ -->
+  <div class="page-label">Pantalla 1 — Propuesta con Conflicto</div>
+  <div class="wireframe">
+    <aside class="wf-sidebar">
+      <div class="wf-logo">
+        <div class="wf-logo-icon">A</div>
+        albus
+      </div>
+      <nav class="wf-nav">
+        <div class="wf-nav-item"><span class="wf-nav-icon"></span> Inicio</div>
+        <div class="wf-nav-item active"><span class="wf-nav-icon"></span> Mi Horario</div>
+        <div class="wf-nav-item"><span class="wf-nav-icon"></span> Malla</div>
+        <div class="wf-nav-item"><span class="wf-nav-icon"></span> Perfil</div>
+      </nav>
+      <div class="wf-user">
+        <div class="wf-avatar">SM</div>
+        <div class="wf-user-info">
+          <span class="wf-user-name">Sofia Martinez</span>
+          Ing. Civil — 5to sem.
+        </div>
+      </div>
+    </aside>
+
+    <div class="wf-main">
+      <div class="wf-topbar">
+        <div>
+          <h1>Mi Horario</h1>
+          <p>Semestre 2026-1 — Inscripcion de materias</p>
+        </div>
+        <div class="wf-status">
+          <span class="wf-status-dot"></span>
+          Ventana abierta — Cierra 12:00 PM
+        </div>
+      </div>
+
+      <!-- AI Banner -->
+      <div class="wf-box wf-box--dashed" style="position: relative;">
+        <div class="wf-box-label">&#10024; Recomendacion de Albus IA</div>
+        <div class="wf-box-text">Basado en tu historial, seleccione 6 materias. <b>Detecte un cruce entre 2 materias.</b></div>
+        <span style="position:absolute; right:16px; top:16px; font-size:11px; border:1px solid #bbb; padding:4px 8px;">Ver detalle &#9662;</span>
+      </div>
+
+      <!-- Conflict Alert -->
+      <div class="wf-box wf-box--highlight">
+        <div class="wf-box-label">&#9888; Cruce detectado</div>
+        <div class="wf-box-text"><b>Calculo III</b> y <b>Mec. Fluidos</b> se cruzan Ma/Ju 10:00-11:30. Hay secciones alternativas.</div>
+        <div style="margin-top:10px;"><button class="wf-btn wf-btn--primary">Resolver cruce &rarr;</button></div>
+      </div>
+
+      <!-- Schedule Grid -->
+      <div class="wf-grid">
+        <div class="wf-grid-header">
+          <span></span><span>Lun</span><span>Mar</span><span>Mie</span><span>Jue</span><span>Vie</span>
+        </div>
+        <div class="wf-grid-body">
+          <div class="wf-grid-time">8:00</div>
+          <div class="wf-grid-cell"><div class="wf-block">Estructuras I</div></div>
+          <div class="wf-grid-cell"><div class="wf-block">Fisica III</div></div>
+          <div class="wf-grid-cell"><div class="wf-block">Estructuras I</div></div>
+          <div class="wf-grid-cell"><div class="wf-block">Fisica III</div></div>
+          <div class="wf-grid-cell"><div class="wf-block">Topografia</div></div>
+
+          <div class="wf-grid-time">9:30</div>
+          <div class="wf-grid-cell"></div>
+          <div class="wf-grid-cell"></div>
+          <div class="wf-grid-cell"><div class="wf-block">Estadistica II</div></div>
+          <div class="wf-grid-cell"></div>
+          <div class="wf-grid-cell"><div class="wf-block" style="opacity:0.5;">Topografia (cont.)</div></div>
+
+          <div class="wf-grid-time">10:00</div>
+          <div class="wf-grid-cell"><div class="wf-block">Estadistica II</div></div>
+          <div class="wf-grid-cell">
+            <div class="wf-block wf-block--conflict">Calculo III<span class="wf-conflict-label">CRUCE</span></div>
+            <div class="wf-block wf-block--conflict">Mec. Fluidos<span class="wf-conflict-label">CRUCE</span></div>
+          </div>
+          <div class="wf-grid-cell"></div>
+          <div class="wf-grid-cell">
+            <div class="wf-block wf-block--conflict">Calculo III<span class="wf-conflict-label">CRUCE</span></div>
+            <div class="wf-block wf-block--conflict">Mec. Fluidos<span class="wf-conflict-label">CRUCE</span></div>
+          </div>
+          <div class="wf-grid-cell"></div>
+        </div>
+      </div>
+
+      <!-- Subjects -->
+      <div class="wf-subjects">
+        <div class="wf-subject"><span class="wf-subject-dot"></span>Estructuras I — Secc. A<span class="wf-subject-status">&#10003; OK</span></div>
+        <div class="wf-subject"><span class="wf-subject-dot"></span>Fisica III — Secc. B<span class="wf-subject-status">&#10003; OK</span></div>
+        <div class="wf-subject"><span class="wf-subject-dot"></span>Estadistica II — Secc. A<span class="wf-subject-status">&#10003; OK</span></div>
+        <div class="wf-subject"><span class="wf-subject-dot"></span>Topografia — Secc. A<span class="wf-subject-status">&#10003; OK</span></div>
+        <div class="wf-subject wf-subject--conflict"><span class="wf-subject-dot"></span>Calculo III — Secc. A<span class="wf-subject-status">&#9888; CRUCE</span></div>
+        <div class="wf-subject wf-subject--conflict"><span class="wf-subject-dot"></span>Mec. Fluidos — Secc. A<span class="wf-subject-status">&#9888; CRUCE</span></div>
+      </div>
+
+      <div class="wf-actions">
+        <button class="wf-btn">Ajustar manualmente</button>
+        <button class="wf-btn wf-btn--primary">Resolver cruce &rarr;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================ -->
+  <!-- SCREEN 2: Resolucion             -->
+  <!-- ================================ -->
+  <div class="page-label">Pantalla 2 — Resolucion del Conflicto</div>
+  <div class="wireframe">
+    <aside class="wf-sidebar">
+      <div class="wf-logo"><div class="wf-logo-icon">A</div> albus</div>
+      <nav class="wf-nav">
+        <div class="wf-nav-item"><span class="wf-nav-icon"></span> Inicio</div>
+        <div class="wf-nav-item active"><span class="wf-nav-icon"></span> Mi Horario</div>
+        <div class="wf-nav-item"><span class="wf-nav-icon"></span> Malla</div>
+        <div class="wf-nav-item"><span class="wf-nav-icon"></span> Perfil</div>
+      </nav>
+      <div class="wf-user"><div class="wf-avatar">SM</div><div class="wf-user-info"><span class="wf-user-name">Sofia Martinez</span>Ing. Civil — 5to sem.</div></div>
+    </aside>
+
+    <div class="wf-main">
+      <div class="wf-topbar">
+        <div>
+          <span class="wf-back">&larr; Volver al horario</span>
+          <h1>Resolver cruce de horario</h1>
+        </div>
+        <div class="wf-status"><span class="wf-status-dot"></span>Ventana abierta — Cierra 12:00 PM</div>
+      </div>
+
+      <!-- Conflict Summary -->
+      <div class="wf-conflict-summary">
+        <div class="wf-conflict-block">
+          <div style="font-weight:bold; font-size:13px;">Calculo III</div>
+          <div style="font-size:11px; color:#666;">Ma/Ju 10:00-11:30</div>
+        </div>
+        <div class="wf-conflict-vs">&#8646;</div>
+        <div class="wf-conflict-block">
+          <div style="font-weight:bold; font-size:13px;">Mec. de Fluidos</div>
+          <div style="font-size:11px; color:#666;">Ma/Ju 10:00-11:30</div>
+        </div>
+      </div>
+
+      <!-- Options -->
+      <div style="font-weight:bold; font-size:14px; margin-top:8px;">Opciones disponibles</div>
+      <div class="wf-options">
+        <div class="wf-option wf-option--selected">
+          <div class="wf-radio wf-radio--checked"></div>
+          <div class="wf-option-content">
+            <div class="wf-option-title">Cambiar Calculo III a Secc. B <span class="wf-ai-badge">&#10024; Sugerida por Albus</span></div>
+            <div class="wf-option-desc">Mi/Vi 14:00-15:30, Sala 401. Mec. Fluidos se mantiene.</div>
+            <div class="wf-option-meta">12 cupos disponibles &bull; Prof. Garcia M. &bull; 4.3/5</div>
+            <div class="wf-preview">
+              <div class="wf-preview-label">Vista previa del horario</div>
+              <div class="wf-mini-grid">
+                <div class="wf-mini-day"><span class="wf-mini-label">Lu</span><div class="wf-mini-block"></div><div class="wf-mini-block"></div></div>
+                <div class="wf-mini-day"><span class="wf-mini-label">Ma</span><div class="wf-mini-block"></div><div class="wf-mini-block"></div></div>
+                <div class="wf-mini-day"><span class="wf-mini-label">Mi</span><div class="wf-mini-block"></div><div class="wf-mini-block"></div><div class="wf-mini-block"></div></div>
+                <div class="wf-mini-day"><span class="wf-mini-label">Ju</span><div class="wf-mini-block"></div><div class="wf-mini-block"></div></div>
+                <div class="wf-mini-day"><span class="wf-mini-label">Vi</span><div class="wf-mini-block"></div><div class="wf-mini-block"></div></div>
+              </div>
+              <div class="wf-validation">&#10003; Sin conflictos — Horario valido</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="wf-option">
+          <div class="wf-radio"></div>
+          <div class="wf-option-content">
+            <div class="wf-option-title">Cambiar Mec. Fluidos a Secc. C</div>
+            <div class="wf-option-desc">Lu/Mi 14:00-15:30, Lab. 203. Calculo III se mantiene.</div>
+            <div class="wf-option-meta">3 cupos disponibles &bull; Prof. Ramirez T. &bull; 4.1/5</div>
+          </div>
+        </div>
+
+        <div class="wf-option">
+          <div class="wf-radio"></div>
+          <div class="wf-option-content">
+            <div class="wf-option-title">Cambiar Calculo III a Secc. D</div>
+            <div class="wf-option-desc">Sab 9:00-12:00, Sala 102. Mec. Fluidos se mantiene.</div>
+            <div class="wf-option-meta">18 cupos disponibles &bull; Prof. Lopez N. &bull; 3.8/5</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="font-size:11px; color:#888; text-align:center; padding:8px;">+ Ver mas opciones</div>
+
+      <div class="wf-actions">
+        <button class="wf-btn">Volver al horario</button>
+        <button class="wf-btn wf-btn--primary">Aplicar y continuar &rarr;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================ -->
+  <!-- SCREEN 3: Confirmacion Exito     -->
+  <!-- ================================ -->
+  <div class="page-label">Pantalla 3 — Confirmacion (Pre + Exito)</div>
+  <div class="wireframe">
+    <aside class="wf-sidebar">
+      <div class="wf-logo"><div class="wf-logo-icon">A</div> albus</div>
+      <nav class="wf-nav">
+        <div class="wf-nav-item"><span class="wf-nav-icon"></span> Inicio</div>
+        <div class="wf-nav-item active"><span class="wf-nav-icon"></span> Mi Horario</div>
+        <div class="wf-nav-item"><span class="wf-nav-icon"></span> Malla</div>
+        <div class="wf-nav-item"><span class="wf-nav-icon"></span> Perfil</div>
+      </nav>
+      <div class="wf-user"><div class="wf-avatar">SM</div><div class="wf-user-info"><span class="wf-user-name">Sofia Martinez</span>Ing. Civil — 5to sem.</div></div>
+    </aside>
+
+    <div class="wf-main">
+      <div class="wf-topbar">
+        <div><h1>Confirmar inscripcion</h1><p>Revisa y confirma tu seleccion</p></div>
+        <div class="wf-status"><span class="wf-status-dot"></span>Ventana abierta — Cierra 12:00 PM</div>
+      </div>
+
+      <!-- Success State -->
+      <div class="wf-success">
+        <div class="wf-success-icon">&#10003;</div>
+        <h2>Inscripcion confirmada</h2>
+        <p>Tu semestre esta listo. Estas son tus materias inscritas.</p>
+        <div class="wf-folio">#INS-2026-04892</div>
+      </div>
+
+      <!-- Table -->
+      <table class="wf-table">
+        <thead>
+          <tr><th>Materia</th><th>Seccion</th><th>Horario</th><th>Estado</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Estructuras I</td><td>Secc. A</td><td>Lu/Mi 8:00-9:30</td><td>Inscrita</td></tr>
+          <tr><td>Fisica III</td><td>Secc. B</td><td>Ma/Ju 8:00-9:30</td><td>Inscrita</td></tr>
+          <tr><td>Estadistica II</td><td>Secc. A</td><td>Lu 10:00-11:30, Mi 9:30-11:00</td><td>Inscrita</td></tr>
+          <tr><td>Topografia</td><td>Secc. A</td><td>Vi 8:00-11:00</td><td>Inscrita</td></tr>
+          <tr class="changed"><td>Calculo III [Modificada]</td><td>Secc. B</td><td>Mi/Vi 14:00-15:30</td><td>Inscrita</td></tr>
+          <tr><td>Mec. de Fluidos</td><td>Secc. A</td><td>Ma/Ju 10:00-11:30</td><td>Inscrita</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Next Steps -->
+      <div style="font-weight:bold; font-size:14px;">Proximos pasos</div>
+      <div class="wf-nextsteps">
+        <div class="wf-nextstep"><div class="wf-nextstep-icon"></div>Descargar PDF</div>
+        <div class="wf-nextstep"><div class="wf-nextstep-icon"></div>Google Calendar</div>
+        <div class="wf-nextstep"><div class="wf-nextstep-icon"></div>Compartir</div>
+      </div>
+      <div style="font-size:11px; color:#888;">Clases inician 10 marzo 2026. Periodo de ajuste: 3-7 marzo.</div>
+    </div>
+  </div>
+
+  <!-- ================================ -->
+  <!-- SCREEN 4: Error                  -->
+  <!-- ================================ -->
+  <div class="page-label">Pantalla 4 — Error (Cupo agotado)</div>
+  <div class="wireframe">
+    <aside class="wf-sidebar">
+      <div class="wf-logo"><div class="wf-logo-icon">A</div> albus</div>
+      <nav class="wf-nav">
+        <div class="wf-nav-item"><span class="wf-nav-icon"></span> Inicio</div>
+        <div class="wf-nav-item active"><span class="wf-nav-icon"></span> Mi Horario</div>
+        <div class="wf-nav-item"><span class="wf-nav-icon"></span> Malla</div>
+        <div class="wf-nav-item"><span class="wf-nav-icon"></span> Perfil</div>
+      </nav>
+      <div class="wf-user"><div class="wf-avatar">SM</div><div class="wf-user-info"><span class="wf-user-name">Sofia Martinez</span>Ing. Civil — 5to sem.</div></div>
+    </aside>
+
+    <div class="wf-main">
+      <div class="wf-topbar">
+        <div><h1>Confirmar inscripcion</h1><p>Revisa y confirma tu seleccion</p></div>
+        <div class="wf-status"><span class="wf-status-dot"></span>Ventana abierta — Cierra 12:00 PM</div>
+      </div>
+
+      <!-- Error -->
+      <div class="wf-error">
+        <div class="wf-error-icon">!</div>
+        <h2>No pudimos completar tu inscripcion</h2>
+        <p>Pero no te preocupes, hay opciones disponibles.</p>
+      </div>
+
+      <div class="wf-box" style="border-left: 4px solid #888;">
+        <div class="wf-box-title">El cupo de Calculo III — Secc. B se agoto</div>
+        <div class="wf-box-text">Otro estudiante confirmo el ultimo cupo mientras revisabas tu horario.</div>
+      </div>
+
+      <!-- Reassurance -->
+      <div class="wf-reassurance">
+        <div class="wf-clock"></div>
+        <span>Tus demas materias estan <b>reservadas temporalmente por 10 minutos</b>. No perderas tu lugar.</span>
+      </div>
+
+      <!-- Alternatives -->
+      <div style="font-weight:bold; font-size:14px;">Secciones alternativas para Calculo III</div>
+      <div class="wf-options">
+        <div class="wf-option wf-option--selected">
+          <div class="wf-radio wf-radio--checked"></div>
+          <div class="wf-option-content">
+            <div class="wf-option-title">Secc. C — Lu/Mi 16:00-17:30</div>
+            <div class="wf-option-meta">Prof. Vargas A. — Sala 305 &bull; 8 cupos</div>
+          </div>
+        </div>
+        <div class="wf-option">
+          <div class="wf-radio"></div>
+          <div class="wf-option-content">
+            <div class="wf-option-title">Secc. D — Sab 9:00-12:00</div>
+            <div class="wf-option-meta">Prof. Lopez N. — Sala 102 &bull; 18 cupos</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wf-actions">
+        <button class="wf-btn">Intentar de nuevo</button>
+        <button class="wf-btn wf-btn--primary">Aplicar alternativa y confirmar &rarr;</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

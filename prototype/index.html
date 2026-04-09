@@ -1,0 +1,2528 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Albus — Inscripcion de Materias | Foris</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="ui-override.css">
+</head>
+<body>
+  <!-- ========================================= -->
+  <!-- NAVIGATION TABS (to switch between screens) -->
+  <!-- ========================================= -->
+  <nav class="screen-nav">
+    <div class="screen-nav__inner">
+      <span class="screen-nav__label">Pantallas:</span>
+      <button class="screen-nav__btn active" data-screen="screen-login">0. Login</button>
+      <button class="screen-nav__btn" data-screen="screen-1">1. Propuesta con Conflicto</button>
+      <button class="screen-nav__btn" data-screen="screen-2">2. Resolucion del Conflicto</button>
+      <button class="screen-nav__btn" data-screen="screen-3">3. Confirmacion</button>
+    </div>
+  </nav>
+
+  <!-- ========================================= -->
+  <!-- SCREEN 0: LOGIN                            -->
+  <!-- ========================================= -->
+  <div class="screen active" id="screen-login">
+    <div class="login-layout">
+      <div class="login-left">
+        <div class="login-brand">
+          <img src="../albus_logo_white.svg" alt="Albus" class="login-brand__logo">
+        </div>
+        <div class="login-hero">
+          <h1 class="login-hero__title">Potencia tu experiencia universitaria</h1>
+          <p class="login-hero__subtitle">Gestiona tu vida academica con Albus</p>
+          <div class="login-hero__features">
+            <div class="login-hero__feature">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 7H17M7 3V17" stroke="currentColor" stroke-width="1.5"/></svg>
+              <span>Horarios y malla curricular en un solo lugar</span>
+            </div>
+            <div class="login-hero__feature login-hero__feature--ai">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 1L12.5 7.5L19 10L12.5 12.5L10 19L7.5 12.5L1 10L7.5 7.5L10 1Z" fill="currentColor"/></svg>
+              <span>Recomendaciones inteligentes con IA</span>
+            </div>
+            <div class="login-hero__feature">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2V18M2 10H18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <span>Seguimiento de avance academico</span>
+            </div>
+          </div>
+        </div>
+        <div class="login-footer">
+          <span>Plataforma</span>
+          <img src="../logo-foris-blanco.svg" alt="Foris" class="login-footer__logo">
+        </div>
+      </div>
+      <div class="login-right">
+        <div class="login-form">
+          <div class="login-form__university">
+            <img src="../university-of-cambridge-37899_logosenvector.com_5.svg" alt="Universidad" class="login-form__university-logo">
+          </div>
+          <h2 class="login-form__title">Bienvenida de vuelta</h2>
+          <p class="login-form__subtitle">Ingresa a tu cuenta para iniciar tu inscripcion</p>
+          <div class="login-form__field">
+            <label class="login-form__label">Correo institucional</label>
+            <div class="login-form__input">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4L8 9L14 4M2 4V12H14V4" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+              <span>sofia.martinez@univalle.edu.co</span>
+            </div>
+          </div>
+          <div class="login-form__field">
+            <label class="login-form__label">Contrasena</label>
+            <div class="login-form__input">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="3" y="7" width="10" height="7" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 7V5C5 3.34315 6.34315 2 8 2C9.65685 2 11 3.34315 11 5V7" stroke="currentColor" stroke-width="1.2"/></svg>
+              <span>••••••••••</span>
+            </div>
+          </div>
+          <div class="login-form__options">
+            <label class="login-form__remember">
+              <input type="checkbox" checked> Recordar sesion
+            </label>
+            <a href="#" class="login-form__forgot">Olvidaste tu contrasena?</a>
+          </div>
+          <button class="btn btn--confirm login-form__btn" onclick="showScreen('screen-welcome');">
+            Iniciar sesion
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <p class="login-form__info">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1"/><path d="M7 5V5.01M7 7V10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            Tu ventana de inscripcion abre hoy a las <strong>8:00 AM</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================= -->
+  <!-- SCREEN 0b: LOADING — AI PREPARING          -->
+  <!-- ========================================= -->
+  <div class="screen" id="screen-loading">
+    <div class="app-layout">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar__logo">
+          <img src="../albus_logo_white.svg" alt="Albus" class="sidebar__logo-img">
+          <button class="sidebar__collapse-btn" onclick="toggleSidebar()">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 4L6 8L10 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+        <nav class="sidebar__nav">
+          <a href="#" class="sidebar__link">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10L10 3L17 10V17H12V13H8V17H3V10Z" stroke="currentColor" stroke-width="1.5"/></svg>
+            Inicio
+          </a>
+          <a href="#" class="sidebar__link active">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 7H17M7 3V17" stroke="currentColor" stroke-width="1.5"/></svg>
+            Mi Horario
+          </a>
+          <a href="#" class="sidebar__link">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2V18M2 10H18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Malla Curricular
+          </a>
+          <a href="#" class="sidebar__link">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M4 18C4 14.6863 6.68629 12 10 12C13.3137 12 16 14.6863 16 18" stroke="currentColor" stroke-width="1.5"/></svg>
+            Mi Perfil
+          </a>
+        </nav>
+        <div class="sidebar__profile">
+          <img src="../sofia-avatar.png" alt="Sofia" class="sidebar__profile-photo">
+          <div class="sidebar__profile-info">
+            <span class="sidebar__profile-name">Sofia Martinez</span>
+            <span class="sidebar__profile-career">Ingenieria Civil</span>
+            <span class="sidebar__profile-semester">5to semestre</span>
+          </div>
+        </div>
+        <button class="sidebar__logout" onclick="showScreen('screen-login');" title="Cerrar sesion">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 2H3C2.45 2 2 2.45 2 3V13C2 13.55 2.45 14 3 14H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M11 11L14 8L11 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 8H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <button class="sidebar__collapse-edge" onclick="toggleSidebar()">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7L9 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div class="topbar__left">
+            <div>
+              <h1 class="topbar__title">Mi Horario</h1>
+              <p class="topbar__subtitle">Semestre 2026-1 — Inscripcion de materias</p>
+            </div>
+          </div>
+          <div class="topbar__right">
+            <div class="topbar__window session-timer">
+              <div class="topbar__window-dot"></div>
+              <div class="topbar__window-info">
+                <span class="topbar__window-label">Ventana abierta</span>
+                <span class="topbar__window-countdown"></span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Loading State -->
+        <div class="loading-state">
+          <div class="loading-state__card">
+            <div class="loading-state__icon">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                <path d="M20 2L25 15L38 20L25 25L20 38L15 25L2 20L15 15L20 2Z" fill="#6366F1" class="loading-sparkle"/>
+              </svg>
+            </div>
+            <h2 class="loading-state__title">Albus esta preparando tu propuesta de horario</h2>
+            <p class="loading-state__text">Analizando tu historial academico, malla curricular y disponibilidad de secciones para recomendarte el mejor horario...</p>
+            <div class="loading-state__progress">
+              <div class="loading-state__bar">
+                <div class="loading-state__bar-fill" id="loadingBar"></div>
+              </div>
+              <div class="loading-state__steps">
+                <span class="loading-state__step loading-state__step--done" id="step1">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7L6 10L11 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  Verificando prerrequisitos
+                </span>
+                <span class="loading-state__step loading-state__step--active" id="step2">
+                  <div class="loading-state__step-dot"></div>
+                  Seleccionando materias optimas
+                </span>
+                <span class="loading-state__step" id="step3">
+                  <div class="loading-state__step-dot"></div>
+                  Armando horario sin conflictos
+                </span>
+                <span class="loading-state__step" id="step4">
+                  <div class="loading-state__step-dot"></div>
+                  Validando cupos disponibles
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Skeleton Schedule -->
+          <div class="skeleton-schedule">
+            <div class="skeleton-header">
+              <div class="skeleton-bar" style="width: 60px; height: 14px;"></div>
+              <div class="skeleton-bar" style="width: 60px; height: 14px;"></div>
+              <div class="skeleton-bar" style="width: 60px; height: 14px;"></div>
+              <div class="skeleton-bar" style="width: 60px; height: 14px;"></div>
+              <div class="skeleton-bar" style="width: 60px; height: 14px;"></div>
+            </div>
+            <div class="skeleton-grid">
+              <div class="skeleton-block" style="grid-column: 1; grid-row: 1 / 3;"></div>
+              <div class="skeleton-block" style="grid-column: 2; grid-row: 1 / 3;"></div>
+              <div class="skeleton-block" style="grid-column: 3; grid-row: 1 / 3;"></div>
+              <div class="skeleton-block" style="grid-column: 4; grid-row: 1 / 3;"></div>
+              <div class="skeleton-block" style="grid-column: 5; grid-row: 1 / 4;"></div>
+              <div class="skeleton-block" style="grid-column: 1; grid-row: 3 / 5;"></div>
+              <div class="skeleton-block" style="grid-column: 3; grid-row: 3 / 5;"></div>
+              <div class="skeleton-block" style="grid-column: 2; grid-row: 3 / 5;"></div>
+              <div class="skeleton-block" style="grid-column: 4; grid-row: 3 / 5;"></div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ========================================= -->
+  <!-- SCREEN WELCOME: HOME / BIENVENIDA          -->
+  <!-- ========================================= -->
+  <div class="screen" id="screen-welcome">
+    <div class="app-layout">
+      <aside class="sidebar">
+        <div class="sidebar__logo">
+          <img src="../albus_logo_white.svg" alt="Albus" class="sidebar__logo-img">
+          <button class="sidebar__collapse-btn" onclick="toggleSidebar()">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 4L6 8L10 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+        <nav class="sidebar__nav">
+          <a href="#" class="sidebar__link">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10L10 3L17 10V17H12V13H8V17H3V10Z" stroke="currentColor" stroke-width="1.5"/></svg>
+            Inicio
+          </a>
+          <a href="#" class="sidebar__link">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 7H17M7 3V17" stroke="currentColor" stroke-width="1.5"/></svg>
+            Mi Horario
+          </a>
+          <a href="#" class="sidebar__link">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2V18M2 10H18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Malla Curricular
+          </a>
+          <a href="#" class="sidebar__link">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M4 18C4 14.6863 6.68629 12 10 12C13.3137 12 16 14.6863 16 18" stroke="currentColor" stroke-width="1.5"/></svg>
+            Mi Perfil
+          </a>
+        </nav>
+        <div class="sidebar__profile">
+          <img src="../sofia-avatar.png" alt="Sofia" class="sidebar__profile-photo">
+          <div class="sidebar__profile-info">
+            <span class="sidebar__profile-name">Sofia Martinez</span>
+            <span class="sidebar__profile-career">Ingenieria Civil</span>
+            <span class="sidebar__profile-semester">5to semestre</span>
+          </div>
+        </div>
+        <button class="sidebar__logout" onclick="showScreen('screen-login');" title="Cerrar sesion">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 2H3C2.45 2 2 2.45 2 3V13C2 13.55 2.45 14 3 14H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M11 11L14 8L11 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 8H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <button class="sidebar__collapse-edge" onclick="toggleSidebar()">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7L9 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </aside>
+
+      <main class="main welcome-main">
+        <div class="welcome-dash">
+          <!-- Hero greeting banner with user info -->
+          <div class="welcome-dash__hero">
+            <div class="welcome-dash__hero-visual">
+              <img src="../sofia-avatar.png" alt="Sofia" class="welcome-dash__hero-avatar">
+              <div class="welcome-dash__hero-status"></div>
+            </div>
+            <div class="welcome-dash__hero-content">
+              <h1 class="welcome-dash__hero-title">Hola Sofia 👋</h1>
+              <p class="welcome-dash__hero-desc">Bienvenida a tu portal academico</p>
+            </div>
+            <div class="welcome-dash__hero-meta">
+              <div class="welcome-dash__hero-tag">Ingenieria Civil</div>
+              <div class="welcome-dash__hero-tag">5to semestre</div>
+              <div class="welcome-dash__hero-tag">Promedio 4.2</div>
+            </div>
+          </div>
+
+          <!-- Layout: left (main) + right (sidebar) -->
+          <div class="welcome-dash__grid">
+            <!-- Left column -->
+            <div class="welcome-dash__left">
+              <!-- Inscription card — protagonist -->
+              <div class="welcome-dash__inscription">
+                <div class="welcome-dash__inscription-top">
+                  <h2 class="welcome-dash__inscription-title">Inscripcion de materias</h2>
+                  <p class="welcome-dash__inscription-subtitle">Semestre 2026-1</p>
+                  <p class="welcome-dash__inscription-desc">Tu ventana de inscripcion esta abierta. Inicia tu proceso y organiza tu horario para este semestre.</p>
+                  <div class="welcome-dash__inscription-footer">
+                    <button class="btn btn--confirm welcome-dash__hero-cta" onclick="showScreen('screen-1'); showLoadingModal();">
+                      Iniciar inscripcion
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    </button>
+                    <div class="welcome-dash__inscription-ai">
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1L7.2 4.8L11 6L7.2 7.2L6 11L4.8 7.2L1 6L4.8 4.8L6 1Z" fill="currentColor"/></svg>
+                      Con asistencia de Albus IA para facilitar tu inscripcion
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Stats row -->
+              <div class="welcome-dash__stats">
+                <div class="welcome-dash__stat">
+                  <div class="welcome-dash__stat-icon welcome-dash__stat-icon--teal">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2V16M2 9H16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  </div>
+                  <div>
+                    <strong>68%</strong>
+                    <span>Avance curricular</span>
+                  </div>
+                </div>
+                <div class="welcome-dash__stat">
+                  <div class="welcome-dash__stat-icon welcome-dash__stat-icon--blue">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="3" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 7H15M7 3V15" stroke="currentColor" stroke-width="1.5"/></svg>
+                  </div>
+                  <div>
+                    <strong>102</strong>
+                    <span>Creditos aprobados</span>
+                  </div>
+                </div>
+                <div class="welcome-dash__stat">
+                  <div class="welcome-dash__stat-icon welcome-dash__stat-icon--green">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9L7 13L15 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  <div>
+                    <strong>4.2</strong>
+                    <span>Promedio semestre ant.</span>
+                  </div>
+                </div>
+                <div class="welcome-dash__stat">
+                  <div class="welcome-dash__stat-icon welcome-dash__stat-icon--purple">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="6" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M3 16C3 13 5.7 10 9 10C12.3 10 15 13 15 16" stroke="currentColor" stroke-width="1.5"/></svg>
+                  </div>
+                  <div>
+                    <strong>5to</strong>
+                    <span>Semestre actual</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right column -->
+            <div class="welcome-dash__right">
+              <!-- Window timer -->
+              <div class="welcome-dash__timer-card">
+                <div class="welcome-dash__timer-header">
+                  <span class="welcome-dash__timer-label">Ventana de inscripcion</span>
+                  <div class="welcome-dash__timer-dot"></div>
+                </div>
+                <div class="welcome-dash__timer-info">
+                  <span class="welcome-dash__timer-status">Abierta</span>
+                  <span class="welcome-dash__timer-closes">Cierra hoy a las 12:00 PM</span>
+                </div>
+              </div>
+
+              <!-- Quick info -->
+              <div class="welcome-dash__quick">
+                <h3>Semestre 2026-1</h3>
+                <div class="welcome-dash__quick-item">
+                  <span>Materias disponibles</span>
+                  <strong>48</strong>
+                </div>
+                <div class="welcome-dash__quick-item">
+                  <span>Creditos requeridos</span>
+                  <strong>15-21</strong>
+                </div>
+                <div class="welcome-dash__quick-item">
+                  <span>Materias por inscribir</span>
+                  <strong>6</strong>
+                </div>
+              </div>
+
+              <!-- Recent -->
+              <div class="welcome-dash__recent">
+                <h3>Semestre anterior</h3>
+                <div class="welcome-dash__recent-item">
+                  <div class="welcome-dash__recent-dot" style="background:#3B82F6;"></div>
+                  <span>Estructuras I</span>
+                  <strong>4.5</strong>
+                </div>
+                <div class="welcome-dash__recent-item">
+                  <div class="welcome-dash__recent-dot" style="background:#10B981;"></div>
+                  <span>Fisica II</span>
+                  <strong>4.0</strong>
+                </div>
+                <div class="welcome-dash__recent-item">
+                  <div class="welcome-dash__recent-dot" style="background:#069cb8;"></div>
+                  <span>Estadistica I</span>
+                  <strong>4.3</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ========================================= -->
+  <!-- SCREEN 1: PROPUESTA CON CONFLICTO         -->
+  <!-- ========================================= -->
+  <div class="screen" id="screen-1">
+    <div class="app-layout">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar__logo">
+          <img src="../albus_logo_white.svg" alt="Albus" class="sidebar__logo-img">
+          <button class="sidebar__collapse-btn" onclick="toggleSidebar()">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 4L6 8L10 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+        <nav class="sidebar__nav">
+          <a href="#" class="sidebar__link">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10L10 3L17 10V17H12V13H8V17H3V10Z" stroke="currentColor" stroke-width="1.5"/></svg>
+            Inicio
+          </a>
+          <a href="#" class="sidebar__link active">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 7H17M7 3V17" stroke="currentColor" stroke-width="1.5"/></svg>
+            Mi Horario
+          </a>
+          <a href="#" class="sidebar__link">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2V18M2 10H18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Malla Curricular
+          </a>
+          <a href="#" class="sidebar__link">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M4 18C4 14.6863 6.68629 12 10 12C13.3137 12 16 14.6863 16 18" stroke="currentColor" stroke-width="1.5"/></svg>
+            Mi Perfil
+          </a>
+        </nav>
+        <div class="sidebar__profile">
+          <img src="../sofia-avatar.png" alt="Sofia" class="sidebar__profile-photo">
+          <div class="sidebar__profile-info">
+            <span class="sidebar__profile-name">Sofia Martinez</span>
+            <span class="sidebar__profile-career">Ingenieria Civil</span>
+            <span class="sidebar__profile-semester">5to semestre</span>
+          </div>
+        </div>
+        <button class="sidebar__logout" onclick="showScreen('screen-login');" title="Cerrar sesion">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 2H3C2.45 2 2 2.45 2 3V13C2 13.55 2.45 14 3 14H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M11 11L14 8L11 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 8H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <button class="sidebar__collapse-edge" onclick="toggleSidebar()">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7L9 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main">
+        <!-- Top Bar -->
+        <header class="topbar">
+          <div class="topbar__left">
+            <div>
+              <h1 class="topbar__title">Mi Horario</h1>
+              <p class="topbar__subtitle">Semestre 2026-1</p>
+            </div>
+            <div class="topbar__mobile-timer session-timer">
+              <div class="topbar__window-dot"></div>
+              <div class="topbar__window-info">
+                <span class="topbar__window-label">Ventana</span>
+                <span class="topbar__window-countdown"></span>
+              </div>
+            </div>
+          </div>
+          <div class="topbar__center">
+            <div class="topbar__ai-bar">
+              <div class="topbar__ai-badge">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1L8.5 5.5L13 7L8.5 8.5L7 13L5.5 8.5L1 7L5.5 5.5L7 1Z" fill="currentColor"/></svg>
+                Propuesta de Albus IA
+              </div>
+              <div class="topbar__ai-divider"></div>
+              <div class="topbar__ai-stats">
+                <span class="topbar__ai-stat"><strong>6</strong> materias</span>
+                <span class="topbar__ai-stat"><strong>18</strong> cred.</span>
+                <span class="topbar__ai-stat"><strong>24</strong> hrs/sem</span>
+                <span class="topbar__ai-stat topbar__ai-stat--warning"><strong>1</strong> cruzada</span>
+              </div>
+              <div class="topbar__ai-divider"></div>
+              <button class="topbar__ai-more" id="toggleAiDetails">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2"/><path d="M7 5V5.01M7 7V10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                Criterios
+              </button>
+            </div>
+            <div class="topbar__ai-details" id="aiDetails">
+              <div class="topbar__ai-details-grid">
+                <div class="topbar__ai-details-item">
+                  <span class="topbar__ai-details-label">Malla curricular</span>
+                  <span class="topbar__ai-details-value">Materias alineadas con Ing. Civil</span>
+                </div>
+                <div class="topbar__ai-details-item">
+                  <span class="topbar__ai-details-label">Prerrequisitos</span>
+                  <span class="topbar__ai-details-value">Verificados para las 6 materias</span>
+                </div>
+                <div class="topbar__ai-details-item">
+                  <span class="topbar__ai-details-label">Carga ideal</span>
+                  <span class="topbar__ai-details-value">18 cred. en rango recomendado (15-21)</span>
+                </div>
+                <div class="topbar__ai-details-item">
+                  <span class="topbar__ai-details-label">Disponibilidad</span>
+                  <span class="topbar__ai-details-value">Cupos confirmados al generar propuesta</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="topbar__right">
+            <div class="topbar__window session-timer">
+              <div class="topbar__window-dot"></div>
+              <div class="topbar__window-info">
+                <span class="topbar__window-label">Ventana abierta</span>
+                <span class="topbar__window-countdown"></span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Conflict Alert -->
+        <div class="conflict-alert">
+          <div class="conflict-alert__icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M10 2L18.66 17H1.34L10 2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M10 8V11M10 14V14.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="conflict-alert__content">
+            <p class="conflict-alert__title">Materias cruzadas en tu horario</p>
+            <p class="conflict-alert__desc"><strong>Calculo III</strong> y <strong>Mecanica de Fluidos</strong> se cruzan los <strong>martes y jueves de 10:00 a 11:30</strong>. Hay secciones alternativas con cupos disponibles.</p>
+          </div>
+          <button class="btn btn--warning conflict-alert__cta" onclick="showScreen('screen-2')">
+            Resolver ahora
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+
+        <!-- Schedule Grid -->
+        <div class="schedule">
+          <div class="schedule__toolbar">
+            <span class="schedule__toolbar-title">Horario semanal</span>
+            <div class="schedule__toolbar-actions">
+              <button class="schedule__toolbar-btn" title="Ajustar manualmente" onclick="handleManualEdit()">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M11.5 1.5L13.5 3.5L5 12L2 13L3 10L11.5 1.5Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+                Editar horario
+              </button>
+              <button class="schedule__toolbar-btn schedule__toolbar-btn--ai" title="Nueva propuesta de Albus IA" onclick="handleNewProposal(this)">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M7.5 1L9 5.5L13.5 7.5L9 9.5L7.5 14L6 9.5L1.5 7.5L6 5.5L7.5 1Z" fill="currentColor"/></svg>
+                Nueva propuesta IA
+              </button>
+            </div>
+          </div>
+          <div class="schedule__scroll-wrap">
+          <div class="schedule__header">
+            <div class="schedule__time-col"></div>
+            <div class="schedule__day">Lunes</div>
+            <div class="schedule__day">Martes</div>
+            <div class="schedule__day">Miercoles</div>
+            <div class="schedule__day">Jueves</div>
+            <div class="schedule__day">Viernes</div>
+          </div>
+          <div class="schedule__body">
+            <!-- 8:00 -->
+            <div class="schedule__row">
+              <div class="schedule__time">8:00</div>
+              <div class="schedule__cell">
+                <div class="schedule__block schedule__block--blue has-tooltip" style="height: calc(var(--row-h) * 2);" data-tooltip-name="Estructuras I" data-tooltip-meta="Secc. A — 3 creditos — Lu/Mi 8:00-9:30" data-tooltip-status="ok" data-tooltip-prof="Prof. Martinez R." data-tooltip-sala="Sala 301">
+                  <span class="schedule__block-name">Estructuras I</span>
+                  <span class="schedule__block-detail">Sala 301</span>
+                </div>
+              </div>
+              <div class="schedule__cell">
+                <div class="schedule__block schedule__block--green has-tooltip" style="height: calc(var(--row-h) * 2);" data-tooltip-name="Fisica III" data-tooltip-meta="Secc. B — 3 creditos — Ma/Ju 8:00-9:30" data-tooltip-status="ok" data-tooltip-prof="Prof. Gomez L." data-tooltip-sala="Lab. 102">
+                  <span class="schedule__block-name">Fisica III</span>
+                  <span class="schedule__block-detail">Lab. 102</span>
+                </div>
+              </div>
+              <div class="schedule__cell">
+                <div class="schedule__block schedule__block--blue has-tooltip" style="height: calc(var(--row-h) * 2);" data-tooltip-name="Estructuras I" data-tooltip-meta="Secc. A — 3 creditos — Lu/Mi 8:00-9:30" data-tooltip-status="ok" data-tooltip-prof="Prof. Martinez R." data-tooltip-sala="Sala 301">
+                  <span class="schedule__block-name">Estructuras I</span>
+                  <span class="schedule__block-detail">Sala 301</span>
+                </div>
+              </div>
+              <div class="schedule__cell">
+                <div class="schedule__block schedule__block--green has-tooltip" style="height: calc(var(--row-h) * 2);" data-tooltip-name="Fisica III" data-tooltip-meta="Secc. B — 3 creditos — Ma/Ju 8:00-9:30" data-tooltip-status="ok" data-tooltip-prof="Prof. Gomez L." data-tooltip-sala="Lab. 102">
+                  <span class="schedule__block-name">Fisica III</span>
+                  <span class="schedule__block-detail">Lab. 102</span>
+                </div>
+              </div>
+              <div class="schedule__cell">
+                <div class="schedule__block schedule__block--purple has-tooltip" style="height: calc(var(--row-h) * 3);" data-tooltip-name="Topografia" data-tooltip-meta="Secc. A — 3 creditos — Vi 8:00-11:00" data-tooltip-status="ok" data-tooltip-prof="Prof. Herrera P." data-tooltip-sala="Sala 205">
+                  <span class="schedule__block-name">Topografia</span>
+                  <span class="schedule__block-detail">Sala 205</span>
+                </div>
+              </div>
+            </div>
+            <!-- 8:30 -->
+            <div class="schedule__row">
+              <div class="schedule__time">8:30</div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell"></div>
+            </div>
+            <!-- 9:00 -->
+            <div class="schedule__row">
+              <div class="schedule__time">9:00</div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell"></div>
+            </div>
+            <!-- 9:30 -->
+            <div class="schedule__row">
+              <div class="schedule__time">9:30</div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell">
+                <div class="schedule__block schedule__block--teal has-tooltip" style="height: calc(var(--row-h) * 3);" data-tooltip-name="Estadistica II" data-tooltip-meta="Secc. A — 3 creditos — Lu 10:00-11:30, Mi 9:30-11:00" data-tooltip-status="ok" data-tooltip-prof="Prof. Ruiz A." data-tooltip-sala="Sala 108">
+                  <span class="schedule__block-name">Estadistica II</span>
+                  <span class="schedule__block-detail">Sala 108</span>
+                </div>
+              </div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell"></div>
+            </div>
+            <!-- 10:00 — CONFLICT ZONE -->
+            <div class="schedule__row">
+              <div class="schedule__time">10:00</div>
+              <div class="schedule__cell">
+                <div class="schedule__block schedule__block--teal has-tooltip" style="height: calc(var(--row-h) * 3);" data-tooltip-name="Estadistica II" data-tooltip-meta="Secc. A — 3 creditos — Lu 10:00-11:30, Mi 9:30-11:00" data-tooltip-status="ok" data-tooltip-prof="Prof. Ruiz A." data-tooltip-sala="Sala 108">
+                  <span class="schedule__block-name">Estadistica II</span>
+                  <span class="schedule__block-detail">Sala 108</span>
+                </div>
+              </div>
+              <div class="schedule__cell schedule__cell--conflict">
+                <div class="schedule__conflict-zone" style="height: calc(var(--row-h) * 3);">
+                  <div class="schedule__block schedule__block--conflict-a has-tooltip" data-tooltip-name="Calculo III" data-tooltip-meta="Secc. A — 3 creditos — Ma/Ju 10:00-11:30" data-tooltip-status="conflict" data-tooltip-prof="Prof. Diaz J." data-tooltip-sala="Sala 401">
+                    <span class="schedule__block-name">Calculo III</span>
+                    <span class="schedule__block-detail">Secc. A — Sala 401</span>
+                    <span class="schedule__conflict-badge">
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1L11 10H1L6 1Z" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/><path d="M6 5V7M6 8.5V8.51" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>
+                      Cruzada
+                    </span>
+                  </div>
+                  <div class="schedule__block schedule__block--conflict-b has-tooltip" data-tooltip-name="Mecanica de Fluidos" data-tooltip-meta="Secc. A — 3 creditos — Ma/Ju 10:00-11:30" data-tooltip-status="conflict" data-tooltip-prof="Prof. Valencia S." data-tooltip-sala="Lab. 201">
+                    <span class="schedule__block-name">Mec. Fluidos</span>
+                    <span class="schedule__block-detail">Secc. A — Lab. 201</span>
+                    <span class="schedule__conflict-badge">
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1L11 10H1L6 1Z" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/><path d="M6 5V7M6 8.5V8.51" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>
+                      Cruzada
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell schedule__cell--conflict">
+                <div class="schedule__conflict-zone" style="height: calc(var(--row-h) * 3);">
+                  <div class="schedule__block schedule__block--conflict-a has-tooltip" data-tooltip-name="Calculo III" data-tooltip-meta="Secc. A — 3 creditos — Ma/Ju 10:00-11:30" data-tooltip-status="conflict" data-tooltip-prof="Prof. Diaz J." data-tooltip-sala="Sala 401">
+                    <span class="schedule__block-name">Calculo III</span>
+                    <span class="schedule__block-detail">Secc. A</span>
+                    <span class="schedule__conflict-badge">
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1L11 10H1L6 1Z" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/><path d="M6 5V7M6 8.5V8.51" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>
+                      Cruzada
+                    </span>
+                  </div>
+                  <div class="schedule__block schedule__block--conflict-b has-tooltip" data-tooltip-name="Mecanica de Fluidos" data-tooltip-meta="Secc. A — 3 creditos — Ma/Ju 10:00-11:30" data-tooltip-status="conflict" data-tooltip-prof="Prof. Valencia S." data-tooltip-sala="Lab. 201">
+                    <span class="schedule__block-name">Mec. Fluidos</span>
+                    <span class="schedule__block-detail">Secc. A</span>
+                    <span class="schedule__conflict-badge">
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1L11 10H1L6 1Z" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/><path d="M6 5V7M6 8.5V8.51" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>
+                      Cruzada
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="schedule__cell"></div>
+            </div>
+            <!-- 10:30 -->
+            <div class="schedule__row">
+              <div class="schedule__time">10:30</div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell"></div>
+            </div>
+            <!-- 11:00 -->
+            <div class="schedule__row">
+              <div class="schedule__time">11:00</div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell"></div>
+            </div>
+            <!-- 11:30 -->
+            <div class="schedule__row">
+              <div class="schedule__time">11:30</div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell"></div>
+            </div>
+          </div>
+          </div><!-- /schedule__scroll-wrap -->
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ========================================= -->
+  <!-- SCREEN 2: RESOLUCION DEL CONFLICTO         -->
+  <!-- ========================================= -->
+  <div class="screen" id="screen-2">
+    <div class="app-layout">
+      <!-- Sidebar (same) -->
+      <aside class="sidebar">
+        <div class="sidebar__logo">
+          <img src="../albus_logo_white.svg" alt="Albus" class="sidebar__logo-img">
+          <button class="sidebar__collapse-btn" onclick="toggleSidebar()">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 4L6 8L10 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+        <nav class="sidebar__nav">
+          <a href="#" class="sidebar__link"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10L10 3L17 10V17H12V13H8V17H3V10Z" stroke="currentColor" stroke-width="1.5"/></svg>Inicio</a>
+          <a href="#" class="sidebar__link active"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 7H17M7 3V17" stroke="currentColor" stroke-width="1.5"/></svg>Mi Horario</a>
+          <a href="#" class="sidebar__link"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2V18M2 10H18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Malla Curricular</a>
+          <a href="#" class="sidebar__link"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M4 18C4 14.6863 6.68629 12 10 12C13.3137 12 16 14.6863 16 18" stroke="currentColor" stroke-width="1.5"/></svg>Mi Perfil</a>
+        </nav>
+        <div class="sidebar__profile">
+          <img src="../sofia-avatar.png" alt="Sofia" class="sidebar__profile-photo">
+          <div class="sidebar__profile-info">
+            <span class="sidebar__profile-name">Sofia Martinez</span>
+            <span class="sidebar__profile-career">Ingenieria Civil</span>
+            <span class="sidebar__profile-semester">5to semestre</span>
+          </div>
+        </div>
+        <button class="sidebar__logout" onclick="showScreen('screen-login');" title="Cerrar sesion">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 2H3C2.45 2 2 2.45 2 3V13C2 13.55 2.45 14 3 14H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M11 11L14 8L11 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 8H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <button class="sidebar__collapse-edge" onclick="toggleSidebar()">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7L9 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div class="topbar__left">
+            <div>
+              <button class="topbar__back" onclick="showScreen('screen-1')">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 4L6 8L10 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                Volver al horario
+              </button>
+              <h1 class="topbar__title">Resolver materias cruzadas</h1>
+            </div>
+          </div>
+          <div class="topbar__center">
+            <div class="conflict-summary-bar">
+              <div class="conflict-summary-bar__icon">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1L15 13H1L8 1Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M8 6V9M8 11V11.01" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>
+              </div>
+              <div class="conflict-summary-bar__label">Materias cruzadas:</div>
+              <div class="conflict-summary-bar__block conflict-summary-bar__block--a">
+                <span class="conflict-summary-bar__name">Calculo III</span>
+                <span class="conflict-summary-bar__time">Secc. A — Ma/Ju 10:00</span>
+              </div>
+              <div class="conflict-summary-bar__vs">vs</div>
+              <div class="conflict-summary-bar__block conflict-summary-bar__block--b">
+                <span class="conflict-summary-bar__name">Mec. Fluidos</span>
+                <span class="conflict-summary-bar__time">Secc. A — Ma/Ju 10:00</span>
+              </div>
+            </div>
+          </div>
+          <div class="topbar__right">
+            <div class="topbar__window session-timer">
+              <div class="topbar__window-dot"></div>
+              <div class="topbar__window-info">
+                <span class="topbar__window-label">Ventana abierta</span>
+                <span class="topbar__window-countdown"></span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Resolution Options -->
+        <div class="resolution">
+          <!-- AI Suggestions Group -->
+          <div class="resolution__ai-group">
+            <div class="resolution__ai-group-tag">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1L8.5 5.5L13 7L8.5 8.5L7 13L5.5 8.5L1 7L5.5 5.5L7 1Z" fill="currentColor"/></svg>
+              Sugeridas por Albus IA
+            </div>
+
+            <div class="resolution__option resolution__option--ai" id="optionA">
+              <div class="resolution__option-ai-badge">Mejor opcion</div>
+              <div class="resolution__option-header">
+                <div class="resolution__option-radio"><input type="radio" name="resolution" id="resA" checked><label for="resA"></label></div>
+                <div class="resolution__option-info">
+                  <span class="resolution__option-title">Cambiar Calculo III a Seccion B</span>
+                  <p class="resolution__option-desc">Pasa a <strong>Mi/Vi 14:00–15:30</strong>, Sala 401. Mec. Fluidos se mantiene.</p>
+                </div>
+              </div>
+              <div class="resolution__option-meta">
+                <span class="resolution__seats resolution__seats--available"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2"/><circle cx="7" cy="7" r="2" fill="currentColor"/></svg>12 cupos</span>
+                <span class="resolution__prof">Prof. Garcia M.</span>
+                <span class="resolution__rating">4.3/5</span>
+                <button class="resolution__preview-toggle" onclick="showScheduleModal('A')"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1.5 7C1.5 7 3.5 2.5 7 2.5C10.5 2.5 12.5 7 12.5 7C12.5 7 10.5 11.5 7 11.5C3.5 11.5 1.5 7 1.5 7Z" stroke="currentColor" stroke-width="1.2"/><circle cx="7" cy="7" r="1.8" stroke="currentColor" stroke-width="1.2"/></svg>Ver en horario</button>
+              </div>
+            </div>
+
+            <div class="resolution__option resolution__option--ai" id="optionB">
+              <div class="resolution__option-header">
+                <div class="resolution__option-radio"><input type="radio" name="resolution" id="resB"><label for="resB"></label></div>
+                <div class="resolution__option-info">
+                  <span class="resolution__option-title">Cambiar Mec. Fluidos a Seccion C</span>
+                  <p class="resolution__option-desc">Pasa a <strong>Lu/Mi 14:00–15:30</strong>, Lab. 203. Calculo III se mantiene.</p>
+                </div>
+              </div>
+              <div class="resolution__option-meta">
+                <span class="resolution__seats resolution__seats--low"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2"/><circle cx="7" cy="7" r="2" fill="currentColor"/></svg>3 cupos</span>
+                <span class="resolution__prof">Prof. Ramirez T.</span>
+                <span class="resolution__rating">4.1/5</span>
+                <button class="resolution__preview-toggle" onclick="showScheduleModal('B')"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1.5 7C1.5 7 3.5 2.5 7 2.5C10.5 2.5 12.5 7 12.5 7C12.5 7 10.5 11.5 7 11.5C3.5 11.5 1.5 7 1.5 7Z" stroke="currentColor" stroke-width="1.2"/><circle cx="7" cy="7" r="1.8" stroke="currentColor" stroke-width="1.2"/></svg>Ver en horario</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Other Options — Scrollable -->
+          <div class="resolution__others">
+            <h3 class="resolution__others-title">Otras opciones</h3>
+            <div class="resolution__others-scroll">
+
+              <div class="resolution__option" id="optionC">
+                <div class="resolution__option-header">
+                  <div class="resolution__option-radio"><input type="radio" name="resolution" id="resC"><label for="resC"></label></div>
+                  <div class="resolution__option-info">
+                    <span class="resolution__option-title">Cambiar Calculo III a Seccion D</span>
+                    <p class="resolution__option-desc">Pasa a <strong>Sab 9:00–12:00</strong>, Sala 102. Mec. Fluidos se mantiene.</p>
+                  </div>
+                </div>
+                <div class="resolution__option-meta">
+                  <span class="resolution__seats resolution__seats--available"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2"/><circle cx="7" cy="7" r="2" fill="currentColor"/></svg>18 cupos</span>
+                  <span class="resolution__prof">Prof. Lopez N.</span>
+                  <span class="resolution__rating">3.8/5</span>
+                  <button class="resolution__preview-toggle" onclick="showScheduleModal('C')"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1.5 7C1.5 7 3.5 2.5 7 2.5C10.5 2.5 12.5 7 12.5 7C12.5 7 10.5 11.5 7 11.5C3.5 11.5 1.5 7 1.5 7Z" stroke="currentColor" stroke-width="1.2"/><circle cx="7" cy="7" r="1.8" stroke="currentColor" stroke-width="1.2"/></svg>Ver en horario</button>
+                </div>
+              </div>
+
+              <div class="resolution__option" id="optionD">
+                <div class="resolution__option-header">
+                  <div class="resolution__option-radio"><input type="radio" name="resolution" id="resD"><label for="resD"></label></div>
+                  <div class="resolution__option-info">
+                    <span class="resolution__option-title">Cambiar Calculo III a Seccion E</span>
+                    <p class="resolution__option-desc">Pasa a <strong>Lu/Mi 16:00–17:30</strong>, Sala 305. Mec. Fluidos se mantiene.</p>
+                  </div>
+                </div>
+                <div class="resolution__option-meta">
+                  <span class="resolution__seats resolution__seats--available"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2"/><circle cx="7" cy="7" r="2" fill="currentColor"/></svg>8 cupos</span>
+                  <span class="resolution__prof">Prof. Vargas A.</span>
+                  <span class="resolution__rating">3.9/5</span>
+                  <button class="resolution__preview-toggle" onclick="showScheduleModal('D')"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1.5 7C1.5 7 3.5 2.5 7 2.5C10.5 2.5 12.5 7 12.5 7C12.5 7 10.5 11.5 7 11.5C3.5 11.5 1.5 7 1.5 7Z" stroke="currentColor" stroke-width="1.2"/><circle cx="7" cy="7" r="1.8" stroke="currentColor" stroke-width="1.2"/></svg>Ver en horario</button>
+                </div>
+              </div>
+
+              <div class="resolution__option" id="optionE">
+                <div class="resolution__option-header">
+                  <div class="resolution__option-radio"><input type="radio" name="resolution" id="resE"><label for="resE"></label></div>
+                  <div class="resolution__option-info">
+                    <span class="resolution__option-title">Cambiar Mec. Fluidos a Seccion D</span>
+                    <p class="resolution__option-desc">Pasa a <strong>Ma/Ju 14:00–15:30</strong>, Lab. 204. Calculo III se mantiene.</p>
+                  </div>
+                </div>
+                <div class="resolution__option-meta">
+                  <span class="resolution__seats resolution__seats--available"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2"/><circle cx="7" cy="7" r="2" fill="currentColor"/></svg>14 cupos</span>
+                  <span class="resolution__prof">Prof. Mora L.</span>
+                  <span class="resolution__rating">4.0/5</span>
+                  <button class="resolution__preview-toggle" onclick="showScheduleModal('E')"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1.5 7C1.5 7 3.5 2.5 7 2.5C10.5 2.5 12.5 7 12.5 7C12.5 7 10.5 11.5 7 11.5C3.5 11.5 1.5 7 1.5 7Z" stroke="currentColor" stroke-width="1.2"/><circle cx="7" cy="7" r="1.8" stroke="currentColor" stroke-width="1.2"/></svg>Ver en horario</button>
+                </div>
+              </div>
+
+              <div class="resolution__option" id="optionF">
+                <div class="resolution__option-header">
+                  <div class="resolution__option-radio"><input type="radio" name="resolution" id="resF"><label for="resF"></label></div>
+                  <div class="resolution__option-info">
+                    <span class="resolution__option-title">Cambiar Mec. Fluidos a Seccion E</span>
+                    <p class="resolution__option-desc">Pasa a <strong>Vi 14:00–17:00</strong>, Lab. 205. Calculo III se mantiene.</p>
+                  </div>
+                </div>
+                <div class="resolution__option-meta">
+                  <span class="resolution__seats resolution__seats--low"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2"/><circle cx="7" cy="7" r="2" fill="currentColor"/></svg>2 cupos</span>
+                  <span class="resolution__prof">Prof. Rios K.</span>
+                  <span class="resolution__rating">3.7/5</span>
+                  <button class="resolution__preview-toggle" onclick="showScheduleModal('F')"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1.5 7C1.5 7 3.5 2.5 7 2.5C10.5 2.5 12.5 7 12.5 7C12.5 7 10.5 11.5 7 11.5C3.5 11.5 1.5 7 1.5 7Z" stroke="currentColor" stroke-width="1.2"/><circle cx="7" cy="7" r="1.8" stroke="currentColor" stroke-width="1.2"/></svg>Ver en horario</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Actions -->
+        <div class="bottom-actions">
+          <button class="btn btn--secondary" onclick="showScreen('screen-1')">Volver al horario</button>
+          <button class="btn btn--confirm" onclick="applyOption(getSelectedOption())">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9L7.5 13.5L15 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Aplicar y continuar
+          </button>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ========================================= -->
+  <!-- SCREEN 3: CONFIRMACION — EXITO             -->
+  <!-- ========================================= -->
+  <div class="screen" id="screen-3">
+    <div class="app-layout">
+      <aside class="sidebar">
+        <div class="sidebar__logo">
+          <img src="../albus_logo_white.svg" alt="Albus" class="sidebar__logo-img">
+          <button class="sidebar__collapse-btn" onclick="toggleSidebar()">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 4L6 8L10 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+        <nav class="sidebar__nav">
+          <a href="#" class="sidebar__link"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10L10 3L17 10V17H12V13H8V17H3V10Z" stroke="currentColor" stroke-width="1.5"/></svg>Inicio</a>
+          <a href="#" class="sidebar__link active"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 7H17M7 3V17" stroke="currentColor" stroke-width="1.5"/></svg>Mi Horario</a>
+          <a href="#" class="sidebar__link"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2V18M2 10H18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Malla Curricular</a>
+          <a href="#" class="sidebar__link"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M4 18C4 14.6863 6.68629 12 10 12C13.3137 12 16 14.6863 16 18" stroke="currentColor" stroke-width="1.5"/></svg>Mi Perfil</a>
+        </nav>
+        <div class="sidebar__profile">
+          <img src="../sofia-avatar.png" alt="Sofia" class="sidebar__profile-photo">
+          <div class="sidebar__profile-info">
+            <span class="sidebar__profile-name">Sofia Martinez</span>
+            <span class="sidebar__profile-career">Ingenieria Civil</span>
+            <span class="sidebar__profile-semester">5to semestre</span>
+          </div>
+        </div>
+        <button class="sidebar__logout" onclick="showScreen('screen-login');" title="Cerrar sesion">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 2H3C2.45 2 2 2.45 2 3V13C2 13.55 2.45 14 3 14H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M11 11L14 8L11 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 8H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <button class="sidebar__collapse-edge" onclick="toggleSidebar()">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7L9 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div class="topbar__left">
+            <div>
+              <h1 class="topbar__title">Tu horario inscrito</h1>
+              <p class="topbar__subtitle">Semestre 2026-1</p>
+            </div>
+          </div>
+          <div class="topbar__center">
+            <div class="topbar__ai-bar">
+              <div class="topbar__ai-badge" style="background: rgba(16, 185, 129, 0.15); color: #065F46;">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7L6 10L11 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Inscripcion confirmada
+              </div>
+              <div class="topbar__ai-divider"></div>
+              <div class="topbar__ai-stats">
+                <span class="topbar__ai-stat"><strong>6</strong> materias</span>
+                <span class="topbar__ai-stat"><strong>18</strong> cred.</span>
+                <span class="topbar__ai-stat"><strong>24</strong> hrs/sem</span>
+                <span class="topbar__ai-stat" style="color:#059669;"><strong>0</strong> cruzadas</span>
+              </div>
+            </div>
+          </div>
+          <div class="topbar__right">
+            <div class="topbar__window session-timer">
+              <div class="topbar__window-dot"></div>
+              <div class="topbar__window-info">
+                <span class="topbar__window-label">Ventana abierta</span>
+                <span class="topbar__window-countdown"></span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Pre-confirmation state (legacy, hidden) -->
+        <div class="confirm-pre" id="confirmPre" style="display:none;">
+          <!-- Validation Checklist -->
+          <div class="validation-checklist">
+            <h3 class="validation-checklist__title">Validacion del horario</h3>
+            <div class="validation-checklist__items">
+              <div class="validation-checklist__item validation-checklist__item--pass">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#10B981" opacity="0.15"/><path d="M5 9L8 12L13 6" stroke="#10B981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>6 materias seleccionadas (minimo 5, maximo 7)</span>
+              </div>
+              <div class="validation-checklist__item validation-checklist__item--pass">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#10B981" opacity="0.15"/><path d="M5 9L8 12L13 6" stroke="#10B981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>18 creditos (dentro del rango permitido: 15-21)</span>
+              </div>
+              <div class="validation-checklist__item validation-checklist__item--pass">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#10B981" opacity="0.15"/><path d="M5 9L8 12L13 6" stroke="#10B981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>Sin conflictos de horario</span>
+              </div>
+              <div class="validation-checklist__item validation-checklist__item--pass">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#10B981" opacity="0.15"/><path d="M5 9L8 12L13 6" stroke="#10B981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>Todos los prerrequisitos cumplidos</span>
+              </div>
+            </div>
+            <div class="validation-checklist__result">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9L7.5 13.5L15 4.5" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Todo en orden. Estas lista para inscribirte.
+            </div>
+          </div>
+
+          <!-- Final Schedule Summary -->
+          <div class="final-summary">
+            <h3 class="final-summary__title">Tu horario final</h3>
+            <div class="final-summary__table">
+              <div class="final-summary__row final-summary__row--header">
+                <span>Materia</span>
+                <span>Seccion</span>
+                <span>Horario</span>
+                <span>Creditos</span>
+              </div>
+              <div class="final-summary__row">
+                <span><span class="final-summary__dot final-summary__dot--blue"></span>Estructuras I</span>
+                <span>Secc. A</span>
+                <span>Lu/Mi 8:00–9:30</span>
+                <span>3</span>
+              </div>
+              <div class="final-summary__row">
+                <span><span class="final-summary__dot final-summary__dot--green"></span>Fisica III</span>
+                <span>Secc. B</span>
+                <span>Ma/Ju 8:00–9:30</span>
+                <span>3</span>
+              </div>
+              <div class="final-summary__row">
+                <span><span class="final-summary__dot final-summary__dot--teal"></span>Estadistica II</span>
+                <span>Secc. A</span>
+                <span>Lu 10:00–11:30, Mi 9:30–11:00</span>
+                <span>3</span>
+              </div>
+              <div class="final-summary__row">
+                <span><span class="final-summary__dot final-summary__dot--purple"></span>Topografia</span>
+                <span>Secc. A</span>
+                <span>Vi 8:00–11:00</span>
+                <span>3</span>
+              </div>
+              <div class="final-summary__row final-summary__row--changed">
+                <span><span class="final-summary__dot final-summary__dot--conflict-a"></span>Calculo III <span class="final-summary__changed-badge">Modificada</span></span>
+                <span>Secc. B</span>
+                <span>Mi/Vi 14:00–15:30</span>
+                <span>3</span>
+              </div>
+              <div class="final-summary__row">
+                <span><span class="final-summary__dot final-summary__dot--conflict-b"></span>Mecanica de Fluidos</span>
+                <span>Secc. A</span>
+                <span>Ma/Ju 10:00–11:30</span>
+                <span>3</span>
+              </div>
+              <div class="final-summary__row final-summary__row--total">
+                <span>Total</span>
+                <span></span>
+                <span>24 hrs/semana</span>
+                <span>18 creditos</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="bottom-actions">
+            <button class="btn btn--secondary" onclick="showScreen('screen-2')">Volver a editar</button>
+            <button class="btn btn--confirm" id="btnConfirm">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9L7.5 13.5L15 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Confirmar inscripcion
+            </button>
+          </div>
+        </div>
+
+        <!-- Success State (hidden by default) -->
+        <div class="confirm-success" id="confirmSuccess" style="display: block;">
+
+          <!-- Confirmed Schedule Grid -->
+          <div class="schedule confirmed-schedule">
+            <div class="schedule__toolbar">
+              <span class="schedule__toolbar-title">Horario confirmado — Folio #INS-2026-04892</span>
+              <div class="schedule__toolbar-actions">
+                <button class="schedule__toolbar-btn" title="Descargar PDF">
+                  <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M2 10V12.5H13V10M7.5 2V9.5M7.5 9.5L4.5 6.5M7.5 9.5L10.5 6.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Descargar PDF
+                </button>
+                <button class="schedule__toolbar-btn" title="Google Calendar">
+                  <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="2" y="3" width="11" height="10" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M2 6H13M5 3V1.5M10 3V1.5" stroke="currentColor" stroke-width="1.2"/></svg>
+                  Google Calendar
+                </button>
+                <button class="schedule__toolbar-btn" title="Compartir">
+                  <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M3 7.5V12.5H12V7.5M7.5 2V9M7.5 2L5 4.5M7.5 2L10 4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Compartir
+                </button>
+              </div>
+            </div>
+            <div class="schedule__scroll-wrap">
+            <div class="schedule__header">
+              <div class="schedule__time-col"></div>
+              <div class="schedule__day">Lunes</div>
+              <div class="schedule__day">Martes</div>
+              <div class="schedule__day">Miercoles</div>
+              <div class="schedule__day">Jueves</div>
+              <div class="schedule__day">Viernes</div>
+            </div>
+            <div class="schedule__body">
+              <div class="schedule__row">
+                <div class="schedule__time">8:00</div>
+                <div class="schedule__cell"><div class="schedule__block schedule__block--blue" style="height: calc(var(--row-h) * 2);"><span class="schedule__block-name">Estructuras I</span><span class="schedule__block-detail">Secc. A — Inscrita</span></div></div>
+                <div class="schedule__cell"><div class="schedule__block schedule__block--green" style="height: calc(var(--row-h) * 2);"><span class="schedule__block-name">Fisica III</span><span class="schedule__block-detail">Secc. B — Inscrita</span></div></div>
+                <div class="schedule__cell"><div class="schedule__block schedule__block--blue" style="height: calc(var(--row-h) * 2);"><span class="schedule__block-name">Estructuras I</span><span class="schedule__block-detail">Secc. A — Inscrita</span></div></div>
+                <div class="schedule__cell"><div class="schedule__block schedule__block--green" style="height: calc(var(--row-h) * 2);"><span class="schedule__block-name">Fisica III</span><span class="schedule__block-detail">Secc. B — Inscrita</span></div></div>
+                <div class="schedule__cell"><div class="schedule__block schedule__block--purple" style="height: calc(var(--row-h) * 3);"><span class="schedule__block-name">Topografia</span><span class="schedule__block-detail">Secc. A — Inscrita</span></div></div>
+              </div>
+              <div class="schedule__row"><div class="schedule__time">8:30</div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div></div>
+              <div class="schedule__row"><div class="schedule__time">9:00</div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div></div>
+              <div class="schedule__row">
+                <div class="schedule__time">9:30</div>
+                <div class="schedule__cell"></div>
+                <div class="schedule__cell"></div>
+                <div class="schedule__cell"><div class="schedule__block schedule__block--teal" style="height: calc(var(--row-h) * 3);"><span class="schedule__block-name">Estadistica II</span><span class="schedule__block-detail">Secc. A — Inscrita</span></div></div>
+                <div class="schedule__cell"></div>
+                <div class="schedule__cell"></div>
+              </div>
+              <div class="schedule__row">
+                <div class="schedule__time">10:00</div>
+                <div class="schedule__cell"><div class="schedule__block schedule__block--teal" style="height: calc(var(--row-h) * 3);"><span class="schedule__block-name">Estadistica II</span><span class="schedule__block-detail">Secc. A — Inscrita</span></div></div>
+                <div class="schedule__cell"><div class="schedule__block schedule__block--conflict-b" style="height: calc(var(--row-h) * 3);"><span class="schedule__block-name">Mec. Fluidos</span><span class="schedule__block-detail">Secc. A — Inscrita</span></div></div>
+                <div class="schedule__cell"></div>
+                <div class="schedule__cell"><div class="schedule__block schedule__block--conflict-b" style="height: calc(var(--row-h) * 3);"><span class="schedule__block-name">Mec. Fluidos</span><span class="schedule__block-detail">Secc. A — Inscrita</span></div></div>
+                <div class="schedule__cell"></div>
+              </div>
+              <div class="schedule__row"><div class="schedule__time">10:30</div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div></div>
+              <div class="schedule__row"><div class="schedule__time">11:00</div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div></div>
+              <div class="schedule__row"><div class="schedule__time">11:30</div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div></div>
+              <div class="schedule__row">
+                <div class="schedule__time">14:00</div>
+                <div class="schedule__cell"></div>
+                <div class="schedule__cell"></div>
+                <div class="schedule__cell"><div class="schedule__block schedule__block--conflict-a" style="height: calc(var(--row-h) * 3);"><span class="schedule__block-name">Calculo III</span><span class="schedule__block-detail">Secc. B — Inscrita</span></div></div>
+                <div class="schedule__cell"></div>
+                <div class="schedule__cell"><div class="schedule__block schedule__block--conflict-a" style="height: calc(var(--row-h) * 3);"><span class="schedule__block-name">Calculo III</span><span class="schedule__block-detail">Secc. B — Inscrita</span></div></div>
+              </div>
+              <div class="schedule__row"><div class="schedule__time">14:30</div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div></div>
+              <div class="schedule__row"><div class="schedule__time">15:00</div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div></div>
+              <div class="schedule__row"><div class="schedule__time">15:30</div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div></div>
+            </div>
+            </div><!-- /schedule__scroll-wrap -->
+          </div>
+
+          <p class="next-steps__info" style="margin-top:12px; text-align:center;">Las clases comienzan el <strong>10 de marzo de 2026</strong>. El periodo de ajuste es del <strong>3 al 7 de marzo</strong>.</p>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ========================================= -->
+  <!-- SCREEN 4: CONFIRMACION — ERROR             -->
+  <!-- ========================================= -->
+  <div class="screen" id="screen-4">
+    <div class="app-layout">
+      <aside class="sidebar">
+        <div class="sidebar__logo">
+          <img src="../albus_logo_white.svg" alt="Albus" class="sidebar__logo-img">
+          <button class="sidebar__collapse-btn" onclick="toggleSidebar()">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 4L6 8L10 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+        <nav class="sidebar__nav">
+          <a href="#" class="sidebar__link"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10L10 3L17 10V17H12V13H8V17H3V10Z" stroke="currentColor" stroke-width="1.5"/></svg>Inicio</a>
+          <a href="#" class="sidebar__link active"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 7H17M7 3V17" stroke="currentColor" stroke-width="1.5"/></svg>Mi Horario</a>
+          <a href="#" class="sidebar__link"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2V18M2 10H18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Malla Curricular</a>
+          <a href="#" class="sidebar__link"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M4 18C4 14.6863 6.68629 12 10 12C13.3137 12 16 14.6863 16 18" stroke="currentColor" stroke-width="1.5"/></svg>Mi Perfil</a>
+        </nav>
+        <div class="sidebar__profile">
+          <img src="../sofia-avatar.png" alt="Sofia" class="sidebar__profile-photo">
+          <div class="sidebar__profile-info">
+            <span class="sidebar__profile-name">Sofia Martinez</span>
+            <span class="sidebar__profile-career">Ingenieria Civil</span>
+            <span class="sidebar__profile-semester">5to semestre</span>
+          </div>
+        </div>
+        <button class="sidebar__logout" onclick="showScreen('screen-login');" title="Cerrar sesion">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 2H3C2.45 2 2 2.45 2 3V13C2 13.55 2.45 14 3 14H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M11 11L14 8L11 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 8H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <button class="sidebar__collapse-edge" onclick="toggleSidebar()">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7L9 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div class="topbar__left">
+            <div>
+              <h1 class="topbar__title">Confirmar inscripcion</h1>
+              <p class="topbar__subtitle">Revisa y confirma tu seleccion de materias</p>
+            </div>
+          </div>
+          <div class="topbar__right">
+            <div class="topbar__window session-timer">
+              <div class="topbar__window-dot"></div>
+              <div class="topbar__window-info">
+                <span class="topbar__window-label">Ventana abierta</span>
+                <span class="topbar__window-countdown"></span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Error State -->
+        <div class="error-card">
+          <div class="error-card__icon">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+              <circle cx="24" cy="24" r="22" stroke="#EF4444" stroke-width="2.5"/>
+              <path d="M24 14V28M24 33V33.01" stroke="#EF4444" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h2 class="error-card__title">No pudimos completar tu inscripcion</h2>
+          <p class="error-card__subtitle">Pero no te preocupes, hay opciones disponibles.</p>
+          <div class="error-card__detail">
+            <div class="error-card__detail-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1L15 13H1L8 1Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M8 6V9M8 11V11.01" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <p class="error-card__detail-title">El cupo de Calculo III — Seccion B se agoto</p>
+              <p class="error-card__detail-desc">Otro estudiante confirmo el ultimo cupo mientras revisabas tu horario.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reassurance -->
+        <div class="reassurance">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2C14.4183 2 18 5.58172 18 10C18 14.4183 14.4183 18 10 18C5.58172 18 2 14.4183 2 10C2 5.58172 5.58172 2 10 2Z" stroke="currentColor" stroke-width="1.5"/><path d="M10 6V10L13 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <p>Tus demas materias estan <strong>reservadas temporalmente por 10 minutos</strong>. No perderas tu lugar en ellas mientras resuelves esto.</p>
+        </div>
+
+        <!-- Quick alternatives -->
+        <div class="error-alternatives">
+          <h3 class="error-alternatives__title">Secciones alternativas para Calculo III</h3>
+          <div class="error-alternatives__list">
+            <div class="error-alternatives__item">
+              <div class="error-alternatives__radio">
+                <input type="radio" name="errorRes" id="errA" checked>
+                <label for="errA"></label>
+              </div>
+              <div class="error-alternatives__info">
+                <span class="error-alternatives__name">Seccion C — Lu/Mi 16:00–17:30</span>
+                <span class="error-alternatives__meta">Prof. Vargas A. — Sala 305</span>
+              </div>
+              <span class="resolution__seats resolution__seats--available">8 cupos</span>
+            </div>
+            <div class="error-alternatives__item">
+              <div class="error-alternatives__radio">
+                <input type="radio" name="errorRes" id="errB">
+                <label for="errB"></label>
+              </div>
+              <div class="error-alternatives__info">
+                <span class="error-alternatives__name">Seccion D — Sab 9:00–12:00</span>
+                <span class="error-alternatives__meta">Prof. Lopez N. — Sala 102</span>
+              </div>
+              <span class="resolution__seats resolution__seats--available">18 cupos</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="bottom-actions">
+          <button class="btn btn--secondary">Intentar de nuevo</button>
+          <button class="btn btn--primary">
+            Aplicar alternativa y confirmar
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // Mobile header
+    function createMobileHeader() {
+      if (window.innerWidth > 768) return;
+      // Remove existing
+      document.querySelectorAll('.mobile-header').forEach(h => h.remove());
+
+      const currentScreen = document.querySelector('.screen.active');
+      if (!currentScreen || currentScreen.id === 'screen-login') return;
+
+      const appLayout = currentScreen.querySelector('.app-layout');
+      if (!appLayout) return;
+
+      const isWelcome = currentScreen.id === 'screen-welcome';
+
+      const header = document.createElement('div');
+      header.className = 'mobile-header';
+      header.innerHTML = `
+        <button class="mobile-header__menu" onclick="toggleMobileMenu()">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 5H17M3 10H17M3 15H17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+        <img src="../albus_logo_white.svg" alt="Albus" class="mobile-header__logo">
+
+        ${isWelcome ? '' : `
+        <div class="mobile-header__user" onclick="showScreen('screen-welcome')">
+          <img src="../sofia-avatar.png" alt="Sofia" class="mobile-header__avatar">
+        </div>`}
+      `;
+      appLayout.insertBefore(header, appLayout.firstChild);
+    }
+
+    // Mobile menu overlay
+    function toggleMobileMenu() {
+      let menu = document.querySelector('.mobile-menu-overlay');
+      if (menu) { menu.remove(); return; }
+
+      menu = document.createElement('div');
+      menu.className = 'mobile-menu-overlay';
+      menu.innerHTML = `
+        <div class="mobile-menu">
+          <div class="mobile-menu__header">
+            <img src="../albus_logo_white.svg" alt="Albus" class="mobile-menu__logo">
+            <button class="mobile-menu__close" onclick="toggleMobileMenu()">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 5L15 15M15 5L5 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+          <nav class="mobile-menu__nav">
+            <a href="#" class="mobile-menu__link" onclick="toggleMobileMenu(); showScreen('screen-welcome');">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10L10 3L17 10V17H12V13H8V17H3V10Z" stroke="currentColor" stroke-width="1.5"/></svg>
+              Inicio
+            </a>
+            <a href="#" class="mobile-menu__link mobile-menu__link--active" onclick="toggleMobileMenu(); showScreen('screen-1');">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 7H17M7 3V17" stroke="currentColor" stroke-width="1.5"/></svg>
+              Mi Horario
+            </a>
+            <a href="#" class="mobile-menu__link">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2V18M2 10H18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              Malla Curricular
+            </a>
+            <a href="#" class="mobile-menu__link">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M4 18C4 14.6863 6.68629 12 10 12C13.3137 12 16 14.6863 16 18" stroke="currentColor" stroke-width="1.5"/></svg>
+              Mi Perfil
+            </a>
+          </nav>
+          <div class="mobile-menu__profile">
+            <img src="../sofia-avatar.png" alt="Sofia" class="mobile-menu__avatar">
+            <div class="mobile-menu__profile-info">
+              <span class="mobile-menu__name">Sofia Martinez</span>
+              <span class="mobile-menu__career">Ingenieria Civil</span>
+              <span class="mobile-menu__semester">5to semestre</span>
+            </div>
+            <div class="mobile-menu__status"></div>
+          </div>
+          <button class="mobile-menu__logout" onclick="toggleMobileMenu(); showScreen('screen-login');">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 2H3C2.45 2 2 2.45 2 3V13C2 13.55 2.45 14 3 14H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M11 11L14 8L11 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 8H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Cerrar sesion
+          </button>
+        </div>
+      `;
+      document.body.appendChild(menu);
+    }
+
+    // Update mobile header on screen change
+    const origShowScreen = showScreen;
+
+    // Sidebar collapse
+    function toggleSidebar() {
+      const isCollapsed = document.querySelector('.sidebar')?.classList.contains('sidebar--collapsed');
+      document.querySelectorAll('.sidebar').forEach(s => s.classList.toggle('sidebar--collapsed'));
+      document.querySelectorAll('.main').forEach(m => m.classList.toggle('main--sidebar-collapsed'));
+      // Move edge button
+      document.querySelectorAll('.sidebar__collapse-edge').forEach(b => {
+        b.style.left = isCollapsed ? '' : '52px';
+        b.querySelector('svg').style.transform = isCollapsed ? '' : 'rotate(180deg)';
+      });
+    }
+
+    // Screen navigation
+    function showScreen(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      document.querySelectorAll('.screen-nav__btn').forEach(b => b.classList.remove('active'));
+      const navBtn = document.querySelector(`[data-screen="${id}"]`);
+      if (navBtn) navBtn.classList.add('active');
+      window.scrollTo(0, 0);
+      // Start tooltip countdown when entering screen-1
+      if (id === 'screen-1') startTimerTooltipCountdown();
+      // Update mobile header
+      setTimeout(createMobileHeader, 50);
+    }
+
+    document.querySelectorAll('.screen-nav__btn').forEach(btn => {
+      btn.addEventListener('click', () => showScreen(btn.dataset.screen));
+    });
+
+    // Show loading as modal overlay on screen-1 with skeleton behind
+    function showLoadingModal() {
+      // Hide real content, show skeleton behind the modal
+      const mainContent = document.querySelector('#screen-1 .main');
+      mainContent.classList.add('main--skeleton');
+
+      const modal = document.createElement('div');
+      modal.className = 'loading-modal-overlay';
+      modal.id = 'loadingModal';
+      modal.innerHTML = `
+        <div class="loading-modal">
+          <div class="loading-modal__card">
+            <div class="loading-modal__logo">
+              <svg width="46" height="52" viewBox="0 0 23 31" fill="none">
+                <path d="M11.3 12.2052L5.80005 21.3919L11.3 30.4661L16.8 21.2091L11.3 12.2052Z" fill="#5ecbdc"/>
+                <path d="M4.67591 19.9632L11.3439 8.11754L18.1503 19.9632H22.8677L11.3162 0L0 19.9632H4.67591Z" fill="#069cb8"/>
+              </svg>
+            </div>
+            <h2 class="loading-state__title">Albus esta preparando tu propuesta de horario</h2>
+            <p class="loading-state__text">Analizando tu historial academico, malla curricular y disponibilidad de secciones...</p>
+            <div class="loading-state__progress">
+              <div class="loading-state__bar">
+                <div class="loading-state__bar-fill" id="modalLoadingBar"></div>
+              </div>
+              <div class="loading-state__steps">
+                <span class="loading-state__step loading-state__step--done" id="mStep1">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7L6 10L11 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  Verificando prerrequisitos
+                </span>
+                <span class="loading-state__step loading-state__step--active" id="mStep2">
+                  <div class="loading-state__step-dot"></div>
+                  Seleccionando materias optimas
+                </span>
+                <span class="loading-state__step" id="mStep3">
+                  <div class="loading-state__step-dot"></div>
+                  Armando horario sin conflictos
+                </span>
+                <span class="loading-state__step" id="mStep4">
+                  <div class="loading-state__step-dot"></div>
+                  Validando cupos disponibles
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+
+      const bar = document.getElementById('modalLoadingBar');
+      const checkIcon = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7L6 10L11 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
+
+      function completeStep(id) {
+        const step = document.getElementById(id);
+        step.classList.remove('loading-state__step--active');
+        step.classList.add('loading-state__step--done');
+        const dot = step.querySelector('.loading-state__step-dot');
+        if (dot) dot.outerHTML = checkIcon;
+      }
+
+      function activateStep(id) {
+        document.getElementById(id).classList.add('loading-state__step--active');
+      }
+
+      setTimeout(() => {
+        bar.style.width = '35%';
+        completeStep('mStep2');
+        activateStep('mStep3');
+      }, 2500);
+
+      setTimeout(() => {
+        bar.style.width = '65%';
+        completeStep('mStep3');
+        activateStep('mStep4');
+      }, 5000);
+
+      setTimeout(() => {
+        bar.style.width = '100%';
+        completeStep('mStep4');
+      }, 7000);
+
+      setTimeout(() => {
+        modal.classList.add('loading-modal-overlay--fade');
+        setTimeout(() => {
+          modal.remove();
+          document.querySelector('#screen-1 .main').classList.remove('main--skeleton');
+        }, 500);
+      }, 8500);
+    }
+
+    // Loading animation (legacy, kept for compatibility)
+    function startLoading() {
+      const bar = document.getElementById('loadingBar');
+      const steps = ['step1', 'step2', 'step3', 'step4'];
+      let progress = 0;
+
+      // Step 1 already done, step 2 active
+      setTimeout(() => {
+        progress = 25;
+        bar.style.width = progress + '%';
+        document.getElementById('step2').classList.remove('loading-state__step--active');
+        document.getElementById('step2').classList.add('loading-state__step--done');
+        document.getElementById('step3').classList.add('loading-state__step--active');
+      }, 2500);
+
+      setTimeout(() => {
+        progress = 55;
+        bar.style.width = progress + '%';
+        document.getElementById('step3').classList.remove('loading-state__step--active');
+        document.getElementById('step3').classList.add('loading-state__step--done');
+        document.getElementById('step4').classList.add('loading-state__step--active');
+      }, 5000);
+
+      setTimeout(() => {
+        progress = 100;
+        bar.style.width = progress + '%';
+        document.getElementById('step4').classList.remove('loading-state__step--active');
+        document.getElementById('step4').classList.add('loading-state__step--done');
+      }, 7000);
+
+      setTimeout(() => {
+        showScreen('screen-1');
+      }, 8500);
+    }
+
+    // AI details toggle — mobile: bottom sheet with overlay
+    document.getElementById('toggleAiDetails')?.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const details = document.getElementById('aiDetails');
+      const isMobile = window.innerWidth <= 768;
+      if (isMobile) {
+        details.classList.add('open');
+        // Create overlay if not exists
+        if (!document.getElementById('aiDetailsOverlay')) {
+          const overlay = document.createElement('div');
+          overlay.id = 'aiDetailsOverlay';
+          overlay.className = 'bottom-sheet-overlay';
+          overlay.onclick = function() {
+            details.classList.remove('open');
+            overlay.remove();
+          };
+          document.body.appendChild(overlay);
+        }
+      } else {
+        details.classList.toggle('open');
+      }
+    });
+    // Close AI details on outside click (desktop)
+    document.addEventListener('click', function() {
+      const details = document.getElementById('aiDetails');
+      if (details) details.classList.remove('open');
+      const overlay = document.getElementById('aiDetailsOverlay');
+      if (overlay) overlay.remove();
+    });
+    document.querySelector('.topbar__ai-bar')?.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+
+    // Confirm button
+    document.getElementById('btnConfirm')?.addEventListener('click', function() {
+      this.innerHTML = '<span class="btn__spinner"></span> Procesando...';
+      this.disabled = true;
+      setTimeout(() => {
+        document.getElementById('confirmPre').style.display = 'none';
+        document.getElementById('confirmSuccess').style.display = 'block';
+      }, 1500);
+    });
+
+    // Tooltips on schedule blocks
+    const isMobile = () => window.innerWidth <= 768;
+
+    function initTooltips(container) {
+      container.querySelectorAll('.has-tooltip:not([data-tooltip-init])').forEach(block => {
+        block.setAttribute('data-tooltip-init', 'true');
+        const status = block.dataset.tooltipStatus;
+        const statusLabel = status === 'conflict' ?
+          '<span class="block-tooltip__status block-tooltip__status--conflict"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1L11 10H1L6 1Z" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/><path d="M6 5V7M6 8.5V8.51" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg> Materia cruzada</span>' :
+          '<span class="block-tooltip__status block-tooltip__status--ok"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6L5 8L9 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> Sin conflictos</span>';
+
+        const conflictWith = block.dataset.tooltipName === 'Calculo III' ? 'Mecanica de Fluidos' : block.dataset.tooltipName === 'Mecanica de Fluidos' ? 'Calculo III' : null;
+        const conflictBlock = (status === 'conflict' && conflictWith) ?
+          `<div class="block-tooltip__conflict">
+            <div class="block-tooltip__conflict-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1L15 13H1L8 1Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M8 5.5V8.5M8 10.5V10.51" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+            <div class="block-tooltip__conflict-info"><strong>Cruzada con ${conflictWith}</strong><span>Ambas materias Ma/Ju 10:00–11:30</span></div>
+          </div>
+          <button class="btn btn--primary block-tooltip__cta" onclick="closeAllTooltips(); showScreen('screen-2');">Resolver materia cruzada <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 3L9 7L5 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>` : '';
+
+        const tooltip = document.createElement('div');
+        tooltip.className = 'block-tooltip';
+        tooltip.innerHTML = `
+          <div class="block-tooltip__header"><strong>${block.dataset.tooltipName}</strong>${statusLabel}</div>
+          <div class="block-tooltip__body"><span>${block.dataset.tooltipMeta}</span><span>${block.dataset.tooltipProf}</span><span>${block.dataset.tooltipSala}</span></div>
+          ${conflictBlock}
+          <button class="block-tooltip__close mobile-only">Cerrar</button>
+        `;
+        document.body.appendChild(tooltip);
+
+        tooltip.querySelector('.block-tooltip__close').addEventListener('click', (e) => { e.stopPropagation(); closeAllTooltips(); });
+
+        let hideTimeout = null;
+        function showTip() { if (hideTimeout) { clearTimeout(hideTimeout); hideTimeout = null; } closeAllTooltips(); positionTooltipDesktop(tooltip, block); tooltip.classList.add('active'); activeTooltip = tooltip; }
+        function schedHide() { hideTimeout = setTimeout(() => { tooltip.classList.remove('active'); activeTooltip = null; }, 200); }
+
+        block.addEventListener('mouseenter', () => { if (!isMobile() && !editMode) showTip(); });
+        block.addEventListener('mouseleave', () => { if (!isMobile() && !editMode) schedHide(); });
+        tooltip.addEventListener('mouseenter', () => { if (!isMobile() && hideTimeout) { clearTimeout(hideTimeout); hideTimeout = null; } });
+        tooltip.addEventListener('mouseleave', () => { if (!isMobile() && !editMode) schedHide(); });
+        block.addEventListener('click', (e) => { if (editMode) return; if (isMobile()) { e.stopPropagation(); closeAllTooltips(); overlay = document.createElement('div'); overlay.className = 'tooltip-overlay'; overlay.addEventListener('click', closeAllTooltips); document.body.appendChild(overlay); tooltip.classList.add('active'); activeTooltip = tooltip; } });
+      });
+    }
+    let activeTooltip = null;
+    let overlay = null;
+
+    function closeAllTooltips() {
+      document.querySelectorAll('.block-tooltip.active').forEach(t => t.classList.remove('active'));
+      if (overlay) { overlay.remove(); overlay = null; }
+      activeTooltip = null;
+    }
+
+    function positionTooltipDesktop(tooltip, block) {
+      const rect = block.getBoundingClientRect();
+      const tw = 300;
+      let left = rect.left + rect.width / 2 - tw / 2;
+      let top = rect.top - 6;
+
+      // Keep within viewport
+      if (left < 8) left = 8;
+      if (left + tw > window.innerWidth - 8) left = window.innerWidth - tw - 8;
+      if (top < 8) top = rect.bottom + 12; // flip below if no space
+
+      tooltip.style.left = left + 'px';
+      tooltip.style.top = top + 'px';
+      tooltip.style.transform = 'translateY(-100%)';
+
+      // If flipped below
+      if (top === rect.bottom + 12) {
+        tooltip.style.transform = 'translateY(0)';
+      }
+    }
+
+    // Initialize tooltips on all existing blocks
+    initTooltips(document);
+
+    document.addEventListener('click', () => {
+      if (!isMobile() && activeTooltip) {
+        activeTooltip.classList.remove('active');
+        activeTooltip = null;
+      }
+    });
+
+    // Countdown timer
+    let totalSeconds = (3 * 3600) + (57 * 60) + 42;
+    let timeAlertShown = false;
+    let tooltipTimer = null;
+    let screen1Entered = false;
+
+    // Show timer tooltip 30s after entering screen-1
+    function startTimerTooltipCountdown() {
+      if (screen1Entered || timeAlertShown) return;
+      screen1Entered = true;
+      tooltipTimer = setTimeout(() => {
+        if (timeAlertShown) return;
+        timeAlertShown = true;
+
+        // Change timer to warning style
+        document.querySelectorAll('.session-timer, .topbar__mobile-timer').forEach(el => {
+          el.classList.add('timer-shake');
+          setTimeout(() => el.classList.remove('timer-shake'), 600);
+        });
+        document.querySelectorAll('.session-timer').forEach(el => {
+          el.classList.add('session-timer--warning');
+        });
+
+        // Show tooltip with alarm icon (desktop: topbar__right, mobile: topbar__mobile-timer)
+        const isMobile = window.innerWidth <= 768;
+        const timerRight = isMobile
+          ? document.querySelector('#screen-1 .topbar__mobile-timer')
+          : document.querySelector('#screen-1 .topbar__right');
+        if (timerRight) {
+          const tip = document.createElement('div');
+          tip.className = 'timer-tooltip';
+          tip.innerHTML = `
+            <div class="timer-tooltip__content">
+              <img src="../clock.png" alt="Alerta" class="timer-tooltip__alarm">
+              <span>Tu tiempo terminara pronto, quieres ayuda:</span>
+              <button class="timer-tooltip__btn" onclick="this.closest('.timer-tooltip').remove(); autoResolveWithAI();">Usar Albus IA</button>
+              <button class="timer-tooltip__close" onclick="this.closest('.timer-tooltip').remove();">×</button>
+            </div>
+          `;
+          if (isMobile) {
+            const rect = timerRight.getBoundingClientRect();
+            tip.style.setProperty('position', 'fixed', 'important');
+            tip.style.setProperty('top', (rect.bottom + 10) + 'px', 'important');
+            tip.style.setProperty('left', '16px', 'important');
+            tip.style.setProperty('right', '16px', 'important');
+            tip.style.setProperty('width', 'auto', 'important');
+            document.body.appendChild(tip);
+
+            // Show/hide tooltip based on counter visibility
+            const observer = new IntersectionObserver((entries) => {
+              entries.forEach(entry => {
+                if (!document.body.contains(tip)) { observer.disconnect(); return; }
+                if (entry.isIntersecting) {
+                  const r = timerRight.getBoundingClientRect();
+                  tip.style.setProperty('top', (r.bottom + 10) + 'px', 'important');
+                  tip.style.display = '';
+                } else {
+                  tip.style.display = 'none';
+                }
+              });
+            }, { threshold: 0.5 });
+            observer.observe(timerRight);
+          } else {
+            timerRight.style.position = 'relative';
+            timerRight.appendChild(tip);
+          }
+        }
+      }, 30000);
+    }
+
+    function formatTime(s) {
+      const h = Math.floor(s / 3600);
+      const m = Math.floor((s % 3600) / 60);
+      const sec = s % 60;
+      return `${h}:${String(m).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+    }
+
+    function updateTimers() {
+      const display = formatTime(totalSeconds);
+      document.querySelectorAll('.topbar__window-countdown').forEach(el => {
+        el.textContent = display;
+      });
+
+      // Urgency states
+      document.querySelectorAll('.session-timer').forEach(el => {
+        el.classList.remove('session-timer--warning', 'session-timer--critical');
+        if (totalSeconds <= 600 && totalSeconds > 120) {
+          el.classList.add('session-timer--warning');
+        } else if (totalSeconds <= 120) {
+          el.classList.add('session-timer--critical');
+        }
+      });
+
+      if (totalSeconds > 0) {
+        totalSeconds--;
+        setTimeout(updateTimers, 1000);
+      }
+    }
+    updateTimers();
+
+    // Manual edit mode
+    let editMode = false;
+    let editPanel = null;
+
+    function handleManualEdit() {
+      editMode = !editMode;
+      const schedule = document.querySelector('#screen-1 .schedule');
+      const btn = document.querySelector('#screen-1 .schedule__toolbar-btn');
+
+      if (editMode) {
+        schedule.classList.add('schedule--editing');
+        btn.classList.add('schedule__toolbar-btn--active');
+      } else {
+        schedule.classList.remove('schedule--editing');
+        btn.classList.remove('schedule__toolbar-btn--active');
+        if (editPanel) { editPanel.remove(); editPanel = null; }
+      }
+    }
+
+    // Edit options data: sections + replacement courses
+    const editOptions = {
+      'Estructuras I': {
+        current: 'Lu/Mi 8:00-9:30',
+        sections: [
+          { section: 'Secc. B', time: 'Ma/Ju 14:00-15:30', room: 'Sala 302', seats: 8, prof: 'Prof. Diaz K.' },
+          { section: 'Secc. C', time: 'Mi/Vi 16:00-17:30', room: 'Sala 301', seats: 15, prof: 'Prof. Luna R.' },
+        ],
+        replacements: [
+          { name: 'Resistencia de Materiales', time: 'Lu/Mi 8:00-9:30', seats: 10, credits: 3, prereq: 'Cumple prerrequisitos' },
+          { name: 'Geotecnia I', time: 'Lu/Mi 8:00-9:30', seats: 14, credits: 3, prereq: 'Cumple prerrequisitos' },
+          { name: 'Diseno Estructural', time: 'Lu/Mi 8:00-9:30', seats: 7, credits: 3, prereq: 'Cumple prerrequisitos' },
+        ]
+      },
+      'Fisica III': {
+        current: 'Ma/Ju 8:00-9:30',
+        sections: [
+          { section: 'Secc. A', time: 'Lu/Mi 10:00-11:30', room: 'Lab. 101', seats: 5, prof: 'Prof. Reyes M.' },
+          { section: 'Secc. C', time: 'Vi 8:00-11:00', room: 'Lab. 103', seats: 20, prof: 'Prof. Torres A.' },
+        ],
+        replacements: [
+          { name: 'Fisica IV', time: 'Ma/Ju 8:00-9:30', seats: 8, credits: 3, prereq: 'Cumple prerrequisitos' },
+          { name: 'Electromagnetismo', time: 'Ma/Ju 8:00-9:30', seats: 12, credits: 3, prereq: 'Cumple prerrequisitos' },
+          { name: 'Ondas y Optica', time: 'Ma/Ju 8:00-9:30', seats: 15, credits: 3, prereq: 'Cumple prerrequisitos' },
+        ]
+      },
+      'Estadistica II': {
+        current: 'Lu 10:00-11:30, Mi 9:30-11:00',
+        sections: [
+          { section: 'Secc. B', time: 'Ma/Ju 14:00-15:30', room: 'Sala 110', seats: 12, prof: 'Prof. Mendez P.' },
+          { section: 'Secc. C', time: 'Sab 9:00-12:00', room: 'Sala 108', seats: 25, prof: 'Prof. Ruiz A.' },
+        ],
+        replacements: [
+          { name: 'Metodos Numericos', time: 'Lu/Mi 9:30-11:00', seats: 16, credits: 3, prereq: 'Cumple prerrequisitos' },
+          { name: 'Probabilidad Aplicada', time: 'Lu/Mi 9:30-11:00', seats: 11, credits: 3, prereq: 'Cumple prerrequisitos' },
+          { name: 'Investigacion de Operaciones', time: 'Lu/Mi 9:30-11:00', seats: 9, credits: 3, prereq: 'Cumple prerrequisitos' },
+        ]
+      },
+      'Topografia': {
+        current: 'Vi 8:00-11:00',
+        sections: [
+          { section: 'Secc. B', time: 'Sab 8:00-11:00', room: 'Sala 206', seats: 22, prof: 'Prof. Castro J.' },
+        ],
+        replacements: [
+          { name: 'Dibujo Tecnico II', time: 'Vi 8:00-11:00', seats: 20, credits: 3, prereq: 'Cumple prerrequisitos' },
+          { name: 'Sistemas de Informacion Geografica', time: 'Vi 8:00-11:00', seats: 18, credits: 3, prereq: 'Cumple prerrequisitos' },
+        ]
+      },
+      'Calculo III': {
+        current: 'Ma/Ju 10:00-11:30',
+        sections: [
+          { section: 'Secc. B', time: 'Mi/Vi 14:00-15:30', room: 'Sala 401', seats: 12, prof: 'Prof. Garcia M.' },
+          { section: 'Secc. C', time: 'Lu/Mi 16:00-17:30', room: 'Sala 305', seats: 8, prof: 'Prof. Vargas A.' },
+          { section: 'Secc. D', time: 'Sab 9:00-12:00', room: 'Sala 102', seats: 18, prof: 'Prof. Lopez N.' },
+        ],
+        replacements: [
+          { name: 'Ecuaciones Diferenciales', time: 'Ma/Ju 10:00-11:30', seats: 11, credits: 3, prereq: 'Cumple prerrequisitos' },
+          { name: 'Algebra Lineal II', time: 'Ma/Ju 10:00-11:30', seats: 19, credits: 3, prereq: 'Cumple prerrequisitos' },
+          { name: 'Analisis Numerico', time: 'Ma/Ju 10:00-11:30', seats: 14, credits: 3, prereq: 'Cumple prerrequisitos' },
+        ]
+      },
+      'Mecanica de Fluidos': {
+        current: 'Ma/Ju 10:00-11:30',
+        sections: [
+          { section: 'Secc. B', time: 'Lu/Mi 14:00-15:30', room: 'Lab. 202', seats: 6, prof: 'Prof. Soto H.' },
+          { section: 'Secc. C', time: 'Mi/Vi 16:00-17:30', room: 'Lab. 203', seats: 3, prof: 'Prof. Ramirez T.' },
+        ],
+        replacements: [
+          { name: 'Hidraulica I', time: 'Ma/Ju 10:00-11:30', seats: 13, credits: 3, prereq: 'Cumple prerrequisitos' },
+          { name: 'Termodinamica', time: 'Ma/Ju 10:00-11:30', seats: 9, credits: 3, prereq: 'Cumple prerrequisitos' },
+          { name: 'Dinamica de Fluidos', time: 'Ma/Ju 10:00-11:30', seats: 7, credits: 3, prereq: 'Cumple prerrequisitos' },
+        ]
+      },
+    };
+
+    // Generic edit options for any course (fallback)
+    function getEditData(name, meta) {
+      if (editOptions[name]) return editOptions[name];
+      // Generate generic options for new courses
+      const time = meta.split('—').pop().trim().split('creditos').pop().trim().replace('— ', '');
+      return {
+        current: time || 'Horario actual',
+        sections: [
+          { section: 'Secc. B', time: 'Lu/Mi 14:00-15:30', room: 'Sala 201', seats: 10, prof: 'Prof. Alternativo' },
+          { section: 'Secc. C', time: 'Ma/Ju 16:00-17:30', room: 'Sala 305', seats: 15, prof: 'Prof. Suplente' },
+        ],
+        replacements: [
+          { name: 'Electiva I', time: time || 'Mismo horario', seats: 12, credits: 3, prereq: 'Cumple prerrequisitos' },
+          { name: 'Electiva II', time: time || 'Mismo horario', seats: 8, credits: 3, prereq: 'Cumple prerrequisitos' },
+        ]
+      };
+    }
+
+    // Click on block in edit mode → show section alternatives
+    function initEditHandlers(container) {
+      container.querySelectorAll('.has-tooltip:not([data-edit-init])').forEach(block => {
+        block.setAttribute('data-edit-init', 'true');
+        block.addEventListener('click', function(e) {
+          if (!editMode) return;
+          e.stopPropagation();
+          closeAllTooltips();
+          if (editPanel) { editPanel.remove(); editPanel = null; }
+
+          const name = this.dataset.tooltipName;
+          const currentSection = this.dataset.tooltipMeta.split('—')[0].trim();
+          const data = getEditData(name, this.dataset.tooltipMeta);
+
+          editPanel = document.createElement('div');
+          editPanel.className = 'edit-panel';
+
+          let sectionsHtml = data.sections.map(alt => `
+            <div class="edit-panel__option" onclick="selectSection(this, '${name}', '${alt.section}', '${alt.time}')">
+              <div class="edit-panel__option-radio"><div class="edit-panel__radio-dot"></div></div>
+              <div class="edit-panel__option-info">
+                <strong>${alt.section} — ${alt.time}</strong>
+                <span>${alt.prof} • ${alt.room} • ${alt.seats} cupos</span>
+              </div>
+            </div>
+          `).join('');
+
+          const isConflict = this.dataset.tooltipStatus === 'conflict';
+          const conflictWith = name === 'Calculo III' ? 'Mecanica de Fluidos' : name === 'Mecanica de Fluidos' ? 'Calculo III' : null;
+
+          let conflictBanner = isConflict ? `
+            <div class="edit-panel__conflict-banner">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1L13 12H1L7 1Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M7 5V8M7 10V10.01" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>
+              Cruzada con ${conflictWith} — Cambiar dia/hora o materia resuelve el conflicto
+            </div>` : '';
+
+          let replacementsHtml = `<div class="edit-panel__slot-badge">Materias disponibles en el mismo horario<strong>${data.current}</strong></div>` + data.replacements.map(r => `
+            <div class="edit-panel__option" onclick="selectSection(this, '${name}', '${r.name}', '${r.time}')">
+              <div class="edit-panel__option-radio"><div class="edit-panel__radio-dot"></div></div>
+              <div class="edit-panel__option-info">
+                <strong>${r.name}</strong>
+                <span>${r.time} • ${r.credits} cred. • ${r.seats} cupos</span>
+                <span class="edit-panel__prereq">${r.prereq}</span>
+              </div>
+            </div>
+          `).join('');
+
+          editPanel.innerHTML = `
+            <div class="edit-panel__header">
+              <strong>${name}</strong>
+              <span>Actual: ${currentSection}</span>
+            </div>
+            ${conflictBanner}
+            <div class="edit-panel__tabs">
+              <button class="edit-panel__tab edit-panel__tab--active" onclick="switchEditTab(this, 'sections')">Cambiar dia u hora</button>
+              <button class="edit-panel__tab" onclick="switchEditTab(this, 'replace')">Cambiar materia</button>
+            </div>
+            <div class="edit-panel__tab-content" data-tab="sections" style="display:block;">
+              <div class="edit-panel__options">${sectionsHtml}</div>
+            </div>
+            <div class="edit-panel__tab-content" data-tab="replace" style="display:none;">
+              <div class="edit-panel__options">${replacementsHtml}</div>
+            </div>
+            <div class="edit-panel__footer">
+              <button class="btn btn--secondary" onclick="editPanel.remove(); editPanel=null; document.querySelectorAll('.tooltip-overlay').forEach(o=>o.remove());">Cancelar</button>
+            </div>
+          `;
+
+          const ov = document.createElement('div');
+          ov.className = 'tooltip-overlay';
+          ov.onclick = () => { editPanel.remove(); ov.remove(); editPanel = null; };
+          document.body.appendChild(ov);
+
+          if (isMobile()) {
+            editPanel.classList.add('edit-panel--mobile');
+          } else {
+            // Position near the clicked block
+            const rect = this.getBoundingClientRect();
+            let top = rect.top;
+            let left = rect.right + 12;
+
+            // If no space on right, show on left
+            if (left + 400 > window.innerWidth) {
+              left = rect.left - 400 - 12;
+            }
+            // If no space on left either, center
+            if (left < 8) {
+              left = Math.max(8, (rect.left + rect.right) / 2 - 200);
+            }
+            // Keep within vertical bounds
+            if (top + 400 > window.innerHeight) {
+              top = window.innerHeight - 420;
+            }
+            if (top < 8) top = 8;
+
+            editPanel.style.top = top + 'px';
+            editPanel.style.left = left + 'px';
+          }
+          document.body.appendChild(editPanel);
+        });
+      });
+    }
+
+    // Init edit handlers on existing blocks
+    initEditHandlers(document);
+
+    function switchEditTab(btn, tab) {
+      const panel = btn.closest('.edit-panel');
+      panel.querySelectorAll('.edit-panel__tab').forEach(t => t.classList.remove('edit-panel__tab--active'));
+      btn.classList.add('edit-panel__tab--active');
+      panel.querySelectorAll('.edit-panel__tab-content').forEach(c => c.style.display = 'none');
+      panel.querySelector(`[data-tab="${tab}"]`).style.display = 'block';
+    }
+
+    function selectSection(el, name, section, time) {
+      // Visual feedback
+      el.closest('.edit-panel__options').querySelectorAll('.edit-panel__option').forEach(o => o.classList.remove('edit-panel__option--selected'));
+      el.classList.add('edit-panel__option--selected');
+
+      // After brief delay, close and show confirmation
+      setTimeout(() => {
+        if (editPanel) { editPanel.remove(); editPanel = null; }
+        document.querySelectorAll('.tooltip-overlay').forEach(o => o.remove());
+
+        // Brief toast notification
+        const toast = document.createElement('div');
+        toast.className = 'edit-toast';
+        toast.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8L6.5 11.5L13 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> ' + name + ' cambiada a ' + section + ' — ' + time;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.classList.add('edit-toast--visible'), 10);
+        setTimeout(() => { toast.classList.remove('edit-toast--visible'); setTimeout(() => toast.remove(), 300); }, 2500);
+      }, 400);
+    }
+
+    // Silent resolve — updates horario without showing modal
+    function resolveHorarioSilent() {
+      // Remove conflict visuals
+      document.querySelectorAll('#screen-1 .schedule__cell--conflict').forEach(cell => {
+        cell.classList.remove('schedule__cell--conflict');
+        const zone = cell.querySelector('.schedule__conflict-zone');
+        if (zone) {
+          zone.outerHTML = `
+            <div class="schedule__block schedule__block--conflict-b has-tooltip" style="height: calc(var(--row-h) * 3);" data-tooltip-name="Mecanica de Fluidos" data-tooltip-meta="Secc. A — 3 creditos — Ma/Ju 10:00-11:30" data-tooltip-status="ok" data-tooltip-prof="Prof. Valencia S." data-tooltip-sala="Lab. 201">
+              <span class="schedule__block-name">Mec. Fluidos</span>
+              <span class="schedule__block-detail">Secc. A — Lab. 201</span>
+            </div>
+          `;
+        }
+      });
+
+      // Update alert to resolved
+      const alert = document.querySelector('#screen-1 .conflict-alert');
+      if (alert) {
+        alert.style.background = 'rgba(16, 185, 129, 0.08)';
+        alert.style.border = '2px solid var(--success)';
+        alert.innerHTML = `
+          <div class="conflict-alert__icon conflict-alert__icon--success">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10L8 14L16 6" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="conflict-alert__content">
+            <p class="conflict-alert__title" style="color:#065F46;">Materias cruzadas resueltas</p>
+            <p class="conflict-alert__desc" style="color:#065F46;opacity:0.8;">Calculo III se movio a <strong>Secc. B — Mi/Vi 14:00-15:30</strong>. Tu horario no tiene conflictos.</p>
+          </div>
+          <button class="btn btn--confirm" onclick="showConfirmModal()">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9L7.5 13.5L15 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Confirmar inscripcion
+          </button>
+        `;
+      }
+
+      // Update stats
+      document.querySelectorAll('.topbar__ai-stat--warning').forEach(stat => {
+        stat.classList.remove('topbar__ai-stat--warning');
+        stat.innerHTML = '<strong>0</strong> cruzadas';
+        stat.style.color = '#059669';
+      });
+
+      // Init tooltips
+      initTooltips(document.querySelector('#screen-1'));
+      initEditHandlers(document.querySelector('#screen-1'));
+
+      // Toast
+      const toast = document.createElement('div');
+      toast.className = 'edit-toast';
+      toast.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8L6.5 11.5L13 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> Horario actualizado — Materias cruzadas resueltas';
+      document.body.appendChild(toast);
+      setTimeout(() => toast.classList.add('edit-toast--visible'), 10);
+      setTimeout(() => { toast.classList.remove('edit-toast--visible'); setTimeout(() => toast.remove(), 300); }, 3500);
+    }
+
+    // Auto-resolve with AI — resolves conflict with modal
+    function autoResolveWithAI() {
+      // Show full modal like loading screen
+      const resolveModal = document.createElement('div');
+      resolveModal.className = 'loading-modal-overlay';
+      resolveModal.innerHTML = `
+        <div class="loading-modal">
+          <div class="loading-modal__card">
+            <div class="loading-modal__logo">
+              <svg width="46" height="52" viewBox="0 0 23 31" fill="none">
+                <path d="M11.3 12.2052L5.80005 21.3919L11.3 30.4661L16.8 21.2091L11.3 12.2052Z" fill="#5ecbdc"/>
+                <path d="M4.67591 19.9632L11.3439 8.11754L18.1503 19.9632H22.8677L11.3162 0L0 19.9632H4.67591Z" fill="#069cb8"/>
+              </svg>
+            </div>
+            <h2 class="loading-state__title">Resolviendo materias cruzadas</h2>
+            <p class="loading-state__text">Albus esta reorganizando tu horario para eliminar el conflicto...</p>
+            <div class="loading-state__progress">
+              <div class="loading-state__bar">
+                <div class="loading-state__bar-fill" id="resolveBar" style="width:0%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(resolveModal);
+
+      // Animate progress
+      setTimeout(() => { document.getElementById('resolveBar').style.width = '50%'; }, 600);
+      setTimeout(() => { document.getElementById('resolveBar').style.width = '100%'; }, 1500);
+
+      setTimeout(() => {
+        // Remove conflict visuals — swap conflict blocks for resolved ones
+        document.querySelectorAll('#screen-1 .schedule__cell--conflict').forEach(cell => {
+          cell.classList.remove('schedule__cell--conflict');
+          const zone = cell.querySelector('.schedule__conflict-zone');
+          if (zone) {
+            // Keep only Mec. Fluidos, Calculo III moved to another slot
+            zone.outerHTML = `
+              <div class="schedule__block schedule__block--conflict-b has-tooltip" style="height: calc(var(--row-h) * 3);" data-tooltip-name="Mecanica de Fluidos" data-tooltip-meta="Secc. A — 3 creditos — Ma/Ju 10:00-11:30" data-tooltip-status="ok" data-tooltip-prof="Prof. Valencia S." data-tooltip-sala="Lab. 201">
+                <span class="schedule__block-name">Mec. Fluidos</span>
+                <span class="schedule__block-detail">Secc. A — Lab. 201</span>
+              </div>
+            `;
+          }
+        });
+
+        // Update conflict alert to resolved
+        const alert = document.querySelector('#screen-1 .conflict-alert');
+        if (alert) {
+          alert.style.background = 'rgba(16, 185, 129, 0.08)';
+          alert.style.border = '2px solid var(--success)';
+          alert.innerHTML = `
+            <div class="conflict-alert__icon conflict-alert__icon--success">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10L8 14L16 6" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="conflict-alert__content">
+              <p class="conflict-alert__title" style="color:#065F46;">Materias cruzadas resueltas por Albus IA</p>
+              <p class="conflict-alert__desc" style="color:#065F46;opacity:0.8;">Calculo III se movio a <strong>Secc. B — Mi/Vi 14:00-15:30</strong>. Tu horario no tiene conflictos.</p>
+            </div>
+            <button class="btn btn--confirm" onclick="showConfirmModal()">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9L7.5 13.5L15 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Confirmar inscripcion
+            </button>
+          `;
+        }
+
+        // Update the AI stats — cruce to 0
+        document.querySelectorAll('.topbar__ai-stat--warning').forEach(stat => {
+          stat.classList.remove('topbar__ai-stat--warning');
+          stat.innerHTML = '<strong>0</strong> cruzadas';
+          stat.style.color = '#059669';
+        });
+
+        // Remove modal
+        resolveModal.classList.add('loading-modal-overlay--fade');
+        setTimeout(() => resolveModal.remove(), 500);
+
+        // Success toast
+        const toast = document.createElement('div');
+        toast.className = 'edit-toast';
+        toast.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8L6.5 11.5L13 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> Albus resolvio las materias cruzadas — Calculo III movida a Mi/Vi 14:00-15:30';
+        document.body.appendChild(toast);
+        setTimeout(() => toast.classList.add('edit-toast--visible'), 10);
+        setTimeout(() => { toast.classList.remove('edit-toast--visible'); setTimeout(() => toast.remove(), 300); }, 3500);
+      }, 2000);
+    }
+
+    // New AI proposal — regenerates schedule in place
+    function handleNewProposal(btn) {
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<span style="width:14px;height:14px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;display:inline-block;animation:spin 0.6s linear infinite;"></span> Generando...';
+      btn.disabled = true;
+
+      // Show full loading modal like initial load
+      const modal = document.createElement('div');
+      modal.className = 'loading-modal-overlay';
+      modal.innerHTML = `
+        <div class="loading-modal">
+          <div class="loading-modal__card">
+            <div class="loading-modal__logo">
+              <svg width="46" height="52" viewBox="0 0 23 31" fill="none">
+                <path d="M11.3 12.2052L5.80005 21.3919L11.3 30.4661L16.8 21.2091L11.3 12.2052Z" fill="#5ecbdc"/>
+                <path d="M4.67591 19.9632L11.3439 8.11754L18.1503 19.9632H22.8677L11.3162 0L0 19.9632H4.67591Z" fill="#069cb8"/>
+              </svg>
+            </div>
+            <h2 class="loading-state__title">Generando nueva propuesta de horario</h2>
+            <p class="loading-state__text">Albus esta reorganizando tu horario con las mejores opciones disponibles...</p>
+            <div class="loading-state__progress">
+              <div class="loading-state__bar">
+                <div class="loading-state__bar-fill" id="newProposalBar" style="width:0%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+
+      // Animate progress
+      setTimeout(() => { document.getElementById('newProposalBar').style.width = '40%'; }, 500);
+      setTimeout(() => { document.getElementById('newProposalBar').style.width = '75%'; }, 1200);
+      setTimeout(() => { document.getElementById('newProposalBar').style.width = '100%'; }, 2000);
+
+      setTimeout(() => {
+        // Replace the ENTIRE schedule body with a completely different one
+        const scheduleBody = document.querySelector('#screen-1 .schedule__body');
+        if (scheduleBody) {
+          scheduleBody.innerHTML = `
+            <!-- 8:00 -->
+            <div class="schedule__row">
+              <div class="schedule__time">8:00</div>
+              <div class="schedule__cell"><div class="schedule__block schedule__block--green has-tooltip" style="height: calc(var(--row-h) * 2);" data-tooltip-name="Resistencia de Materiales" data-tooltip-meta="Secc. A — 3 creditos — Lu/Mi 8:00-9:30" data-tooltip-status="ok" data-tooltip-prof="Prof. Castro J." data-tooltip-sala="Sala 305"><span class="schedule__block-name">Resistencia Mat.</span><span class="schedule__block-detail">Secc. A — Sala 305</span></div></div>
+              <div class="schedule__cell"><div class="schedule__block schedule__block--blue has-tooltip" style="height: calc(var(--row-h) * 2);" data-tooltip-name="Calculo III" data-tooltip-meta="Secc. D — 3 creditos — Ma/Ju 8:00-9:30" data-tooltip-status="ok" data-tooltip-prof="Prof. Lopez N." data-tooltip-sala="Sala 102"><span class="schedule__block-name">Calculo III</span><span class="schedule__block-detail">Secc. D — Sala 102</span></div></div>
+              <div class="schedule__cell"><div class="schedule__block schedule__block--green has-tooltip" style="height: calc(var(--row-h) * 2);" data-tooltip-name="Resistencia de Materiales" data-tooltip-meta="Secc. A — 3 creditos — Lu/Mi 8:00-9:30" data-tooltip-status="ok" data-tooltip-prof="Prof. Castro J." data-tooltip-sala="Sala 305"><span class="schedule__block-name">Resistencia Mat.</span><span class="schedule__block-detail">Secc. A — Sala 305</span></div></div>
+              <div class="schedule__cell"><div class="schedule__block schedule__block--blue has-tooltip" style="height: calc(var(--row-h) * 2);" data-tooltip-name="Calculo III" data-tooltip-meta="Secc. D — 3 creditos — Ma/Ju 8:00-9:30" data-tooltip-status="ok" data-tooltip-prof="Prof. Lopez N." data-tooltip-sala="Sala 102"><span class="schedule__block-name">Calculo III</span><span class="schedule__block-detail">Secc. D — Sala 102</span></div></div>
+              <div class="schedule__cell"><div class="schedule__block schedule__block--purple has-tooltip" style="height: calc(var(--row-h) * 3);" data-tooltip-name="Geotecnia I" data-tooltip-meta="Secc. A — 3 creditos — Vi 8:00-11:00" data-tooltip-status="ok" data-tooltip-prof="Prof. Herrera P." data-tooltip-sala="Lab. 301"><span class="schedule__block-name">Geotecnia I</span><span class="schedule__block-detail">Secc. A — Lab. 301</span></div></div>
+            </div>
+            <!-- 8:30 -->
+            <div class="schedule__row"><div class="schedule__time">8:30</div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div></div>
+            <!-- 9:00 -->
+            <div class="schedule__row"><div class="schedule__time">9:00</div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div></div>
+            <!-- 9:30 -->
+            <div class="schedule__row">
+              <div class="schedule__time">9:30</div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell"><div class="schedule__block schedule__block--teal has-tooltip" style="height: calc(var(--row-h) * 3);" data-tooltip-name="Metodos Numericos" data-tooltip-meta="Secc. A — 3 creditos — Lu 10:00-11:30, Mi 9:30-11:00" data-tooltip-status="ok" data-tooltip-prof="Prof. Mendez P." data-tooltip-sala="Sala 108"><span class="schedule__block-name">Metodos Numericos</span><span class="schedule__block-detail">Secc. A — Sala 108</span></div></div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell"></div>
+            </div>
+            <!-- 10:00 -->
+            <div class="schedule__row">
+              <div class="schedule__time">10:00</div>
+              <div class="schedule__cell"><div class="schedule__block schedule__block--teal has-tooltip" style="height: calc(var(--row-h) * 3);" data-tooltip-name="Metodos Numericos" data-tooltip-meta="Secc. A — 3 creditos — Lu 10:00-11:30, Mi 9:30-11:00" data-tooltip-status="ok" data-tooltip-prof="Prof. Mendez P." data-tooltip-sala="Sala 108"><span class="schedule__block-name">Metodos Numericos</span><span class="schedule__block-detail">Secc. A — Sala 108</span></div></div>
+              <div class="schedule__cell"><div class="schedule__block schedule__block--conflict-b has-tooltip" style="height: calc(var(--row-h) * 3);" data-tooltip-name="Hidraulica I" data-tooltip-meta="Secc. A — 3 creditos — Ma/Ju 10:00-11:30" data-tooltip-status="ok" data-tooltip-prof="Prof. Soto H." data-tooltip-sala="Lab. 202"><span class="schedule__block-name">Hidraulica I</span><span class="schedule__block-detail">Secc. A — Lab. 202</span></div></div>
+              <div class="schedule__cell"></div>
+              <div class="schedule__cell"><div class="schedule__block schedule__block--conflict-b has-tooltip" style="height: calc(var(--row-h) * 3);" data-tooltip-name="Hidraulica I" data-tooltip-meta="Secc. A — 3 creditos — Ma/Ju 10:00-11:30" data-tooltip-status="ok" data-tooltip-prof="Prof. Soto H." data-tooltip-sala="Lab. 202"><span class="schedule__block-name">Hidraulica I</span><span class="schedule__block-detail">Secc. A — Lab. 202</span></div></div>
+              <div class="schedule__cell"></div>
+            </div>
+            <!-- 10:30 -->
+            <div class="schedule__row"><div class="schedule__time">10:30</div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div></div>
+            <!-- 11:00 -->
+            <div class="schedule__row"><div class="schedule__time">11:00</div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div></div>
+            <!-- 11:30 -->
+            <div class="schedule__row"><div class="schedule__time">11:30</div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div><div class="schedule__cell"></div></div>
+          `;
+        }
+
+        // Init tooltips and edit handlers on new blocks
+        initTooltips(document.querySelector('#screen-1'));
+        initEditHandlers(document.querySelector('#screen-1'));
+
+        // Animate blocks appearing
+        document.querySelectorAll('#screen-1 .schedule__block').forEach((b, i) => {
+          b.style.opacity = '0';
+          b.style.transition = 'opacity 0.3s ease';
+          setTimeout(() => { b.style.opacity = '1'; }, i * 100);
+        });
+
+        // Update conflict alert to resolved
+        const alert = document.querySelector('#screen-1 .conflict-alert');
+        if (alert) {
+          alert.style.background = 'rgba(16, 185, 129, 0.08)';
+          alert.style.border = '2px solid var(--success)';
+          alert.innerHTML = `
+            <div class="conflict-alert__icon conflict-alert__icon--success">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10L8 14L16 6" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="conflict-alert__content">
+              <p class="conflict-alert__title" style="color:#065F46;">Nueva propuesta de horario sin conflictos</p>
+              <p class="conflict-alert__desc" style="color:#065F46;opacity:0.8;">Albus reorganizo tu horario completo. Todas las materias en nuevos horarios optimizados.</p>
+            </div>
+            <button class="btn btn--confirm" onclick="showConfirmModal()">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9L7.5 13.5L15 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Confirmar inscripcion
+            </button>
+          `;
+        }
+
+        // Update stats
+        document.querySelectorAll('.topbar__ai-stat--warning').forEach(stat => {
+          stat.classList.remove('topbar__ai-stat--warning');
+          stat.innerHTML = '<strong>0</strong> cruzadas';
+          stat.style.color = '#059669';
+        });
+
+        modal.classList.add('loading-modal-overlay--fade');
+        setTimeout(() => modal.remove(), 500);
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+
+        // Toast
+        const toast = document.createElement('div');
+        toast.className = 'edit-toast';
+        toast.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8L6.5 11.5L13 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> Nueva propuesta de horario generada — Horario completamente reorganizado';
+        document.body.appendChild(toast);
+        setTimeout(() => toast.classList.add('edit-toast--visible'), 10);
+        setTimeout(() => { toast.classList.remove('edit-toast--visible'); setTimeout(() => toast.remove(), 300); }, 3500);
+      }, 2500);
+    }
+
+    // Schedule preview modal data
+    const schedulePreviewData = {
+      'A': { change: 'Calculo III → Mi/Vi 14:00-15:30', schedule: [
+        {day:'Lu', blocks:[{name:'Estructuras I',time:'8:00',h:2,color:'blue'},{name:'Estadistica II',time:'10:00',h:3,color:'teal'}]},
+        {day:'Ma', blocks:[{name:'Fisica III',time:'8:00',h:2,color:'green'},{name:'Mec. Fluidos',time:'10:00',h:3,color:'conflict-b'}]},
+        {day:'Mi', blocks:[{name:'Estructuras I',time:'8:00',h:2,color:'blue'},{name:'Estadistica II',time:'9:30',h:3,color:'teal'},{name:'Calculo III',time:'14:00',h:3,color:'conflict-a'}]},
+        {day:'Ju', blocks:[{name:'Fisica III',time:'8:00',h:2,color:'green'},{name:'Mec. Fluidos',time:'10:00',h:3,color:'conflict-b'}]},
+        {day:'Vi', blocks:[{name:'Topografia',time:'8:00',h:4,color:'purple'},{name:'Calculo III',time:'14:00',h:3,color:'conflict-a'}]}
+      ]},
+      'B': { change: 'Mec. Fluidos → Lu/Mi 14:00-15:30', schedule: [
+        {day:'Lu', blocks:[{name:'Estructuras I',time:'8:00',h:2,color:'blue'},{name:'Estadistica II',time:'10:00',h:3,color:'teal'},{name:'Mec. Fluidos',time:'14:00',h:3,color:'conflict-b'}]},
+        {day:'Ma', blocks:[{name:'Fisica III',time:'8:00',h:2,color:'green'},{name:'Calculo III',time:'10:00',h:3,color:'conflict-a'}]},
+        {day:'Mi', blocks:[{name:'Estructuras I',time:'8:00',h:2,color:'blue'},{name:'Estadistica II',time:'9:30',h:3,color:'teal'},{name:'Mec. Fluidos',time:'14:00',h:3,color:'conflict-b'}]},
+        {day:'Ju', blocks:[{name:'Fisica III',time:'8:00',h:2,color:'green'},{name:'Calculo III',time:'10:00',h:3,color:'conflict-a'}]},
+        {day:'Vi', blocks:[{name:'Topografia',time:'8:00',h:4,color:'purple'}]}
+      ]},
+      'C': { change: 'Calculo III → Sab 9:00-12:00', schedule: [
+        {day:'Lu', blocks:[{name:'Estructuras I',time:'8:00',h:2,color:'blue'},{name:'Estadistica II',time:'10:00',h:3,color:'teal'}]},
+        {day:'Ma', blocks:[{name:'Fisica III',time:'8:00',h:2,color:'green'},{name:'Mec. Fluidos',time:'10:00',h:3,color:'conflict-b'}]},
+        {day:'Mi', blocks:[{name:'Estructuras I',time:'8:00',h:2,color:'blue'},{name:'Estadistica II',time:'9:30',h:3,color:'teal'}]},
+        {day:'Ju', blocks:[{name:'Fisica III',time:'8:00',h:2,color:'green'},{name:'Mec. Fluidos',time:'10:00',h:3,color:'conflict-b'}]},
+        {day:'Vi', blocks:[{name:'Topografia',time:'8:00',h:4,color:'purple'}]},
+        {day:'Sab', blocks:[{name:'Calculo III',time:'9:00',h:4,color:'conflict-a'}]}
+      ]},
+      'D': { change: 'Calculo III → Lu/Mi 16:00-17:30', schedule: [
+        {day:'Lu', blocks:[{name:'Estructuras I',time:'8:00',h:2,color:'blue'},{name:'Estadistica II',time:'10:00',h:3,color:'teal'},{name:'Calculo III',time:'16:00',h:3,color:'conflict-a'}]},
+        {day:'Ma', blocks:[{name:'Fisica III',time:'8:00',h:2,color:'green'},{name:'Mec. Fluidos',time:'10:00',h:3,color:'conflict-b'}]},
+        {day:'Mi', blocks:[{name:'Estructuras I',time:'8:00',h:2,color:'blue'},{name:'Estadistica II',time:'9:30',h:3,color:'teal'},{name:'Calculo III',time:'16:00',h:3,color:'conflict-a'}]},
+        {day:'Ju', blocks:[{name:'Fisica III',time:'8:00',h:2,color:'green'},{name:'Mec. Fluidos',time:'10:00',h:3,color:'conflict-b'}]},
+        {day:'Vi', blocks:[{name:'Topografia',time:'8:00',h:4,color:'purple'}]}
+      ]},
+      'E': { change: 'Mec. Fluidos → Ma/Ju 14:00-15:30', schedule: [
+        {day:'Lu', blocks:[{name:'Estructuras I',time:'8:00',h:2,color:'blue'},{name:'Estadistica II',time:'10:00',h:3,color:'teal'}]},
+        {day:'Ma', blocks:[{name:'Fisica III',time:'8:00',h:2,color:'green'},{name:'Calculo III',time:'10:00',h:3,color:'conflict-a'},{name:'Mec. Fluidos',time:'14:00',h:3,color:'conflict-b'}]},
+        {day:'Mi', blocks:[{name:'Estructuras I',time:'8:00',h:2,color:'blue'},{name:'Estadistica II',time:'9:30',h:3,color:'teal'}]},
+        {day:'Ju', blocks:[{name:'Fisica III',time:'8:00',h:2,color:'green'},{name:'Calculo III',time:'10:00',h:3,color:'conflict-a'},{name:'Mec. Fluidos',time:'14:00',h:3,color:'conflict-b'}]},
+        {day:'Vi', blocks:[{name:'Topografia',time:'8:00',h:4,color:'purple'}]}
+      ]},
+      'F': { change: 'Mec. Fluidos → Vi 14:00-17:00', schedule: [
+        {day:'Lu', blocks:[{name:'Estructuras I',time:'8:00',h:2,color:'blue'},{name:'Estadistica II',time:'10:00',h:3,color:'teal'}]},
+        {day:'Ma', blocks:[{name:'Fisica III',time:'8:00',h:2,color:'green'},{name:'Calculo III',time:'10:00',h:3,color:'conflict-a'}]},
+        {day:'Mi', blocks:[{name:'Estructuras I',time:'8:00',h:2,color:'blue'},{name:'Estadistica II',time:'9:30',h:3,color:'teal'}]},
+        {day:'Ju', blocks:[{name:'Fisica III',time:'8:00',h:2,color:'green'},{name:'Calculo III',time:'10:00',h:3,color:'conflict-a'}]},
+        {day:'Vi', blocks:[{name:'Topografia',time:'8:00',h:4,color:'purple'},{name:'Mec. Fluidos',time:'14:00',h:4,color:'conflict-b'}]}
+      ]}
+    };
+
+    // Show full schedule modal
+    function showScheduleModal(optionKey) {
+      const data = schedulePreviewData[optionKey];
+      if (!data) return;
+
+      const colorMap = {blue:'#3B82F6',green:'#10B981',teal:'#069cb8',purple:'#8B5CF6','conflict-a':'#F59E0B','conflict-b':'#F97316'};
+
+      // Figure out which course was changed
+      const changedCourse = data.change.split('→')[0].trim();
+
+      let daysHtml = data.schedule.map(d => {
+        let blocksHtml = d.blocks.map(b => {
+          const isChanged = b.name === changedCourse;
+          const highlight = isChanged ? 'schedule-modal__block--changed' : '';
+          return `
+          <div class="schedule-modal__block ${highlight}" style="background:${colorMap[b.color]}15; border-left:3px solid ${colorMap[b.color]};">
+            ${isChanged ? '<div class="schedule-modal__changed-tag">Modificada</div>' : ''}
+            <div style="font-size:11px; font-weight:600; color:${colorMap[b.color]};">${b.name}</div>
+            <div style="font-size:10px; color:#6b7f92;">${b.time}</div>
+          </div>
+        `}).join('');
+        return `<div class="schedule-modal__day"><div class="schedule-modal__day-label">${d.day}</div>${blocksHtml}</div>`;
+      }).join('');
+
+      const modal = document.createElement('div');
+      modal.className = 'schedule-modal-overlay';
+      modal.innerHTML = `
+        <div class="schedule-modal">
+          <div class="schedule-modal__header">
+            <div>
+              <strong>Vista previa del horario</strong>
+              <span>${data.change}</span>
+            </div>
+            <button class="schedule-modal__close" onclick="this.closest('.schedule-modal-overlay').remove();">×</button>
+          </div>
+          <div class="schedule-modal__grid">${daysHtml}</div>
+          <div class="schedule-modal__footer">
+            <div class="resolution__validation resolution__validation--ok">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8L6.5 11.5L13 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Sin conflictos — Horario valido
+            </div>
+            <button class="btn btn--primary" onclick="this.closest('.schedule-modal-overlay').remove(); applyOption('${optionKey}');">Aplicar esta opcion</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
+
+    // Apply option → go to screen 1 with validation checklist modal
+    function applyOption(key) {
+      showScreen('screen-1');
+      const data = schedulePreviewData[key];
+
+      const checkSvg = '<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#10B981" opacity="0.15"/><path d="M5 9L8 12L13 6" stroke="#10B981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+      const isErrorOption = key === 'B';
+
+      const valModal = document.createElement('div');
+      valModal.className = 'validation-modal-overlay';
+      valModal.innerHTML = `
+        <div class="validation-modal validation-modal--centered">
+          <div class="loading-modal__logo">
+            <svg width="46" height="52" viewBox="0 0 23 31" fill="none">
+              <path d="M11.3 12.2052L5.80005 21.3919L11.3 30.4661L16.8 21.2091L11.3 12.2052Z" fill="#5ecbdc"/>
+              <path d="M4.67591 19.9632L11.3439 8.11754L18.1503 19.9632H22.8677L11.3162 0L0 19.9632H4.67591Z" fill="#069cb8"/>
+            </svg>
+          </div>
+          <h3 class="validation-modal__heading">Aplicando cambios en tu horario</h3>
+          <p class="validation-modal__subheading">Albus esta validando tu seleccion...</p>
+          <div class="validation-modal__items">
+            <div class="validation-modal__item" id="val1"><div class="validation-modal__spinner"></div><span>6 materias seleccionadas (minimo 5, maximo 7)</span></div>
+            <div class="validation-modal__item" id="val2"><div class="validation-modal__spinner"></div><span>18 creditos (dentro del rango permitido: 15-21)</span></div>
+            <div class="validation-modal__item" id="val3"><div class="validation-modal__spinner"></div><span>Sin conflictos de horario</span></div>
+            <div class="validation-modal__item" id="val4"><div class="validation-modal__spinner"></div><span>${isErrorOption ? 'Reservando cupo en Mec. Fluidos Secc. C...' : 'Todos los prerrequisitos cumplidos'}</span></div>
+          </div>
+          <div class="validation-modal__result" id="valResult" style="display:none;"></div>
+        </div>
+      `;
+      document.body.appendChild(valModal);
+
+      const checkSvgItem = '<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#10B981"/><path d="M5.5 9L8 11.5L12.5 6.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      const errorSvgItem = '<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#EF4444"/><path d="M9 5.5V10M9 12.5V12.51" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>';
+
+      setTimeout(() => { document.getElementById('val1').classList.add('validation-modal__item--done'); document.getElementById('val1').querySelector('.validation-modal__spinner').outerHTML = checkSvgItem; }, 600);
+      setTimeout(() => { document.getElementById('val2').classList.add('validation-modal__item--done'); document.getElementById('val2').querySelector('.validation-modal__spinner').outerHTML = checkSvgItem; }, 1200);
+      setTimeout(() => { document.getElementById('val3').classList.add('validation-modal__item--done'); document.getElementById('val3').querySelector('.validation-modal__spinner').outerHTML = checkSvgItem; }, 1800);
+
+      if (isErrorOption) {
+        // Error on item 4
+        setTimeout(() => {
+          document.getElementById('val4').classList.add('validation-modal__item--error');
+          document.getElementById('val4').querySelector('.validation-modal__spinner').outerHTML = errorSvgItem;
+          document.getElementById('val4').querySelector('span').textContent = 'El cupo de Mec. Fluidos — Secc. C se agoto';
+          document.getElementById('valResult').style.display = 'flex';
+          document.getElementById('valResult').innerHTML = `
+            <div class="validation-modal__error-result">
+              <div class="validation-modal__error-icon">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" fill="#EF4444"/><path d="M14 9V16M14 19V19.01" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg>
+              </div>
+              <div class="validation-modal__error-text">
+                <strong>No pudimos completar el cambio</strong>
+                <span>Otro estudiante confirmo el ultimo cupo mientras validabamos. Tus demas materias estan reservadas por 10 minutos.</span>
+              </div>
+            </div>
+            <button class="btn btn--primary" onclick="this.closest('.validation-modal-overlay').remove(); disableOption('optionB'); showScreen('screen-2');">Ver otras opciones</button>
+          `;
+        }, 2400);
+      } else {
+        // Success
+        setTimeout(() => { document.getElementById('val4').classList.add('validation-modal__item--done'); document.getElementById('val4').querySelector('.validation-modal__spinner').outerHTML = checkSvgItem; }, 2400);
+        setTimeout(() => {
+          document.getElementById('valResult').style.display = 'flex';
+          document.getElementById('valResult').innerHTML = '<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9L7.5 13.5L15 4.5" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Todo en orden. Tu horario esta listo para confirmar.';
+        }, 2800);
+
+        setTimeout(() => {
+          valModal.classList.add('validation-modal-overlay--fade');
+          setTimeout(() => {
+            valModal.remove();
+            resolveHorarioSilent();
+          }, 500);
+        }, 4200);
+      }
+    }
+
+    // Confirm inscription modal
+    function showConfirmModal() {
+      const modal = document.createElement('div');
+      modal.className = 'validation-modal-overlay';
+      modal.innerHTML = `
+        <div class="validation-modal confirm-modal">
+          <div class="confirm-modal__spinner-area">
+            <div class="loading-modal__logo">
+              <svg width="46" height="52" viewBox="0 0 23 31" fill="none">
+                <path d="M11.3 12.2052L5.80005 21.3919L11.3 30.4661L16.8 21.2091L11.3 12.2052Z" fill="#5ecbdc"/>
+                <path d="M4.67591 19.9632L11.3439 8.11754L18.1503 19.9632H22.8677L11.3162 0L0 19.9632H4.67591Z" fill="#069cb8"/>
+              </svg>
+            </div>
+            <span>Confirmando inscripcion...</span>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+
+      // After processing, show success
+      setTimeout(() => {
+        modal.querySelector('.validation-modal').innerHTML = `
+          <div class="confirm-modal__success">
+            <div class="confirm-modal__success-icon">
+              <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+                <circle cx="28" cy="28" r="26" fill="#10B981"/>
+                <path d="M17 28L24 35L39 20" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h2>Inscripcion confirmada</h2>
+            <p>Tu semestre esta listo. Estas son tus materias inscritas.</p>
+            <div class="confirm-modal__folio">
+              <span>Numero de confirmacion</span>
+              <strong>#INS-2026-04892</strong>
+            </div>
+          </div>
+        `;
+      }, 1500);
+
+      // Go to final screen
+      setTimeout(() => {
+        modal.classList.add('validation-modal-overlay--fade');
+        setTimeout(() => {
+          modal.remove();
+          showScreen('screen-3');
+          document.getElementById('confirmPre').style.display = 'none';
+          document.getElementById('confirmSuccess').style.display = 'block';
+        }, 500);
+      }, 4000);
+    }
+
+    // Disable an option after error
+    function disableOption(optionId) {
+      const opt = document.getElementById(optionId);
+      if (!opt) return;
+      opt.classList.add('resolution__option--disabled');
+      const radio = opt.querySelector('input[type="radio"]');
+      if (radio) { radio.disabled = true; radio.checked = false; }
+      // Select first available option
+      const firstAvailable = document.querySelector('.resolution__option:not(.resolution__option--disabled) input[type="radio"]');
+      if (firstAvailable) firstAvailable.checked = true;
+    }
+
+    // Get selected resolution option
+    function getSelectedOption() {
+      const map = {resA:'A', resB:'B', resC:'C', resD:'D', resE:'E', resF:'F'};
+      const checked = document.querySelector('input[name="resolution"]:checked');
+      return checked ? (map[checked.id] || 'A') : 'A';
+    }
+
+    // Resolution option selection
+    document.querySelectorAll('.resolution__option').forEach(opt => {
+      opt.addEventListener('click', function() {
+        document.querySelectorAll('.resolution__option').forEach(o => o.classList.remove('resolution__option--selected'));
+        this.classList.add('resolution__option--selected');
+        this.querySelector('input[type="radio"]').checked = true;
+      });
+    });
+  </script>
+</body>
+</html>

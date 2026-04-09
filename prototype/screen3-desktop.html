@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+  <title>Pantalla 3 — Confirmacion Exito (Desktop)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { background: #f4f5f6; }
+    .screen-nav { display: none; }
+    .screen { display: block; margin-top: 0; }
+    .app-layout { min-height: 960px; width: 1440px; }
+    .state-divider {
+      text-align: center;
+      padding: 32px 0;
+      margin: 0 32px;
+      border-top: 2px dashed #cbd5e1;
+      color: #64748b;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =============================== -->
+  <!-- STATE 1: Pre-Confirmation       -->
+  <!-- =============================== -->
+  <div class="screen active" id="screen-3-pre">
+    <div class="app-layout">
+      <aside class="sidebar">
+        <div class="sidebar__logo">
+          <svg class="sidebar__logo-icon" viewBox="0 0 32 32" fill="none"><path d="M16 2L28 9V23L16 30L4 23V9L16 2Z" fill="#069cb8" opacity="0.3"/><path d="M16 6L24 11V21L16 26L8 21V11L16 6Z" fill="#069cb8" opacity="0.6"/><path d="M16 10L20 13V19L16 22L12 19V13L16 10Z" fill="#069cb8"/></svg>
+          <span class="sidebar__logo-text">albus</span>
+        </div>
+        <nav class="sidebar__nav">
+          <a href="#" class="sidebar__link"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10L10 3L17 10V17H12V13H8V17H3V10Z" stroke="currentColor" stroke-width="1.5"/></svg>Inicio</a>
+          <a href="#" class="sidebar__link active"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 7H17M7 3V17" stroke="currentColor" stroke-width="1.5"/></svg>Mi Horario</a>
+          <a href="#" class="sidebar__link"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2V18M2 10H18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Malla Curricular</a>
+          <a href="#" class="sidebar__link"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M4 18C4 14.6863 6.68629 12 10 12C13.3137 12 16 14.6863 16 18" stroke="currentColor" stroke-width="1.5"/></svg>Mi Perfil</a>
+        </nav>
+        <div class="sidebar__user">
+          <div class="sidebar__avatar">SM</div>
+          <div class="sidebar__user-info">
+            <span class="sidebar__user-name">Sofia Martinez</span>
+            <span class="sidebar__user-career">Ing. Civil — 5to sem.</span>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div class="topbar__left">
+            <div>
+              <h1 class="topbar__title">Confirmar inscripcion</h1>
+              <p class="topbar__subtitle">Revisa y confirma tu seleccion de materias</p>
+            </div>
+          </div>
+          <div class="topbar__right">
+            <div class="topbar__window">
+              <div class="topbar__window-dot"></div>
+              <span>Ventana abierta — Cierra hoy 12:00 PM</span>
+            </div>
+          </div>
+        </header>
+
+        <!-- Pre-confirmation state -->
+        <div class="confirm-pre" id="confirmPre">
+          <!-- Validation Checklist -->
+          <div class="validation-checklist">
+            <h3 class="validation-checklist__title">Validacion del horario</h3>
+            <div class="validation-checklist__items">
+              <div class="validation-checklist__item validation-checklist__item--pass">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#10B981" opacity="0.15"/><path d="M5 9L8 12L13 6" stroke="#10B981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>6 materias seleccionadas (minimo 5, maximo 7)</span>
+              </div>
+              <div class="validation-checklist__item validation-checklist__item--pass">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#10B981" opacity="0.15"/><path d="M5 9L8 12L13 6" stroke="#10B981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>18 creditos (dentro del rango permitido: 15-21)</span>
+              </div>
+              <div class="validation-checklist__item validation-checklist__item--pass">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#10B981" opacity="0.15"/><path d="M5 9L8 12L13 6" stroke="#10B981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>Sin conflictos de horario</span>
+              </div>
+              <div class="validation-checklist__item validation-checklist__item--pass">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#10B981" opacity="0.15"/><path d="M5 9L8 12L13 6" stroke="#10B981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>Todos los prerrequisitos cumplidos</span>
+              </div>
+            </div>
+            <div class="validation-checklist__result">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9L7.5 13.5L15 4.5" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Todo en orden. Estas lista para inscribirte.
+            </div>
+          </div>
+
+          <!-- Final Schedule Summary -->
+          <div class="final-summary">
+            <h3 class="final-summary__title">Tu horario final</h3>
+            <div class="final-summary__table">
+              <div class="final-summary__row final-summary__row--header">
+                <span>Materia</span>
+                <span>Seccion</span>
+                <span>Horario</span>
+                <span>Creditos</span>
+              </div>
+              <div class="final-summary__row">
+                <span><span class="final-summary__dot final-summary__dot--blue"></span>Estructuras I</span>
+                <span>Secc. A</span>
+                <span>Lu/Mi 8:00–9:30</span>
+                <span>3</span>
+              </div>
+              <div class="final-summary__row">
+                <span><span class="final-summary__dot final-summary__dot--green"></span>Fisica III</span>
+                <span>Secc. B</span>
+                <span>Ma/Ju 8:00–9:30</span>
+                <span>3</span>
+              </div>
+              <div class="final-summary__row">
+                <span><span class="final-summary__dot final-summary__dot--teal"></span>Estadistica II</span>
+                <span>Secc. A</span>
+                <span>Lu 10:00–11:30, Mi 9:30–11:00</span>
+                <span>3</span>
+              </div>
+              <div class="final-summary__row">
+                <span><span class="final-summary__dot final-summary__dot--purple"></span>Topografia</span>
+                <span>Secc. A</span>
+                <span>Vi 8:00–11:00</span>
+                <span>3</span>
+              </div>
+              <div class="final-summary__row final-summary__row--changed">
+                <span><span class="final-summary__dot final-summary__dot--conflict-a"></span>Calculo III <span class="final-summary__changed-badge">Modificada</span></span>
+                <span>Secc. B</span>
+                <span>Mi/Vi 14:00–15:30</span>
+                <span>3</span>
+              </div>
+              <div class="final-summary__row">
+                <span><span class="final-summary__dot final-summary__dot--conflict-b"></span>Mecanica de Fluidos</span>
+                <span>Secc. A</span>
+                <span>Ma/Ju 10:00–11:30</span>
+                <span>3</span>
+              </div>
+              <div class="final-summary__row final-summary__row--total">
+                <span>Total</span>
+                <span></span>
+                <span>24 hrs/semana</span>
+                <span>18 creditos</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="bottom-actions">
+            <button class="btn btn--secondary">Volver a editar</button>
+            <button class="btn btn--confirm">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9L7.5 13.5L15 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Confirmar inscripcion
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- =============================== -->
+  <!-- DIVIDER BETWEEN STATES          -->
+  <!-- =============================== -->
+  <div class="state-divider">--- Estado posterior: Inscripcion confirmada ---</div>
+
+  <!-- =============================== -->
+  <!-- STATE 2: Success Confirmation   -->
+  <!-- =============================== -->
+  <div class="screen active" id="screen-3-success">
+    <div class="app-layout">
+      <aside class="sidebar">
+        <div class="sidebar__logo">
+          <svg class="sidebar__logo-icon" viewBox="0 0 32 32" fill="none"><path d="M16 2L28 9V23L16 30L4 23V9L16 2Z" fill="#069cb8" opacity="0.3"/><path d="M16 6L24 11V21L16 26L8 21V11L16 6Z" fill="#069cb8" opacity="0.6"/><path d="M16 10L20 13V19L16 22L12 19V13L16 10Z" fill="#069cb8"/></svg>
+          <span class="sidebar__logo-text">albus</span>
+        </div>
+        <nav class="sidebar__nav">
+          <a href="#" class="sidebar__link"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10L10 3L17 10V17H12V13H8V17H3V10Z" stroke="currentColor" stroke-width="1.5"/></svg>Inicio</a>
+          <a href="#" class="sidebar__link active"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 7H17M7 3V17" stroke="currentColor" stroke-width="1.5"/></svg>Mi Horario</a>
+          <a href="#" class="sidebar__link"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2V18M2 10H18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Malla Curricular</a>
+          <a href="#" class="sidebar__link"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M4 18C4 14.6863 6.68629 12 10 12C13.3137 12 16 14.6863 16 18" stroke="currentColor" stroke-width="1.5"/></svg>Mi Perfil</a>
+        </nav>
+        <div class="sidebar__user">
+          <div class="sidebar__avatar">SM</div>
+          <div class="sidebar__user-info">
+            <span class="sidebar__user-name">Sofia Martinez</span>
+            <span class="sidebar__user-career">Ing. Civil — 5to sem.</span>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div class="topbar__left">
+            <div>
+              <h1 class="topbar__title">Confirmar inscripcion</h1>
+              <p class="topbar__subtitle">Revisa y confirma tu seleccion de materias</p>
+            </div>
+          </div>
+          <div class="topbar__right">
+            <div class="topbar__window">
+              <div class="topbar__window-dot"></div>
+              <span>Ventana abierta — Cierra hoy 12:00 PM</span>
+            </div>
+          </div>
+        </header>
+
+        <!-- Success State -->
+        <div class="confirm-success" id="confirmSuccess" style="display: block;">
+          <div class="success-card">
+            <div class="success-card__icon">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="24" r="22" stroke="#10B981" stroke-width="2.5"/>
+                <path d="M14 24L21 31L34 17" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h2 class="success-card__title">Inscripcion confirmada</h2>
+            <p class="success-card__subtitle">Tu semestre esta listo. Estas son tus materias inscritas.</p>
+            <div class="success-card__folio">
+              <span>Numero de confirmacion</span>
+              <strong>#INS-2026-04892</strong>
+            </div>
+          </div>
+
+          <div class="final-summary" style="margin-top: 24px;">
+            <h3 class="final-summary__title">Horario confirmado</h3>
+            <div class="final-summary__table">
+              <div class="final-summary__row final-summary__row--header">
+                <span>Materia</span>
+                <span>Seccion</span>
+                <span>Horario</span>
+                <span>Estado</span>
+              </div>
+              <div class="final-summary__row">
+                <span><span class="final-summary__dot final-summary__dot--blue"></span>Estructuras I</span>
+                <span>Secc. A</span>
+                <span>Lu/Mi 8:00–9:30</span>
+                <span class="final-summary__enrolled">Inscrita</span>
+              </div>
+              <div class="final-summary__row">
+                <span><span class="final-summary__dot final-summary__dot--green"></span>Fisica III</span>
+                <span>Secc. B</span>
+                <span>Ma/Ju 8:00–9:30</span>
+                <span class="final-summary__enrolled">Inscrita</span>
+              </div>
+              <div class="final-summary__row">
+                <span><span class="final-summary__dot final-summary__dot--teal"></span>Estadistica II</span>
+                <span>Secc. A</span>
+                <span>Lu 10:00–11:30, Mi 9:30–11:00</span>
+                <span class="final-summary__enrolled">Inscrita</span>
+              </div>
+              <div class="final-summary__row">
+                <span><span class="final-summary__dot final-summary__dot--purple"></span>Topografia</span>
+                <span>Secc. A</span>
+                <span>Vi 8:00–11:00</span>
+                <span class="final-summary__enrolled">Inscrita</span>
+              </div>
+              <div class="final-summary__row">
+                <span><span class="final-summary__dot final-summary__dot--conflict-a"></span>Calculo III</span>
+                <span>Secc. B</span>
+                <span>Mi/Vi 14:00–15:30</span>
+                <span class="final-summary__enrolled">Inscrita</span>
+              </div>
+              <div class="final-summary__row">
+                <span><span class="final-summary__dot final-summary__dot--conflict-b"></span>Mecanica de Fluidos</span>
+                <span>Secc. A</span>
+                <span>Ma/Ju 10:00–11:30</span>
+                <span class="final-summary__enrolled">Inscrita</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Next Steps -->
+          <div class="next-steps">
+            <h3 class="next-steps__title">Proximos pasos</h3>
+            <div class="next-steps__grid">
+              <button class="next-steps__card">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2V6M12 18V22M6 12H2M22 12H18M19.07 4.93L16.24 7.76M7.76 16.24L4.93 19.07M19.07 19.07L16.24 16.24M7.76 7.76L4.93 4.93" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <span>Descargar horario PDF</span>
+              </button>
+              <button class="next-steps__card">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 8H21M8 4V8M16 4V8" stroke="currentColor" stroke-width="1.5"/></svg>
+                <span>Agregar a Google Calendar</span>
+              </button>
+              <button class="next-steps__card">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 4H20V16H5.17L4 17.17V4Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 9H16M8 12H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <span>Compartir con un companero</span>
+              </button>
+            </div>
+            <p class="next-steps__info">Las clases comienzan el <strong>10 de marzo de 2026</strong>. El periodo de ajuste es del <strong>3 al 7 de marzo</strong>.</p>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

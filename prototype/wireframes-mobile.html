@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=375">
+  <title>Wireframes Mobile Lo-Fi — Albus Enrollment Flow</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Courier New', monospace; background: #fff; color: #333; display: flex; flex-wrap: wrap; gap: 40px; padding: 40px; justify-content: center; }
+
+    .page-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .page-label {
+      font-size: 11px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #999;
+    }
+
+    .wireframe {
+      width: 375px;
+      height: 812px;
+      border: 2px solid #ccc;
+      background: #fafafa;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Mobile Header */
+    .wf-header {
+      height: 50px;
+      background: #e8e8e8;
+      border-bottom: 2px solid #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      flex-shrink: 0;
+    }
+    .wf-header-logo {
+      font-size: 14px;
+      font-weight: bold;
+      color: #555;
+    }
+    .wf-header-icon {
+      font-size: 18px;
+      color: #888;
+    }
+
+    /* Content area */
+    .wf-content {
+      flex: 1;
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow-y: auto;
+    }
+
+    /* Status pill */
+    .wf-status {
+      padding: 6px 12px;
+      border: 1.5px solid #999;
+      font-size: 10px;
+      font-weight: bold;
+      text-align: center;
+      color: #555;
+    }
+
+    /* Title */
+    .wf-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+    .wf-subtitle {
+      font-size: 11px;
+      color: #888;
+      margin-top: 2px;
+    }
+
+    /* Box components */
+    .wf-box {
+      border: 1.5px solid #bbb;
+      padding: 10px 12px;
+      background: #f0f0f0;
+      font-size: 11px;
+      line-height: 1.5;
+      color: #444;
+    }
+    .wf-box--highlight {
+      border-color: #888;
+      border-width: 2px;
+      background: #e8e8e8;
+    }
+    .wf-box--dashed {
+      border-style: dashed;
+      background: #f8f8f8;
+    }
+    .wf-box--calm {
+      background: #eef2f7;
+      border-color: #aab8c8;
+    }
+    .wf-box--error {
+      background: #f5f0f0;
+      border-color: #c8a0a0;
+    }
+    .wf-box-label {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #888;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    .wf-box-title {
+      font-weight: bold;
+      font-size: 12px;
+      color: #333;
+      margin-bottom: 2px;
+    }
+
+    /* Day tabs */
+    .wf-tabs {
+      display: flex;
+      gap: 0;
+    }
+    .wf-tab {
+      flex: 1;
+      text-align: center;
+      padding: 8px 0;
+      font-size: 11px;
+      font-weight: bold;
+      border: 1px solid #ccc;
+      background: #f0f0f0;
+      color: #666;
+    }
+    .wf-tab--active {
+      background: #ddd;
+      border-color: #999;
+      color: #333;
+    }
+
+    /* Subject cards */
+    .wf-card {
+      border: 1.5px solid #ccc;
+      padding: 10px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      background: #fff;
+    }
+    .wf-card--conflict {
+      border-style: dashed;
+      border-color: #999;
+    }
+    .wf-card-name {
+      font-weight: bold;
+      color: #333;
+    }
+    .wf-card-meta {
+      font-size: 10px;
+      color: #888;
+      margin-top: 2px;
+    }
+    .wf-card-status {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: bold;
+      color: #888;
+      white-space: nowrap;
+    }
+
+    /* Option cards */
+    .wf-option {
+      border: 1.5px solid #ccc;
+      padding: 10px 12px;
+      font-size: 11px;
+      background: #fff;
+      line-height: 1.5;
+    }
+    .wf-option--selected {
+      border-color: #666;
+      border-width: 2.5px;
+      background: #f0f0f0;
+    }
+    .wf-option-title {
+      font-weight: bold;
+      color: #333;
+    }
+    .wf-option-desc {
+      color: #666;
+      font-size: 10px;
+    }
+    .wf-option-meta {
+      color: #888;
+      font-size: 10px;
+      margin-top: 4px;
+    }
+    .wf-ai-badge {
+      display: inline-block;
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border: 1px solid #888;
+      padding: 1px 6px;
+      margin-left: 4px;
+    }
+    .wf-validation {
+      font-size: 10px;
+      font-weight: bold;
+      margin-top: 6px;
+      padding: 3px 6px;
+      border: 1px solid #999;
+      display: inline-block;
+    }
+
+    /* CTA button */
+    .wf-cta {
+      padding: 14px;
+      border: 2px solid #666;
+      background: #ddd;
+      text-align: center;
+      font-size: 13px;
+      font-weight: bold;
+      color: #333;
+      flex-shrink: 0;
+    }
+    .wf-cta--secondary {
+      background: #f0f0f0;
+      border-color: #aaa;
+      font-size: 11px;
+      padding: 10px;
+    }
+
+    /* Success */
+    .wf-success {
+      text-align: center;
+      padding: 24px 16px;
+      border: 2.5px solid #999;
+      background: #f0f0f0;
+    }
+    .wf-success-icon {
+      width: 48px;
+      height: 48px;
+      border: 2.5px solid #999;
+      border-radius: 50%;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: bold;
+    }
+    .wf-success h2 {
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+    .wf-success p {
+      font-size: 11px;
+      color: #666;
+    }
+    .wf-folio {
+      margin-top: 10px;
+      padding: 4px 12px;
+      border: 1.5px dashed #999;
+      display: inline-block;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    /* Error */
+    .wf-error {
+      text-align: center;
+      padding: 20px 16px;
+      border: 2.5px dashed #a88;
+      background: #f5f0f0;
+    }
+    .wf-error-icon {
+      width: 48px;
+      height: 48px;
+      border: 2.5px solid #a88;
+      border-radius: 50%;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: bold;
+    }
+    .wf-error h2 {
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+    .wf-error p {
+      font-size: 11px;
+      color: #666;
+    }
+
+    /* Table rows */
+    .wf-table-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid #eee;
+      font-size: 10px;
+    }
+    .wf-table-row--header {
+      font-weight: bold;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #888;
+      border-bottom: 1.5px solid #ccc;
+    }
+    .wf-table-row--total {
+      font-weight: bold;
+      border-top: 1.5px solid #999;
+      border-bottom: none;
+    }
+
+    /* Next step buttons */
+    .wf-nextstep {
+      border: 1.5px solid #ccc;
+      padding: 12px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    /* Conflict summary mobile */
+    .wf-conflict-vs {
+      text-align: center;
+      padding: 12px;
+      border: 1.5px solid #bbb;
+      background: #f0f0f0;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+    .wf-conflict-vs strong {
+      font-size: 12px;
+    }
+
+    .wf-back {
+      font-size: 11px;
+      color: #888;
+    }
+
+    .wf-info {
+      font-size: 10px;
+      color: #888;
+      line-height: 1.4;
+    }
+
+    .wf-spacer { flex: 1; }
+  </style>
+</head>
+<body>
+
+  <!-- ================================ -->
+  <!-- SCREEN 1: Propuesta con Conflicto -->
+  <!-- ================================ -->
+  <div class="page-wrapper">
+    <div class="page-label">1 — Propuesta con Conflicto</div>
+    <div class="wireframe">
+      <div class="wf-header">
+        <span class="wf-header-icon">☰</span>
+        <span class="wf-header-logo">[A] albus</span>
+        <span class="wf-header-icon">🔔</span>
+      </div>
+      <div class="wf-content">
+        <div class="wf-status">● Ventana abierta — Cierra 12:00 PM</div>
+        <div>
+          <div class="wf-title">Mi Horario</div>
+          <div class="wf-subtitle">Semestre 2026-1</div>
+        </div>
+        <div class="wf-box wf-box--dashed">
+          <div class="wf-box-label">✦ Albus IA</div>
+          Detectó un cruce entre 2 materias. <span style="float:right;">▾</span>
+        </div>
+        <div class="wf-box wf-box--highlight">
+          <div class="wf-box-label">⚠ Cruce detectado</div>
+          <b>Cálculo III</b> y <b>Mec. Fluidos</b> se cruzan Ma/Ju 10:00-11:30. Hay alternativas.
+        </div>
+
+        <div class="wf-tabs">
+          <div class="wf-tab">Lu</div>
+          <div class="wf-tab wf-tab--active">Ma</div>
+          <div class="wf-tab">Mi</div>
+          <div class="wf-tab">Ju</div>
+          <div class="wf-tab">Vi</div>
+        </div>
+
+        <div class="wf-card">
+          <div><div class="wf-card-name">Física III</div><div class="wf-card-meta">Secc. B — 8:00-9:30</div></div>
+          <span class="wf-card-status">✓ OK</span>
+        </div>
+        <div class="wf-card wf-card--conflict">
+          <div><div class="wf-card-name">Cálculo III</div><div class="wf-card-meta">Secc. A — 10:00-11:30</div></div>
+          <span class="wf-card-status">⚠ CRUCE</span>
+        </div>
+        <div class="wf-card wf-card--conflict">
+          <div><div class="wf-card-name">Mec. Fluidos</div><div class="wf-card-meta">Secc. A — 10:00-11:30</div></div>
+          <span class="wf-card-status">⚠ CRUCE</span>
+        </div>
+
+        <div class="wf-spacer"></div>
+        <div class="wf-cta">■ Resolver cruce de horario →</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================ -->
+  <!-- SCREEN 2: Resolucion             -->
+  <!-- ================================ -->
+  <div class="page-wrapper">
+    <div class="page-label">2 — Resolución del Conflicto</div>
+    <div class="wireframe">
+      <div class="wf-header">
+        <span class="wf-header-icon">←</span>
+        <span class="wf-header-logo">[A] albus</span>
+        <span class="wf-header-icon">🔔</span>
+      </div>
+      <div class="wf-content">
+        <div class="wf-status">● Ventana abierta — Cierra 12:00 PM</div>
+        <div class="wf-title">Resolver cruce</div>
+
+        <div class="wf-conflict-vs">
+          <strong>Cálculo III</strong><br>Ma/Ju 10:00-11:30<br>
+          ─── vs ───<br>
+          <strong>Mec. de Fluidos</strong><br>Ma/Ju 10:00-11:30
+        </div>
+
+        <div style="font-weight:bold; font-size:12px;">Opciones disponibles</div>
+
+        <div class="wf-option wf-option--selected">
+          <div class="wf-option-title">(●) Cálculo III → Secc. B <span class="wf-ai-badge">✦ Sugerida</span></div>
+          <div class="wf-option-desc">Mi/Vi 14:00-15:30, Sala 401</div>
+          <div class="wf-option-meta">12 cupos • Prof. García M. • 4.3/5</div>
+          <div class="wf-validation">✓ Sin conflictos</div>
+        </div>
+
+        <div class="wf-option">
+          <div class="wf-option-title">(○) Mec. Fluidos → Secc. C</div>
+          <div class="wf-option-desc">Lu/Mi 14:00-15:30, Lab. 203</div>
+          <div class="wf-option-meta">3 cupos • Prof. Ramírez T. • 4.1/5</div>
+        </div>
+
+        <div class="wf-option">
+          <div class="wf-option-title">(○) Cálculo III → Secc. D</div>
+          <div class="wf-option-desc">Sáb 9:00-12:00, Sala 102</div>
+          <div class="wf-option-meta">18 cupos • Prof. López N. • 3.8/5</div>
+        </div>
+
+        <div class="wf-spacer"></div>
+        <div class="wf-cta">■ Aplicar y continuar →</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================ -->
+  <!-- SCREEN 3: Confirmacion Exito     -->
+  <!-- ================================ -->
+  <div class="page-wrapper">
+    <div class="page-label">3 — Confirmación (Éxito)</div>
+    <div class="wireframe">
+      <div class="wf-header">
+        <span class="wf-header-icon">☰</span>
+        <span class="wf-header-logo">[A] albus</span>
+        <span class="wf-header-icon">🔔</span>
+      </div>
+      <div class="wf-content">
+        <div class="wf-success">
+          <div class="wf-success-icon">✓</div>
+          <h2>Inscripción confirmada</h2>
+          <p>Tu semestre está listo.</p>
+          <div class="wf-folio">#INS-2026-04892</div>
+        </div>
+
+        <div style="font-weight:bold; font-size:12px;">Horario confirmado</div>
+
+        <div style="border: 1px solid #ddd; padding: 8px;">
+          <div class="wf-table-row wf-table-row--header">
+            <span>Materia</span><span>Estado</span>
+          </div>
+          <div class="wf-table-row"><span>Estructuras I — Secc. A</span><span>Inscrita</span></div>
+          <div class="wf-table-row"><span>Física III — Secc. B</span><span>Inscrita</span></div>
+          <div class="wf-table-row"><span>Estadística II — Secc. A</span><span>Inscrita</span></div>
+          <div class="wf-table-row"><span>Topografía — Secc. A</span><span>Inscrita</span></div>
+          <div class="wf-table-row"><span>Cálculo III — Secc. B [Mod.]</span><span>Inscrita</span></div>
+          <div class="wf-table-row"><span>Mec. Fluidos — Secc. A</span><span>Inscrita</span></div>
+          <div class="wf-table-row wf-table-row--total"><span>Total: 18 cred.</span><span>24 hrs/sem</span></div>
+        </div>
+
+        <div style="font-weight:bold; font-size:12px;">Próximos pasos</div>
+        <div class="wf-nextstep">□ Descargar horario PDF</div>
+        <div class="wf-nextstep">□ Agregar a Google Calendar</div>
+        <div class="wf-nextstep">□ Compartir con compañero</div>
+
+        <div class="wf-info">Clases inician 10 marzo 2026.<br>Período de ajuste: 3-7 marzo.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================ -->
+  <!-- SCREEN 4: Error                  -->
+  <!-- ================================ -->
+  <div class="page-wrapper">
+    <div class="page-label">4 — Error (Cupo agotado)</div>
+    <div class="wireframe">
+      <div class="wf-header">
+        <span class="wf-header-icon">☰</span>
+        <span class="wf-header-logo">[A] albus</span>
+        <span class="wf-header-icon">🔔</span>
+      </div>
+      <div class="wf-content">
+        <div class="wf-error">
+          <div class="wf-error-icon">!</div>
+          <h2>No pudimos completar tu inscripción</h2>
+          <p>Pero hay opciones disponibles.</p>
+        </div>
+
+        <div class="wf-box wf-box--error">
+          <div class="wf-box-title">⚠ Cupo de Cálculo III — Secc. B se agotó</div>
+          Otro estudiante confirmó el último cupo mientras revisabas tu horario.
+        </div>
+
+        <div class="wf-box wf-box--calm">
+          ⏱ Tus demás materias están <b>reservadas temporalmente por 10 minutos</b>. No perderás tu lugar.
+        </div>
+
+        <div style="font-weight:bold; font-size:12px;">Alternativas para Cálculo III</div>
+
+        <div class="wf-option wf-option--selected">
+          <div class="wf-option-title">(●) Secc. C — Lu/Mi 16:00-17:30</div>
+          <div class="wf-option-meta">Prof. Vargas A. — Sala 305 • 8 cupos</div>
+        </div>
+
+        <div class="wf-option">
+          <div class="wf-option-title">(○) Secc. D — Sáb 9:00-12:00</div>
+          <div class="wf-option-meta">Prof. López N. — Sala 102 • 18 cupos</div>
+        </div>
+
+        <div class="wf-spacer"></div>
+        <div class="wf-cta--secondary">Intentar de nuevo</div>
+        <div class="wf-cta">■ Aplicar alternativa y confirmar →</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
