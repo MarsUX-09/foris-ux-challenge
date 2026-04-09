@@ -3429,6 +3429,7 @@ a {
     margin-left: 0;
     max-width: 100%;
     padding: 12px 16px;
+    padding-top: 68px; /* 56px mobile-header + 12px spacing */
     gap: 10px;
   }
 
