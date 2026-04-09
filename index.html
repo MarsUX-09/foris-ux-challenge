@@ -3,36 +3,1308 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Foris UX Challenge — Adrián Rodríguez Sánchez</title>
-  <meta name="description" content="Rediseño del flujo de inscripción con conflicto de horario — Resolución asistida por IA para Albus (Foris)">
+  <title>Foris UX Challenge — Adrian Rodriguez Sanchez</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #002637, #069cb8); color: #fff; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
-    .hub { max-width: 600px; width: 90%; text-align: center; }
-    h1 { font-size: 32px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 8px; }
-    p { font-size: 16px; opacity: 0.8; margin-bottom: 32px; }
-    .links { display: flex; flex-direction: column; gap: 12px; }
-    a { display: flex; align-items: center; justify-content: center; gap: 10px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 14px; padding: 18px 24px; color: #fff; text-decoration: none; font-size: 17px; font-weight: 600; transition: all 0.2s; }
-    a:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
-    a.primary { background: #fff; color: #002637; border-color: #fff; }
-    a.primary:hover { background: #f0f4f8; }
-    .label { font-size: 12px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; opacity: 0.6; margin-bottom: 16px; }
-    .author { margin-top: 32px; font-size: 14px; opacity: 0.6; }
+    :root {
+      --primary: #002637;
+      --teal: #069cb8;
+      --ai: #6366F1;
+      --ai-light: #818CF8;
+      --warning: #f59e0b;
+      --success: #10B981;
+      --danger: #f26870;
+      --white: #ffffff;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-400: #94a3b8;
+      --gray-600: #475569;
+      --gray-800: #1e293b;
+      --gradient-brand: linear-gradient(135deg, #002637 0%, #069cb8 100%);
+      --gradient-ai: linear-gradient(135deg, #6366F1 0%, #069cb8 100%);
+      --gradient-alert: linear-gradient(135deg, #f59e0b 0%, #f26870 100%);
+    }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: var(--primary); color: var(--white); overflow: hidden; height: 100vh; width: 100vw; }
+
+    .deck { position: relative; width: 100vw; height: 100vh; }
+    .slide { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 60px 80px; opacity: 0; pointer-events: none; transition: opacity 0.5s ease, transform 0.5s ease; transform: translateX(40px); overflow-y: auto; }
+    .slide.active { opacity: 1; pointer-events: auto; transform: translateX(0); }
+
+    .bg-brand { background: var(--gradient-brand); color: #fff; }
+    .bg-dark { background: var(--primary); color: #fff; }
+    .bg-ai { background: var(--gradient-ai); color: #fff; }
+    .bg-light { background: var(--gray-50); color: var(--gray-800); }
+    .bg-white { background: var(--white); color: var(--gray-800); }
+    .bg-alert { background: var(--gradient-alert); color: #fff; }
+    .bg-mesh { background: radial-gradient(ellipse at 20% 80%, rgba(6,156,184,0.15) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(99,102,241,0.1) 0%, transparent 50%), var(--primary); color: #fff; }
+    .bg-mesh-light { background: radial-gradient(ellipse at 20% 80%, rgba(6,156,184,0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(99,102,241,0.06) 0%, transparent 50%), var(--white); color: var(--gray-800); }
+
+    /* Force white text on all dark backgrounds */
+    .bg-dark *, .bg-mesh *, .bg-brand *, .bg-ai *, .bg-alert * { color: inherit; }
+    .bg-dark h1, .bg-dark h2, .bg-dark h3, .bg-dark p, .bg-dark td, .bg-dark th, .bg-dark li, .bg-dark span, .bg-dark strong,
+    .bg-mesh h1, .bg-mesh h2, .bg-mesh h3, .bg-mesh p, .bg-mesh td, .bg-mesh th, .bg-mesh li, .bg-mesh span, .bg-mesh strong,
+    .bg-brand h1, .bg-brand h2, .bg-brand h3, .bg-brand p, .bg-brand td, .bg-brand th, .bg-brand li, .bg-brand span, .bg-brand strong,
+    .bg-ai h1, .bg-ai h2, .bg-ai h3, .bg-ai p, .bg-ai td, .bg-ai th, .bg-ai li, .bg-ai span, .bg-ai strong { color: #fff; }
+
+    /* Card text on dark backgrounds */
+    .bg-dark .card p, .bg-mesh .card p, .bg-ai .card p { color: rgba(255,255,255,0.9); }
+    .bg-dark .card h3, .bg-mesh .card h3, .bg-ai .card h3 { color: #fff; }
+    .bg-dark .subtitle, .bg-mesh .subtitle, .bg-ai .subtitle { color: rgba(255,255,255,0.9); }
+    .bg-dark .small-text, .bg-mesh .small-text, .bg-ai .small-text { color: rgba(255,255,255,0.85); }
+    .bg-dark .quote, .bg-mesh .quote, .bg-ai .quote { color: rgba(255,255,255,0.95); }
+
+    .slide-number { position: absolute; top: 24px; left: 24px; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; opacity: 0.8; display: flex; align-items: center; gap: 10px; }
+    .slide-number img { height: 24px; }
+    h1 { font-size: clamp(42px, 6vw, 80px); font-weight: 900; letter-spacing: -0.03em; line-height: 1.08; margin-bottom: 16px; }
+    h2 { font-size: clamp(34px, 4vw, 60px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.12; margin-bottom: 14px; }
+    h3 { font-size: clamp(18px, 2.2vw, 28px); font-weight: 700; line-height: 1.3; margin-bottom: 6px; }
+    .subtitle { font-size: clamp(18px, 2vw, 26px); font-weight: 400; opacity: 0.85; line-height: 1.5; max-width: 800px; }
+    .label { font-size: 14px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 14px; opacity: 0.75; }
+
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 20px; }
+    .card-grid--2 { grid-template-columns: repeat(2, 1fr); }
+    .card-grid--3 { grid-template-columns: repeat(3, 1fr); }
+    .card { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 16px; padding: 24px; backdrop-filter: blur(20px); }
+    .bg-light .card, .bg-white .card, .bg-mesh-light .card { background: var(--white); border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    .card__icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 12px; }
+    .card__icon--ai { background: rgba(99,102,241,0.15); color: var(--ai); }
+    .card__icon--teal { background: rgba(6,156,184,0.15); color: var(--teal); }
+    .card__icon--warning { background: rgba(245,158,11,0.15); color: var(--warning); }
+    .card__icon--success { background: rgba(16,185,129,0.15); color: var(--success); }
+    .card__icon--danger { background: rgba(242,104,112,0.15); color: var(--danger); }
+    .card h3 { font-size: 19px; margin-bottom: 8px; }
+    .card p { font-size: 15px; opacity: 0.85; line-height: 1.55; }
+
+    /* Post-it notes */
+    .postit-grid { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 20px; }
+    .postit { width: 175px; min-height: 125px; padding: 18px; border-radius: 4px; font-size: 15px; font-weight: 600; line-height: 1.4; box-shadow: 2px 3px 10px rgba(0,0,0,0.18); transform: rotate(-1deg); transition: transform 0.2s; position: relative; color: var(--gray-800); }
+    .postit:nth-child(even) { transform: rotate(1.5deg); }
+    .postit:nth-child(3n) { transform: rotate(-2deg); }
+    .postit:hover { transform: rotate(0deg) scale(1.05); z-index: 2; }
+    .postit__rank { font-size: 24px; font-weight: 900; opacity: 0.3; position: absolute; top: 8px; right: 10px; }
+    .postit--yellow { background: #FEF3C7; }
+    .postit--pink { background: #FCE7F3; }
+    .postit--blue { background: #DBEAFE; }
+    .postit--green { background: #D1FAE5; }
+    .postit--purple { background: #EDE9FE; }
+    .postit--orange { background: #FFEDD5; }
+
+    /* Interview avatar */
+    .interview-avatar { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; margin-bottom: 10px; }
+    .interview-card { display: flex; flex-direction: column; }
+    .interview-card h3 { font-size: 16px; }
+    .interview-card p { font-size: 14px; }
+
+    .stat-row { display: flex; gap: 48px; margin-top: 28px; flex-wrap: wrap; }
+    .stat { text-align: center; }
+    .stat__value { font-size: clamp(42px, 5vw, 72px); font-weight: 900; letter-spacing: -0.03em; line-height: 1; }
+    .stat__label { font-size: 14px; font-weight: 600; opacity: 0.75; margin-top: 8px; text-transform: uppercase; letter-spacing: 1px; }
+
+    .quote { font-size: clamp(20px, 2.5vw, 32px); font-weight: 600; font-style: italic; line-height: 1.4; max-width: 800px; margin: 20px 0; padding-left: 28px; border-left: 4px solid var(--teal); }
+    .quote-author { font-size: 14px; font-weight: 500; opacity: 0.8; margin-top: 8px; font-style: normal; }
+
+    .slide-table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 15px; }
+    .slide-table th { text-align: left; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; padding: 12px 16px; border-bottom: 2px solid rgba(255,255,255,0.2); opacity: 0.8; }
+    .bg-light .slide-table th, .bg-white .slide-table th, .bg-mesh-light .slide-table th { border-bottom-color: rgba(0,0,0,0.1); }
+    .slide-table td { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.12); line-height: 1.5; }
+    .bg-light .slide-table td, .bg-white .slide-table td, .bg-mesh-light .slide-table td { border-bottom-color: rgba(0,0,0,0.06); }
+
+    .pill { display: inline-block; padding: 6px 14px; border-radius: 50px; font-size: 14px; font-weight: 700; }
+    .pill--ai { background: rgba(99,102,241,0.2); color: var(--ai-light); }
+    .pill--teal { background: rgba(6,156,184,0.2); color: #5EEAD4; }
+    .pill--warning { background: rgba(245,158,11,0.2); color: #FCD34D; }
+    .pill--success { background: rgba(16,185,129,0.2); color: #6EE7B7; }
+    .pill--danger { background: rgba(242,104,112,0.2); color: #FCA5A5; }
+    .bg-light .pill--ai, .bg-mesh-light .pill--ai { color: var(--ai); }
+    .bg-light .pill--teal, .bg-mesh-light .pill--teal { color: var(--teal); }
+    .bg-light .pill--warning, .bg-mesh-light .pill--warning { color: #92400E; }
+    .bg-light .pill--success, .bg-mesh-light .pill--success { color: #065f46; }
+    .bg-light .pill--danger, .bg-mesh-light .pill--danger { color: #991b1b; }
+
+    .flow { display: flex; align-items: center; gap: 14px; margin-top: 28px; flex-wrap: wrap; }
+    .flow__step { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.18); border-radius: 16px; padding: 20px 26px; font-size: 16px; font-weight: 600; text-align: center; min-width: 170px; }
+    .flow__step small { font-size: 13px; opacity: 0.85; }
+    .flow__step--active { background: var(--gradient-ai); border-color: transparent; }
+    .flow__arrow { font-size: 20px; opacity: 0.4; }
+
+    .check-list { list-style: none; margin-top: 12px; }
+    .check-list li { padding: 8px 0; font-size: 17px; line-height: 1.5; display: flex; align-items: flex-start; gap: 12px; }
+    .check-list li::before { content: '→'; color: var(--teal); font-weight: 800; flex-shrink: 0; font-size: 18px; }
+
+    .persona { display: flex; align-items: center; gap: 24px; margin: 20px 0; }
+    .persona__avatar { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 4px solid var(--teal); }
+    .persona__info h3 { margin-bottom: 4px; font-size: 26px; }
+    .persona__info p { font-size: 16px; opacity: 0.7; }
+
+    .link-card { display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 14px; padding: 14px 22px; font-size: 16px; font-weight: 600; color: inherit; text-decoration: none; transition: all 0.2s; margin-top: 10px; margin-right: 12px; }
+    .link-card:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
+    .bg-light .link-card, .bg-mesh-light .link-card { background: var(--gradient-ai); color: white; border-color: transparent; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 16px; }
+
+    /* NAV */
+    .nav { position: fixed; bottom: 24px; right: 32px; display: flex; align-items: center; gap: 12px; z-index: 100; }
+    .nav__btn { width: 44px; height: 44px; border-radius: 12px; border: none; background: var(--primary); color: white; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+    .nav__btn:hover { background: #003a50; transform: translateY(-1px); }
+    .nav__count { font-size: 12px; font-weight: 700; color: var(--primary); min-width: 50px; text-align: center; background: rgba(255,255,255,0.85); padding: 4px 8px; border-radius: 8px; backdrop-filter: blur(8px); }
+    .progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--gradient-ai); transition: width 0.4s ease; z-index: 100; }
+
+    .small-text { font-size: 16px; line-height: 1.5; opacity: 0.75; }
+    .mt-8 { margin-top: 8px; }
+    .mt-16 { margin-top: 16px; }
+    .mt-24 { margin-top: 24px; }
+    .mt-32 { margin-top: 32px; }
+    .max-w { max-width: 800px; }
+
+    .slide.bg-ai { height: 100%; }
+
+    @media (max-width: 768px) {
+      .slide { padding: 40px 24px; }
+      .two-col, .card-grid--2, .card-grid--3 { grid-template-columns: 1fr; }
+      .card-grid { grid-template-columns: 1fr; }
+      .stat-row { gap: 16px; }
+      .flow { flex-direction: column; }
+      .flow__arrow { transform: rotate(90deg); }
+      .nav { bottom: 16px; right: 16px; }
+    }
   </style>
 </head>
 <body>
-  <div class="hub">
-    <div class="label">Foris UX Challenge 2026</div>
-    <h1>Rediseño del flujo de inscripción</h1>
-    <p>Resolución de conflictos de horario asistida por IA — Albus</p>
-    <div class="links">
-      <a href="prototype/presentation.html" class="primary">📊 Ver presentación</a>
-      <a href="prototype/index.html">🖥 Prototipo interactivo</a>
-      <a href="prototype/wireframes.html">📐 Wireframes desktop</a>
-      <a href="prototype/wireframes-mobile.html">📱 Wireframes mobile</a>
-    </div>
-    <div class="author">Adrián Rodríguez Sánchez — Sr. UX/UI Designer</div>
+<div class="progress" id="progress"></div>
+<div class="deck" id="deck">
+
+<!-- ===== 0: COVER ===== -->
+<div class="slide bg-brand active">
+  <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+    <img src="logo-foris-blanco.svg" alt="Foris" style="height: 34px; opacity: 0.9;">
+    <span class="label" style="margin-bottom: 0;">UX/UI Challenge 2026</span>
   </div>
+  <h1>Rediseño del flujo de inscripción con <span style="color: var(--teal);">conflicto de horario</span></h1>
+  <p class="subtitle mt-8" style="color: rgba(255,255,255,0.9);">Resolución asistida por IA para que los estudiantes completen su inscripción con confianza, rapidez y autonomía.</p>
+  <div style="margin-top: 40px; display: flex; align-items: center; gap: 16px;">
+    <img src="adrian-photo.jpg" alt="Adrian" style="width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,0.4);">
+    <div>
+      <strong style="font-size: 17px; color: #fff;">Adrian Rodriguez Sanchez</strong><br>
+      <span style="font-size: 15px; color: rgba(255,255,255,0.85);">Sr. UX/UI Designer — Abril 2026</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 1: OBJETIVOS ===== -->
+<div class="slide bg-mesh">
+  <span class="slide-number"><img src="logo-foris-blanco.svg">01 — Objetivos</span>
+  <h2>Objetivos del Proyecto</h2>
+  <div class="two-col mt-24">
+    <div>
+      <div class="label">🎯 Objetivo de Producto</div>
+      <p class="subtitle">Aumentar la tasa de inscripción exitosa en Albus reduciendo la fricción en la resolución de conflictos de horario, para que los estudiantes completen su inscripción dentro de la ventana asignada sin soporte externo.</p>
+      <div class="mt-16" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 14px; padding: 18px 20px; display: flex; align-items: center; gap: 20px;">
+        <div>
+          <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--teal); margin-bottom: 4px;">KPI Principal</div>
+          <div style="font-size: 16px; color: rgba(255,255,255,0.9);">Tasa de inscripción sin abandono</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; margin-left: auto;">
+          <div style="text-align: center;">
+            <div style="font-size: 28px; font-weight: 900; color: var(--warning);">72%</div>
+            <div style="font-size: 10px; opacity: 0.7; text-transform: uppercase;">Hoy</div>
+          </div>
+          <div style="font-size: 24px; color: var(--success);">→</div>
+          <div style="text-align: center;">
+            <div style="font-size: 28px; font-weight: 900; color: var(--success);">95%</div>
+            <div style="font-size: 10px; opacity: 0.7; text-transform: uppercase;">Target</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="label">✨ Objetivo de UX</div>
+      <p class="subtitle">Diseñar una experiencia que permita al estudiante <strong>identificar, comprender y resolver</strong> un conflicto de horario de forma autónoma, rápida (&lt; 2 min) y con confianza.</p>
+      <div class="mt-16" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 24px;">⚡</span>
+          <span style="font-size: 15px; color: rgba(255,255,255,0.95);">Entiende el conflicto en <strong>&lt; 5 seg</strong></span>
+        </div>
+        <div style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 24px;">🤖</span>
+          <span style="font-size: 15px; color: rgba(255,255,255,0.95);">Percibe la IA como <strong>herramienta útil</strong></span>
+        </div>
+        <div style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 24px;">🚀</span>
+          <span style="font-size: 15px; color: rgba(255,255,255,0.95);">Completa <strong>sin recurrir a soporte</strong></span>
+        </div>
+        <div style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 24px;">💪</span>
+          <span style="font-size: 15px; color: rgba(255,255,255,0.95);">Termina sintiéndose <strong>en control</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 2: METODOLOGIA ===== -->
+<div class="slide bg-mesh-light">
+  <span class="slide-number"><img src="logo-foris-dark.svg">02 — Metodología</span>
+  <h2>Doble Diamante <span style="font-size: 0.5em; font-weight: 500; opacity: 0.6;">— Design Council</span></h2>
+
+  <!-- Double Diamond Visual -->
+  <div style="margin-top: 20px; width: 100%; max-width: 820px;">
+    <svg viewBox="0 0 820 180" style="width: 100%; height: auto;">
+      <defs>
+        <linearGradient id="gBrand" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#002637"/>
+          <stop offset="100%" stop-color="#069cb8"/>
+        </linearGradient>
+        <linearGradient id="gAI" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#6366F1"/>
+          <stop offset="100%" stop-color="#069cb8"/>
+        </linearGradient>
+      </defs>
+      <!-- Diamond 1: Discover + Define -->
+      <path d="M 10,90 C 60,90 100,15 200,15 C 300,15 340,90 400,90" fill="none" stroke="url(#gBrand)" stroke-width="3" stroke-linecap="round"/>
+      <path d="M 10,90 C 60,90 100,165 200,165 C 300,165 340,90 400,90" fill="none" stroke="url(#gBrand)" stroke-width="3" stroke-linecap="round"/>
+      <path d="M 10,90 C 60,90 100,15 200,15 C 300,15 340,90 400,90 C 340,90 300,165 200,165 C 100,165 60,90 10,90 Z" fill="url(#gBrand)" opacity="0.06"/>
+      <!-- Diamond 2: Develop + Deliver -->
+      <path d="M 410,90 C 460,90 500,15 600,15 C 700,15 740,90 810,90" fill="none" stroke="url(#gAI)" stroke-width="3" stroke-linecap="round"/>
+      <path d="M 410,90 C 460,90 500,165 600,165 C 700,165 740,90 810,90" fill="none" stroke="url(#gAI)" stroke-width="3" stroke-linecap="round"/>
+      <path d="M 410,90 C 460,90 500,15 600,15 C 700,15 740,90 810,90 C 740,90 700,165 600,165 C 500,165 460,90 410,90 Z" fill="url(#gAI)" opacity="0.06"/>
+      <!-- Convergence dots -->
+      <circle cx="10" cy="90" r="5" fill="#002637"/>
+      <circle cx="405" cy="90" r="5" fill="#002637"/>
+      <circle cx="810" cy="90" r="5" fill="#6366F1"/>
+      <!-- Phase labels inside -->
+      <text x="130" y="56" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#002637" text-anchor="middle">Descubrir</text>
+      <text x="130" y="72" font-family="Inter,sans-serif" font-size="10" fill="#475569" text-anchor="middle">Divergir</text>
+      <text x="280" y="56" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#069cb8" text-anchor="middle">Definir</text>
+      <text x="280" y="72" font-family="Inter,sans-serif" font-size="10" fill="#475569" text-anchor="middle">Convergir</text>
+      <text x="530" y="56" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#6366F1" text-anchor="middle">Desarrollar</text>
+      <text x="530" y="72" font-family="Inter,sans-serif" font-size="10" fill="#475569" text-anchor="middle">Divergir</text>
+      <text x="680" y="56" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#069cb8" text-anchor="middle">Entregar</text>
+      <text x="680" y="72" font-family="Inter,sans-serif" font-size="10" fill="#475569" text-anchor="middle">Convergir</text>
+      <!-- Bottom labels -->
+      <text x="10" y="120" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#94a3b8" text-anchor="start">Problema</text>
+      <text x="405" y="120" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#94a3b8" text-anchor="middle">Problema definido</text>
+      <text x="810" y="120" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#94a3b8" text-anchor="end">Solución</text>
+    </svg>
+  </div>
+
+  <!-- AI Enhancement Banner -->
+  <div style="margin-top: 24px; background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(6,156,184,0.08)); border: 1px solid rgba(99,102,241,0.15); border-radius: 16px; padding: 20px 24px;">
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+      <span style="font-size: 22px;">🤖</span>
+      <span style="font-size: 17px; font-weight: 800; color: #6366F1;">¿Cómo la IA potencia cada fase?</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+      <div style="background: white; border-radius: 10px; padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+        <div style="font-size: 11px; font-weight: 700; color: #002637; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Descubrir</div>
+        <div style="font-size: 13px; color: var(--gray-600); line-height: 1.4;">Síntesis de datos, generación de preguntas de investigación, análisis de patrones</div>
+      </div>
+      <div style="background: white; border-radius: 10px; padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+        <div style="font-size: 11px; font-weight: 700; color: #069cb8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Definir</div>
+        <div style="font-size: 13px; color: var(--gray-600); line-height: 1.4;">Agrupación de hallazgos, priorización de puntos de dolor, articulación del declaración del problema</div>
+      </div>
+      <div style="background: white; border-radius: 10px; padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+        <div style="font-size: 11px; font-weight: 700; color: #6366F1; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Desarrollar</div>
+        <div style="font-size: 13px; color: var(--gray-600); line-height: 1.4;">Generación de wireframes, prototipado rápido en código, iteración en tiempo real</div>
+      </div>
+      <div style="background: white; border-radius: 10px; padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+        <div style="font-size: 11px; font-weight: 700; color: #069cb8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Entregar</div>
+        <div style="font-size: 13px; color: var(--gray-600); line-height: 1.4;">Entregables de alta fidelidad, listos para tecnología: prototipo funcional, wireframes y presentación — 100% generados con IA</div>
+      </div>
+    </div>
+    <div style="margin-top: 12px; font-size: 14px; color: var(--gray-600); text-align: center; font-style: italic;">
+      La IA no reemplaza el criterio de diseño — lo <strong style="color: #6366F1;">amplifica</strong>. El diseñador dirige, la IA ejecuta y acelera.
+    </div>
+  </div>
+</div>
+
+<!-- ===== 3: EL PROBLEMA ===== -->
+<div class="slide bg-dark">
+  <span class="slide-number"><img src="logo-foris-blanco.svg">03 — El Problema</span>
+  <h2>El problema que resolvemos</h2>
+  <p class="subtitle">Cuando la IA genera una propuesta con conflicto entre materias, los estudiantes no logran resolverlo de forma autónoma ni rápida. Esto genera abandonos, tickets de soporte y frustración en un momento de alta presión.</p>
+  <div class="stat-row mt-32">
+    <div class="stat"><div style="font-size: 32px; margin-bottom: 4px;">🚪</div><div class="stat__value" style="color: var(--warning);">28%</div><div class="stat__label">Abandono en conflictos</div></div>
+    <div class="stat"><div style="font-size: 32px; margin-bottom: 4px;">⏱️</div><div class="stat__value" style="color: var(--danger);">4.8 min</div><div class="stat__label">Tiempo de resolución</div></div>
+    <div class="stat"><div style="font-size: 32px; margin-bottom: 4px;">🎫</div><div class="stat__value" style="color: var(--teal);">662</div><div class="stat__label">Tickets soporte/sem</div></div>
+    <div class="stat"><div style="font-size: 32px; margin-bottom: 4px;">📱</div><div class="stat__value">51%</div><div class="stat__label">Inscribe desde móvil</div></div>
+  </div>
+</div>
+
+<!-- ===== 4: DESK RESEARCH ===== -->
+<div class="slide bg-mesh">
+  <span class="slide-number"><img src="logo-foris-blanco.svg">04 — Descubrir: Investigación</span>
+  <h2>¿Qué sabemos del problema?</h2>
+  <div class="card-grid mt-16">
+    <div class="card">
+      <div class="card__icon card__icon--warning">📊</div>
+      <h3>67% reporta estres</h3>
+      <p>La inscripción de materias es una de las experiencias más estresantes de la vida universitaria (EDUCAUSE 2024).</p>
+    </div>
+    <div class="card">
+      <div class="card__icon card__icon--teal">📱</div>
+      <h3>61% móvil en LATAM</h3>
+      <p>El acceso limitado a computadores hace que móvil sea el canal principal de inscripción.</p>
+    </div>
+    <div class="card">
+      <div class="card__icon card__icon--danger">⏱</div>
+      <h3>10x pico de trafico</h3>
+      <p>Ventanas de 1-4 horas generan picos de concurrencia extremos.</p>
+    </div>
+    <div class="card">
+      <div class="card__icon card__icon--ai">🤖</div>
+      <h3>82% sin IA</h3>
+      <p>Los sistemás tradicionales en LATAM no ofrecen recomendaciónes automatizadas. Albus es un diferenciador.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 5: BENCHMARKING ===== -->
+<div class="slide bg-mesh-light">
+  <span class="slide-number"><img src="logo-foris-dark.svg">05 — Descubrir: Benchmarking</span>
+  <h2>Benchmarking competitivo</h2>
+  <table class="slide-table mt-16">
+    <thead><tr><th>Sistema</th><th>¿Qué pasa con el conflicto?</th><th>Recomendación IA</th><th>Resolución sin salir</th><th>Móvil</th></tr></thead>
+    <tbody>
+      <tr><td><div style="display:flex;align-items:center;gap:10px;"><img src="logo-ellucian.png" style="width:28px;height:28px;border-radius:8px;background:#fff;padding:2px;object-fit:contain;"><span>Banner <span style="opacity:0.6;">(Ellucian)</span></span></div></td><td>Bloquea la inscripción</td><td>❌ No</td><td>❌ Error genérico</td><td>⚠️ Parcial</td></tr>
+      <tr><td><div style="display:flex;align-items:center;gap:10px;"><img src="logo-oracle.png" style="width:28px;height:28px;border-radius:8px;background:#fff;padding:2px;object-fit:contain;"><span>PeopleSoft <span style="opacity:0.6;">(Oracle)</span></span></div></td><td>Alerta después de elegir</td><td>❌ No</td><td>❌ Requiere reinicio</td><td>❌ No</td></tr>
+      <tr><td><div style="display:flex;align-items:center;gap:10px;"><img src="logo-workday.png" style="width:28px;height:28px;border-radius:8px;background:#fff;padding:2px;object-fit:contain;"><span>Workday Student</span></div></td><td>Muestra en la grilla</td><td>❌ No</td><td>⚠️ Parcial</td><td>✅ Sí</td></tr>
+      <tr><td><div style="display:flex;align-items:center;gap:10px;"><img src="logo-sigaa.png" style="width:28px;height:28px;border-radius:8px;background:#fff;padding:2px;object-fit:contain;"><span>SIGAA <span style="opacity:0.6;">(Brasil)</span></span></div></td><td>Bloquea sin explicación</td><td>❌ No</td><td>❌ No</td><td>❌ No</td></tr>
+      <tr style="background: rgba(6,156,184,0.1);"><td><div style="display:flex;align-items:center;gap:10px;"><img src="logo-foris-dark.svg" style="height:20px;"><strong style="color: var(--teal);">🚀 Albus (Foris)</strong></div></td><td><strong>Detecta en la propuesta</strong></td><td><strong>✅ Sí</strong></td><td><span class="pill pill--ai">✨ Oportunidad de diseño</span></td><td>✅ Sí</td></tr>
+    </tbody>
+  </table>
+  <div class="quote mt-24" style="font-size: 15px;">
+    Ningún sistema combina detección + recomendación IA + resolución integrada. Albus tiene una ventaja competitiva real si resolvemos este flujo.
+  </div>
+</div>
+
+<!-- ===== 6: DATA / ANALYTICS ===== -->
+<div class="slide bg-dark">
+  <span class="slide-number"><img src="logo-foris-blanco.svg">06 — Descubrir: Datos internos</span>
+  <h2>Data interna (Sem 2025-2)</h2>
+  <div class="two-col mt-16">
+    <div>
+      <div class="label">📊 Volumenes</div>
+      <table class="slide-table">
+        <tbody>
+          <tr><td>👥 Estudiantes activos</td><td><strong style="color: white;">18,400</strong></td></tr>
+          <tr><td>✅ Inscripciones completadas</td><td style="color: #6EE7B7;">14,720 (80%)</td></tr>
+          <tr><td>⚠️ Propuestas con conflicto</td><td style="color: #FCD34D;"><strong>5,520 (30%)</strong></td></tr>
+          <tr><td>🚪 Abandonaron por conflicto</td><td style="color: #FCA5A5;"><strong>1,546 (28%)</strong></td></tr>
+          <tr><td>🎫 Contactaron soporte</td><td style="color: #FCA5A5;">662 (12%)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="label">🎫 Top motivos de tickets</div>
+      <div style="margin-top: 12px;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+          <span style="font-size: 14px; white-space: nowrap; min-width: 200px;">1. "No puedo inscribir"</span>
+          <div style="flex: 1; height: 12px; background: rgba(255,255,255,0.08); border-radius: 6px; overflow: hidden;">
+            <div style="width: 38%; height: 100%; background: var(--danger); border-radius: 6px;"></div>
+          </div>
+          <strong style="color: #FCA5A5; font-size: 15px;">38%</strong>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+          <span style="font-size: 14px; white-space: nowrap; min-width: 200px;">2. "No entiendo el conflicto"</span>
+          <div style="flex: 1; height: 12px; background: rgba(255,255,255,0.08); border-radius: 6px; overflow: hidden;">
+            <div style="width: 24%; height: 100%; background: var(--warning); border-radius: 6px;"></div>
+          </div>
+          <strong style="color: #FCD34D; font-size: 15px;">24%</strong>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+          <span style="font-size: 14px; white-space: nowrap; min-width: 200px;">3. "No me deja avanzar"</span>
+          <div style="flex: 1; height: 12px; background: rgba(255,255,255,0.08); border-radius: 6px; overflow: hidden;">
+            <div style="width: 18%; height: 100%; background: var(--teal); border-radius: 6px;"></div>
+          </div>
+          <strong style="font-size: 15px; opacity: 0.8;">18%</strong>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+          <span style="font-size: 14px; white-space: nowrap; min-width: 200px;">4. "Se me cerró la ventana"</span>
+          <div style="flex: 1; height: 12px; background: rgba(255,255,255,0.08); border-radius: 6px; overflow: hidden;">
+            <div style="width: 12%; height: 100%; background: var(--ai); border-radius: 6px;"></div>
+          </div>
+          <strong style="font-size: 15px; opacity: 0.7;">12%</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 7: RESEARCH CUALITATIVO ===== -->
+<div class="slide bg-mesh">
+  <span class="slide-number"><img src="logo-foris-blanco.svg">07 — Descubrir: Entrevistas</span>
+  <h2>Investigación cualitativa</h2>
+  <p class="small-text">6 entrevistas semi-estructuradas (45 min) + ordenamiento de tarjetas + tarjetas de reacción</p>
+  <div class="card-grid mt-16" style="grid-template-columns: repeat(3, 1fr);">
+    <div class="card interview-card" style="border-left: 3px solid var(--warning);">
+      <div class="interview-avatar" style="background: #FEF3C7;">👩🏻‍🔧</div>
+      <h3>Sofia M. — Ing. Civil, 5to sem</h3>
+      <p style="font-style: italic; font-size: 13px;">"Cuando vi el cruce, me entró pánico. Cerré todo y volvi a abrir como 3 veces."</p>
+      <p class="mt-8" style="font-size: 12px;">😱→😕→😤→😞</p>
+    </div>
+    <div class="card interview-card" style="border-left: 3px solid var(--teal);">
+      <div class="interview-avatar" style="background: #D1FAE5;">👩🏽‍🎓</div>
+      <h3>Maria L. — Psicologia, 7mo sem</h3>
+      <p style="font-style: italic; font-size: 13px;">"Tuve que ir a otra pantalla, copiar horarios en un papel. Perdí 15 minutos."</p>
+      <p class="mt-8" style="font-size: 12px;">💪→😤→🔨 Resolvió por fuerza bruta</p>
+    </div>
+    <div class="card interview-card" style="border-left: 3px solid var(--ai);">
+      <div class="interview-avatar" style="background: #EDE9FE;">👨🏻‍💻</div>
+      <h3>Juan D. — Ing. Sistemas, 6to sem</h3>
+      <p style="font-style: italic; font-size: 13px;">"Quiero que la IA me de opciones rankeadas. No quiero una caja negra."</p>
+      <p class="mt-8" style="font-size: 12px;">🧐→💡→✅ Quiere transparencia</p>
+    </div>
+    <div class="card interview-card" style="border-left: 3px solid var(--danger);">
+      <div class="interview-avatar" style="background: #FCE7F3;">👨🏽‍⚕️</div>
+      <h3>Andres G. — Medicina, 9no sem</h3>
+      <p style="font-style: italic; font-size: 13px;">"Debería decirme cuántos cupos quedan EN TIEMPO REAL."</p>
+      <p class="mt-8" style="font-size: 12px;">😰→😡→😤 Ansiedad extrema por cupos</p>
+    </div>
+    <div class="card interview-card" style="border-left: 3px solid #8B5CF6;">
+      <div class="interview-avatar" style="background: #DBEAFE;">👩🏻‍🎨</div>
+      <h3>Valentina P. — Diseño, 4to sem</h3>
+      <p style="font-style: italic; font-size: 13px;">"Desde el celular la grilla era imposible de leer."</p>
+      <p class="mt-8" style="font-size: 12px;">📱😤→💻 Cambio de dispositivo = 20 min</p>
+    </div>
+    <div class="card interview-card" style="border-left: 3px solid var(--gray-400);">
+      <div class="interview-avatar" style="background: #F1F5F9;">👨🏻‍💼</div>
+      <h3>Carlos R. — Admin, 3er sem</h3>
+      <p style="font-style: italic; font-size: 13px;">"El boton de confirmar me daba miedo porque no sabía si después podia modificar."</p>
+      <p class="mt-8" style="font-size: 12px;">😰→🤔→😮‍💨 Miedo al boton</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 8: CARD SORTING + REACTION ===== -->
+<div class="slide bg-mesh-light">
+  <span class="slide-number"><img src="logo-foris-dark.svg">08 — Descubrir: Priorización</span>
+  <h2>¿Que información necesitan?</h2>
+  <div class="two-col mt-16">
+    <div>
+      <div class="label">Ordenamiento de tarjetas — Top prioridades</div>
+      <div class="postit-grid">
+        <div class="postit postit--yellow">
+          <span class="postit__rank">1</span>
+          📅 <strong>Horario alternativo</strong><br>(día y hora)
+          <div style="margin-top: 8px;"><div style="height:6px;border-radius:3px;background:rgba(0,0,0,0.08);overflow:hidden;"><div style="width:100%;height:100%;background:#069cb8;border-radius:3px;"></div></div><span style="font-size:11px;color:#475569;margin-top:2px;display:block;">6/6 — ✅ En prototipo</span></div>
+        </div>
+        <div class="postit postit--pink">
+          <span class="postit__rank">2</span>
+          🎟️ <strong>Cupos disponibles</strong><br>en tiempo real
+          <div style="margin-top: 8px;"><div style="height:6px;border-radius:3px;background:rgba(0,0,0,0.08);overflow:hidden;"><div style="width:100%;height:100%;background:#069cb8;border-radius:3px;"></div></div><span style="font-size:11px;color:#475569;margin-top:2px;display:block;">6/6 — ✅ En prototipo</span></div>
+        </div>
+        <div class="postit postit--blue">
+          <span class="postit__rank">3</span>
+          ⚠️ <strong>¿Genera otro conflicto?</strong><br>Validación en contexto
+          <div style="margin-top: 8px;"><div style="height:6px;border-radius:3px;background:rgba(0,0,0,0.08);overflow:hidden;"><div style="width:83%;height:100%;background:#6366F1;border-radius:3px;"></div></div><span style="font-size:11px;color:#475569;margin-top:2px;display:block;">5/6 — ✅ En prototipo</span></div>
+        </div>
+        <div class="postit postit--green">
+          <span class="postit__rank">4</span>
+          👁️ <strong>Vista previa</strong><br>del horario resultante
+          <div style="margin-top: 8px;"><div style="height:6px;border-radius:3px;background:rgba(0,0,0,0.08);overflow:hidden;"><div style="width:66%;height:100%;background:#f59e0b;border-radius:3px;"></div></div><span style="font-size:11px;color:#475569;margin-top:2px;display:block;">4/6 — ✅ En prototipo</span></div>
+        </div>
+        <div class="postit postit--purple">
+          <span class="postit__rank">5</span>
+          🤖 <strong>Sugerencia de la IA</strong><br>con mejor opción
+          <div style="margin-top: 8px;"><div style="height:6px;border-radius:3px;background:rgba(0,0,0,0.08);overflow:hidden;"><div style="width:50%;height:100%;background:#94a3b8;border-radius:3px;"></div></div><span style="font-size:11px;color:#475569;margin-top:2px;display:block;">3/6 — ✅ En prototipo</span></div>
+        </div>
+      </div>
+      <p class="small-text mt-16">💡 La información crítica es <strong>operativa</strong> (cuándo, cuántos cupos), no académica.</p>
+    </div>
+    <div>
+      <div class="label">¿Cómo comunicamos el conflicto?</div>
+      <div class="card" style="border-left: 3px solid var(--danger); margin-bottom: 10px; opacity: 0.55;">
+        <h3>❌ Alerta roja: "ERROR: Conflicto detectado"</h3>
+        <p>😨 "Esto da miedo" · "Parece que hice algo mal"</p>
+      </div>
+      <div class="card" style="border-left: 4px solid var(--success); margin-bottom: 10px; background: rgba(16,185,129,0.08); border: 2px solid rgba(16,185,129,0.25); position: relative;">
+        <div style="position: absolute; top: -10px; right: 12px; background: var(--success); color: #fff; font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 20px;">🏆 ELEGIDA</div>
+        <h3>✅ Alerta ámbar: "Detectamos un cruce. Hay opciones."</h3>
+        <p>😌 "Se siente manejable" · "Me dice que tiene solución"</p>
+      </div>
+      <div class="card" style="border-left: 3px solid var(--gray-400); margin-bottom: 10px; opacity: 0.55;">
+        <h3>❌ Sin alerta, solo materias superpuestas</h3>
+        <p>😕 "No entiendo qué pasa" · "¿Esto es un bug?"</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 9: ENCUESTA CUANTITATIVA ===== -->
+<div class="slide bg-dark">
+  <span class="slide-number"><img src="logo-foris-blanco.svg">09 — Descubrir: Encuesta</span>
+  <h2>Investigación cuantitativa</h2>
+  <p class="small-text">1,240 respuestas post-inscripción (6.7% tasa de respuesta)</p>
+  <div class="card-grid mt-16" style="grid-template-columns: 1fr 1fr;">
+    <div class="card">
+      <h3>😶‍🌫️ 48% dice "nada claro"</h3>
+      <p>Claridad del mensaje de conflicto: <strong>2.4/5</strong></p>
+      <div style="margin-top: 10px; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden;">
+        <div style="width: 48%; height: 100%; background: var(--warning); border-radius: 4px;"></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>🤖 45% no sabía que era IA</h3>
+      <p>Quienes lo saben la valoran más</p>
+      <div style="margin-top: 10px; display: flex; gap: 8px; align-items: center;">
+        <span style="font-size: 13px; opacity: 0.7;">Sabe:</span>
+        <div style="flex: 1; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden;">
+          <div style="width: 82%; height: 100%; background: var(--success); border-radius: 4px;"></div>
+        </div>
+        <strong style="font-size: 14px;">4.1</strong>
+      </div>
+      <div style="margin-top: 4px; display: flex; gap: 8px; align-items: center;">
+        <span style="font-size: 13px; opacity: 0.7;">No sabe:</span>
+        <div style="flex: 1; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden;">
+          <div style="width: 64%; height: 100%; background: var(--gray-400); border-radius: 4px;"></div>
+        </div>
+        <strong style="font-size: 14px;">3.2</strong>
+      </div>
+    </div>
+    <div class="card">
+      <h3>✨ 80% usaria sugerencias IA</h3>
+      <p>Alta disposición a confiar en la IA</p>
+      <div style="margin-top: 10px; height: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; overflow: hidden;">
+        <div style="width: 80%; height: 100%; background: var(--gradient-ai); border-radius: 5px;"></div>
+      </div>
+      <div style="margin-top: 6px; font-size: 12px; opacity: 0.7;">42% definitivamente + 38% probablemente</div>
+    </div>
+    <div class="card">
+      <h3>⏳ 62% tarda más de 5 min</h3>
+      <p>Distribución de tiempo de resolución:</p>
+      <div style="margin-top: 10px; display: flex; gap: 3px; height: 40px; align-items: flex-end;">
+        <div style="flex: 1; background: rgba(16,185,129,0.4); border-radius: 3px 3px 0 0; height: 18%;" title="<2min 11%"></div>
+        <div style="flex: 1; background: rgba(6,156,184,0.4); border-radius: 3px 3px 0 0; height: 47%;" title="2-5min 29%"></div>
+        <div style="flex: 1; background: rgba(245,158,11,0.5); border-radius: 3px 3px 0 0; height: 55%;" title="5-10min 34%"></div>
+        <div style="flex: 1; background: rgba(242,104,112,0.5); border-radius: 3px 3px 0 0; height: 29%;" title="10-20min 18%"></div>
+        <div style="flex: 1; background: rgba(242,104,112,0.7); border-radius: 3px 3px 0 0; height: 13%;" title=">20min 8%"></div>
+      </div>
+      <div style="display: flex; justify-content: space-between; font-size: 11px; opacity: 0.8; margin-top: 4px;">
+        <span>&lt;2m</span><span>2-5</span><span>5-10</span><span>10-20</span><span>&gt;20</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 10: AFFINITY + INSIGHTS ===== -->
+<div class="slide bg-mesh">
+  <span class="slide-number"><img src="logo-foris-blanco.svg">10 — Descubrir: Hallazgos</span>
+  <h2>5 grupos → 5 hallazgos clave</h2>
+  <div class="card-grid mt-16" style="grid-template-columns: 1fr 1fr;">
+    <div class="card" style="border-top: 3px solid var(--ai);">
+      <div style="font-size: 28px; margin-bottom: 6px;">🤖</div>
+      <h3>1. La invisibilidad de la IA reduce su valor</h3>
+      <p>Hacer visible el rol de la IA — sin intimidar — aumenta confianza. <strong style="color: var(--ai-light);">4.1 vs 3.2/5</strong></p>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--danger);">
+      <div style="font-size: 28px; margin-bottom: 6px;">🚪</div>
+      <h3>2. El conflicto sin salida genera abandono</h3>
+      <p><strong style="color: #FCA5A5;">28% abandona</strong> — no porque sea irresolvible, sino porque no ve como resolverlo.</p>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--warning);">
+      <div style="font-size: 28px; margin-bottom: 6px;">⏰</div>
+      <h3>3. La presión temporal convierte fricción en pánico</h3>
+      <p><strong style="color: #FCD34D;">63% inscribe en 30 min.</strong> Cada segundo de confusión multiplica la ansiedad.</p>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--teal);">
+      <div style="font-size: 28px; margin-bottom: 6px;">🧩</div>
+      <h3>4. La información esta fragmentada</h3>
+      <p>Horario + cupos + conflictos nuevos: hoy en pantallas separadas. <strong style="color: #5EEAD4;">Consolidar = menos tiempo.</strong></p>
+    </div>
+  </div>
+  <div class="card mt-16" style="border-top: 3px solid #8B5CF6; max-width: 560px;">
+    <div style="font-size: 28px; margin-bottom: 6px;">📱</div>
+    <h3>5. Móvil no es secundario — es el canal principal</h3>
+    <p><strong style="color: #C4B5FD;">51%</strong> inscribe desde celular. Móvil primero es requisito del negocio.</p>
+  </div>
+</div>
+
+<!-- ===== 11: PERSONA ===== -->
+<div class="slide bg-mesh-light">
+  <span class="slide-number"><img src="logo-foris-dark.svg">11 — Definir: Persona</span>
+  <h2>Persona principal</h2>
+
+  <div style="display: flex; gap: 28px; margin-top: 20px; align-items: flex-start;">
+
+    <!-- Persona card -->
+    <div style="background: #fff; border-radius: 20px; padding: 28px; box-shadow: 0 8px 32px rgba(0,0,0,0.08); min-width: 280px; text-align: center;">
+      <img src="sofia-avatar.png" alt="Sofía" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 4px solid var(--teal); margin-bottom: 12px;">
+      <h3 style="font-size: 22px; margin-bottom: 4px; color: var(--primary);">Sofía Martínez</h3>
+      <p style="font-size: 14px; color: var(--gray-600);">Ing. Civil — 5to semestre — 20 años</p>
+      <div style="display: flex; gap: 6px; justify-content: center; margin-top: 12px; flex-wrap: wrap;">
+        <span style="background: rgba(6,156,184,0.1); color: var(--teal); font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px;">📱 Móvil primero</span>
+        <span style="background: rgba(99,102,241,0.1); color: var(--ai); font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px;">💻 Nativa digital</span>
+      </div>
+    </div>
+
+    <!-- Info -->
+    <div style="flex: 1;">
+      <div class="quote" style="border-left-color: var(--teal); margin-top: 0;">
+        "No me importa si lo hace una IA o un humano — solo necesito que me diga qué pasa, qué puedo hacer, y que no voy a perder mi cupo mientras lo resuelvo."
+      </div>
+
+      <div style="font-size: 14px; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; margin-top: 20px; margin-bottom: 10px;">¿Qué necesita lograr?</div>
+      <div style="display: flex; gap: 12px;">
+        <div style="flex: 1; background: #fff; border-radius: 14px; padding: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.05); border-left: 3px solid var(--teal);">
+          <div style="font-size: 20px; margin-bottom: 6px;">🎯</div>
+          <div style="font-size: 13px; font-weight: 700; color: var(--primary); margin-bottom: 4px;">Necesidad funcional</div>
+          <p style="font-size: 13px; color: var(--gray-600); line-height: 1.4;">Inscribir 6 materias sin conflictos de horario</p>
+        </div>
+        <div style="flex: 1; background: #fff; border-radius: 14px; padding: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.05); border-left: 3px solid var(--ai);">
+          <div style="font-size: 20px; margin-bottom: 6px;">💪</div>
+          <div style="font-size: 13px; font-weight: 700; color: var(--primary); margin-bottom: 4px;">Necesidad emocional</div>
+          <p style="font-size: 13px; color: var(--gray-600); line-height: 1.4;">Sentir control de su semestre y que tomó buenas decisiones</p>
+        </div>
+        <div style="flex: 1; background: #fff; border-radius: 14px; padding: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.05); border-left: 3px solid var(--warning);">
+          <div style="font-size: 20px; margin-bottom: 6px;">👥</div>
+          <div style="font-size: 13px; font-weight: 700; color: var(--primary); margin-bottom: 4px;">Necesidad social</div>
+          <p style="font-size: 13px; color: var(--gray-600); line-height: 1.4;">No quedarse atrás ni depender de otros para resolver</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 12: JOURNEY MAP ===== -->
+<div class="slide bg-dark">
+  <span class="slide-number"><img src="logo-foris-blanco.svg">12 — Definir: Mapa de experiencia</span>
+  <h2>Mapa de experiencia de Sofía</h2>
+
+  <!-- Flujo horizontal con etapas -->
+  <div style="display: flex; gap: 0; margin-top: 24px; overflow-x: auto;">
+
+    <!-- Etapa 1: Pre -->
+    <div style="flex: 1; min-width: 140px; text-align: center; padding: 16px 10px; position: relative;">
+      <div style="font-size: 36px; margin-bottom: 6px;">🤞</div>
+      <div style="font-size: 13px; font-weight: 700;">Preparación</div>
+      <div style="font-size: 11px; opacity: 0.85; margin-top: 4px;">Revisa malla, se conecta 5 min antes</div>
+      <div style="margin-top: 10px; padding: 6px 10px; border-radius: 8px; background: rgba(16,185,129,0.15); font-size: 11px; font-weight: 600; color: var(--success);">😬 Ansiedad anticipatoria</div>
+      <!-- Connector -->
+      <div style="position: absolute; right: -8px; top: 50%; font-size: 16px; color: rgba(255,255,255,0.3);">→</div>
+    </div>
+
+    <!-- Etapa 2: Propuesta -->
+    <div style="flex: 1; min-width: 140px; text-align: center; padding: 16px 10px; position: relative;">
+      <div style="font-size: 36px; margin-bottom: 6px;">😌</div>
+      <div style="font-size: 13px; font-weight: 700;">Ve propuesta</div>
+      <div style="font-size: 11px; opacity: 0.85; margin-top: 4px;">"Ok, estan las 6 que necesito"</div>
+      <div style="margin-top: 10px; padding: 6px 10px; border-radius: 8px; background: rgba(16,185,129,0.15); font-size: 11px; font-weight: 600; color: var(--success);">😊 Alivio momentaneo</div>
+      <div style="position: absolute; right: -8px; top: 50%; font-size: 16px; color: rgba(255,255,255,0.3);">→</div>
+    </div>
+
+    <!-- Etapa 3: QUIEBRE 1 -->
+    <div style="flex: 1.2; min-width: 160px; text-align: center; padding: 16px 10px; background: rgba(245,158,11,0.1); border-radius: 12px; border: 1px dashed var(--warning); position: relative;">
+      <div style="font-size: 36px; margin-bottom: 6px;">😱</div>
+      <div style="font-size: 13px; font-weight: 700; color: var(--warning);">⚡ QUIEBRE 1</div>
+      <div style="font-size: 11px; opacity: 0.8; margin-top: 4px;">"¿Que? ¿Esto esta mal?"</div>
+      <div style="margin-top: 10px; padding: 6px 10px; border-radius: 8px; background: rgba(245,158,11,0.2); font-size: 11px; font-weight: 600; color: var(--warning);">😰 Confusión + Pánico</div>
+      <div style="position: absolute; right: -8px; top: 50%; font-size: 16px; color: rgba(255,255,255,0.3);">→</div>
+    </div>
+
+    <!-- Etapa 4: QUIEBRE 2 -->
+    <div style="flex: 1.2; min-width: 160px; text-align: center; padding: 16px 10px; background: rgba(242,104,112,0.1); border-radius: 12px; border: 1px dashed var(--danger); position: relative;">
+      <div style="font-size: 36px; margin-bottom: 6px;">😤</div>
+      <div style="font-size: 13px; font-weight: 700; color: var(--danger);">⚡ QUIEBRE 2</div>
+      <div style="font-size: 11px; opacity: 0.8; margin-top: 4px;">"¿Dónde veo alternativas?"</div>
+      <div style="margin-top: 10px; padding: 6px 10px; border-radius: 8px; background: rgba(242,104,112,0.2); font-size: 11px; font-weight: 600; color: var(--danger);">😡 Frustración creciente</div>
+      <div style="position: absolute; right: -8px; top: 50%; font-size: 16px; color: rgba(255,255,255,0.3);">→</div>
+    </div>
+
+    <!-- Etapa 5: QUIEBRE 3 -->
+    <div style="flex: 1.2; min-width: 160px; text-align: center; padding: 16px 10px; background: rgba(99,102,241,0.1); border-radius: 12px; border: 1px dashed var(--ai); position: relative;">
+      <div style="font-size: 36px; margin-bottom: 6px;">⏰</div>
+      <div style="font-size: 13px; font-weight: 700; color: var(--ai);">⚡ QUIEBRE 3</div>
+      <div style="font-size: 11px; opacity: 0.8; margin-top: 4px;">"Se me acaban los cupos..."</div>
+      <div style="margin-top: 10px; padding: 6px 10px; border-radius: 8px; background: rgba(99,102,241,0.2); font-size: 11px; font-weight: 600; color: var(--ai-light);">😰 Ansiedad crítica</div>
+      <div style="position: absolute; right: -8px; top: 50%; font-size: 16px; color: rgba(255,255,255,0.3);">→</div>
+    </div>
+
+    <!-- Etapa 6: Resolución forzada -->
+    <div style="flex: 1; min-width: 140px; text-align: center; padding: 16px 10px; position: relative;">
+      <div style="font-size: 36px; margin-bottom: 6px;">😞</div>
+      <div style="font-size: 13px; font-weight: 700;">Resignación</div>
+      <div style="font-size: 11px; opacity: 0.85; margin-top: 4px;">"Lo que sea, necesito terminar"</div>
+      <div style="margin-top: 10px; padding: 6px 10px; border-radius: 8px; background: rgba(255,255,255,0.08); font-size: 11px; font-weight: 600; opacity: 0.7;">😮‍💨 Alivio con duda</div>
+    </div>
+
+  </div>
+
+  <!-- Curva emocional simplificada -->
+  <div style="display: flex; align-items: flex-end; gap: 0; margin-top: 16px; height: 40px; padding: 0 20px;">
+    <div style="flex: 1; height: 20px; background: linear-gradient(90deg, rgba(16,185,129,0.3), rgba(16,185,129,0.4)); border-radius: 4px 0 0 4px;"></div>
+    <div style="flex: 1; height: 28px; background: rgba(16,185,129,0.3); "></div>
+    <div style="flex: 1.2; height: 8px; background: rgba(245,158,11,0.4);"></div>
+    <div style="flex: 1.2; height: 4px; background: rgba(242,104,112,0.5);"></div>
+    <div style="flex: 1.2; height: 6px; background: rgba(99,102,241,0.4);"></div>
+    <div style="flex: 1; height: 16px; background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(16,185,129,0.2)); border-radius: 0 4px 4px 0;"></div>
+  </div>
+  <div style="display: flex; justify-content: space-between; font-size: 10px; opacity: 0.7; padding: 4px 20px; text-transform: uppercase; letter-spacing: 1px;">
+    <span>Pre-inscripción</span><span>Propuesta</span><span>Conflicto</span><span>Intento resolución</span><span>Confirmación</span>
+  </div>
+
+</div>
+
+<!-- ===== 13: PAIN POINTS + PROBLEM STATEMENT ===== -->
+<div class="slide bg-mesh">
+  <span class="slide-number"><img src="logo-foris-blanco.svg">13 — Definir: Declaración del problema</span>
+  <h2>Puntos de dolor priorizados</h2>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 24px; max-width: 820px;">
+    <div style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 16px; padding: 20px; border-left: 4px solid var(--danger); display: flex; align-items: flex-start; gap: 14px;">
+      <div style="font-size: 28px;">😱</div>
+      <div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;"><span class="pill pill--danger">P0 · Crítico</span></div>
+        <h3 style="font-size: 17px; color: #fff; margin-bottom: 4px;">No entiende el conflicto</h3>
+        <p style="font-size: 14px; color: rgba(255,255,255,0.8);">48% dice que el mensaje es "nada claro". Bloquea el flujo completo.</p>
+      </div>
+    </div>
+    <div style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 16px; padding: 20px; border-left: 4px solid var(--danger); display: flex; align-items: flex-start; gap: 14px;">
+      <div style="font-size: 28px;">🚪</div>
+      <div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;"><span class="pill pill--danger">P0 · Crítico</span></div>
+        <h3 style="font-size: 17px; color: #fff; margin-bottom: 4px;">Sin opciones de resolución</h3>
+        <p style="font-size: 14px; color: rgba(255,255,255,0.8);">60% resuelve fuera del sistema. 28% abandona directamente.</p>
+      </div>
+    </div>
+    <div style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 16px; padding: 20px; border-left: 4px solid var(--warning); display: flex; align-items: flex-start; gap: 14px;">
+      <div style="font-size: 28px;">🎟️</div>
+      <div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;"><span class="pill pill--warning">P1 · Alto</span></div>
+        <h3 style="font-size: 17px; color: #fff; margin-bottom: 4px;">No sabe cuántos cupos quedan</h3>
+        <p style="font-size: 14px; color: rgba(255,255,255,0.8);">Info de cupos no visible hasta que el sistema rechaza la inscripción.</p>
+      </div>
+    </div>
+    <div style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 16px; padding: 20px; border-left: 4px solid var(--warning); display: flex; align-items: flex-start; gap: 14px;">
+      <div style="font-size: 28px;">📱</div>
+      <div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;"><span class="pill pill--warning">P1 · Alto</span></div>
+        <h3 style="font-size: 17px; color: #fff; margin-bottom: 4px;">Experiencia móvil rota</h3>
+        <p style="font-size: 14px; color: rgba(255,255,255,0.8);">51% inscribe desde celular pero la grilla es ilegible. Fuerza cambio de dispositivo.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Problem Statement -->
+  <div style="margin-top: 24px; background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(6,156,184,0.15)); border: 1px solid rgba(99,102,241,0.2); border-radius: 16px; padding: 22px 28px; max-width: 820px;">
+    <div style="font-size: 12px; font-weight: 800; color: var(--ai-light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">📋 Declaración del problema</div>
+    <p style="font-size: 18px; color: #fff; line-height: 1.5; font-weight: 500;"><strong>Sofía</strong> necesita identificar, comprender y resolver un conflicto de forma autónoma y en <strong style="color: var(--teal);">menos de 2 minutos</strong>, porque cada minuto de confusión multiplica la ansiedad, el abandono y la carga de soporte.</p>
+  </div>
+</div>
+
+<!-- ===== 14: HMW ===== -->
+<div class="slide bg-mesh-light">
+  <span class="slide-number"><img src="logo-foris-dark.svg">14 — Definir: ¿Cómo podríamos...?</span>
+  <h2>4 preguntas que guían el diseño</h2>
+
+  <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 28px; max-width: 850px;">
+
+    <div style="display: flex; align-items: flex-start; gap: 20px; background: #fff; border-radius: 16px; padding: 22px 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border-left: 4px solid var(--warning);">
+      <div style="min-width: 52px; height: 52px; border-radius: 14px; background: rgba(245,158,11,0.1); display: flex; align-items: center; justify-content: center; font-size: 26px;">💬</div>
+      <div>
+        <div style="font-size: 12px; font-weight: 800; color: var(--warning); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Comunicación</div>
+        <p style="font-size: 17px; color: var(--gray-800); line-height: 1.45;">¿Cómo comunicamos un conflicto de forma que Sofía entienda qué pasa y qué puede hacer <strong>en 5 segundos</strong>, sin generarle pánico?</p>
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: flex-start; gap: 20px; background: #fff; border-radius: 16px; padding: 22px 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border-left: 4px solid var(--teal);">
+      <div style="min-width: 52px; height: 52px; border-radius: 14px; background: rgba(6,156,184,0.1); display: flex; align-items: center; justify-content: center; font-size: 26px;">🔄</div>
+      <div>
+        <div style="font-size: 12px; font-weight: 800; color: var(--teal); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Resolución integrada</div>
+        <p style="font-size: 17px; color: var(--gray-800); line-height: 1.45;">¿Cómo presentamos opciones de resolución <strong>dentro del mismo flujo</strong> para que nunca tenga que salir a buscar información?</p>
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: flex-start; gap: 20px; background: #fff; border-radius: 16px; padding: 22px 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border-left: 4px solid var(--ai);">
+      <div style="min-width: 52px; height: 52px; border-radius: 14px; background: rgba(99,102,241,0.1); display: flex; align-items: center; justify-content: center; font-size: 26px;">🤖</div>
+      <div>
+        <div style="font-size: 12px; font-weight: 800; color: var(--ai); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Confianza en la IA</div>
+        <p style="font-size: 17px; color: var(--gray-800); line-height: 1.45;">¿Cómo hacemos visible el rol de la <strong>IA como aliada</strong> — que no solo detectó el problema sino que ya tiene opciones?</p>
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: flex-start; gap: 20px; background: #fff; border-radius: 16px; padding: 22px 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border-left: 4px solid var(--success);">
+      <div style="min-width: 52px; height: 52px; border-radius: 14px; background: rgba(16,185,129,0.1); display: flex; align-items: center; justify-content: center; font-size: 26px;">⚡</div>
+      <div>
+        <div style="font-size: 12px; font-weight: 800; color: var(--success); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Velocidad y confianza</div>
+        <p style="font-size: 17px; color: var(--gray-800); line-height: 1.45;">¿Cómo diseñamos un flujo tan rápido y claro que Sofía sienta que <strong>la IA le resolvió el problema</strong> en lugar de habérselo creado?</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 15: PRINCIPIOS ===== -->
+<div class="slide bg-dark">
+  <span class="slide-number"><img src="logo-foris-blanco.svg">15 — Desarrollar: Principios</span>
+  <div class="label">Fase 3: Principios de diseño</div>
+  <h2>4 principios</h2>
+  <div class="card-grid mt-16" style="grid-template-columns: 1fr 1fr;">
+    <div class="card" style="border-top: 3px solid var(--warning);">
+      <div style="font-size: 28px; margin-bottom: 6px;">🟡</div>
+      <h3>1. Informar sin alarmar</h3>
+      <p>Amber (atención), no rojo (error). El conflicto es una situación con solución, no un fallo.</p>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--teal);">
+      <div style="font-size: 28px; margin-bottom: 6px;">📍</div>
+      <h3>2. La solución vive donde esta el problema</h3>
+      <p>Cero navegación externa. Opciones de resolución integrada, en el mismo flujo.</p>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--ai);">
+      <div style="font-size: 28px; margin-bottom: 6px;">🤝</div>
+      <h3>3. La IA asiste, el estudiante decide</h3>
+      <p>La IA sugiere y explica, pero nunca impone. Sofia siempre tiene la última palabra.</p>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--success);">
+      <div style="font-size: 28px; margin-bottom: 6px;">⚡</div>
+      <h3>4. Velocidad de comprensión > velocidad del sistema</h3>
+      <p>Si Sofia entiende en 5 segundos, el flujo funciona. Si tarda 30, ya perdimos.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 16: TRADE-OFFS ===== -->
+<div class="slide bg-dark">
+  <span class="slide-number"><img src="logo-foris-blanco.svg">16 — Desarrollar: Decisiones</span>
+  <h2>Decisiones de diseño</h2>
+  <p class="subtitle">Qué priorizamos y por qué</p>
+
+  <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 24px; max-width: 860px;">
+
+    <div style="display: flex; align-items: center; gap: 0; background: rgba(255,255,255,0.06); border-radius: 12px; overflow: hidden;">
+      <div style="flex: 1; padding: 14px 18px; display: flex; align-items: center; gap: 10px; background: rgba(16,185,129,0.12); border-left: 3px solid var(--success);">
+        <span style="font-size: 18px;">⚡</span>
+        <strong style="font-size: 15px; color: #6EE7B7;">Velocidad de resolución</strong>
+      </div>
+      <div style="padding: 0 12px; font-size: 14px; opacity: 0.4;">sobre</div>
+      <div style="flex: 1; padding: 14px 18px; opacity: 0.5; font-size: 14px;">Cantidad de información</div>
+      <div style="padding: 14px 18px; font-size: 13px; color: rgba(255,255,255,0.7); white-space: nowrap;">63% inscribe en 30 min</div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 0; background: rgba(255,255,255,0.06); border-radius: 12px; overflow: hidden;">
+      <div style="flex: 1; padding: 14px 18px; display: flex; align-items: center; gap: 10px; background: rgba(245,158,11,0.12); border-left: 3px solid var(--warning);">
+        <span style="font-size: 18px;">🟡</span>
+        <strong style="font-size: 15px; color: #FCD34D;">Conflicto como "atención"</strong>
+      </div>
+      <div style="padding: 0 12px; font-size: 14px; opacity: 0.4;">sobre</div>
+      <div style="flex: 1; padding: 14px 18px; opacity: 0.5; font-size: 14px;">Conflicto como "error"</div>
+      <div style="padding: 14px 18px; font-size: 13px; color: rgba(255,255,255,0.7); white-space: nowrap;">No es un fallo, es una decisión</div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 0; background: rgba(255,255,255,0.06); border-radius: 12px; overflow: hidden;">
+      <div style="flex: 1; padding: 14px 18px; display: flex; align-items: center; gap: 10px; background: rgba(6,156,184,0.12); border-left: 3px solid var(--teal);">
+        <span style="font-size: 18px;">3️⃣</span>
+        <strong style="font-size: 15px; color: #5EEAD4;">3 opciones claras</strong>
+      </div>
+      <div style="padding: 0 12px; font-size: 14px; opacity: 0.4;">sobre</div>
+      <div style="flex: 1; padding: 14px 18px; opacity: 0.5; font-size: 14px;">Mostrar todas las secciones</div>
+      <div style="padding: 14px 18px; font-size: 13px; color: rgba(255,255,255,0.7); white-space: nowrap;">Paradoja de elección</div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 0; background: rgba(255,255,255,0.06); border-radius: 12px; overflow: hidden;">
+      <div style="flex: 1; padding: 14px 18px; display: flex; align-items: center; gap: 10px; background: rgba(99,102,241,0.12); border-left: 3px solid var(--ai);">
+        <span style="font-size: 18px;">🤖</span>
+        <strong style="font-size: 15px; color: var(--ai-light);">IA que sugiere</strong>
+      </div>
+      <div style="padding: 0 12px; font-size: 14px; opacity: 0.4;">sobre</div>
+      <div style="flex: 1; padding: 14px 18px; opacity: 0.5; font-size: 14px;">IA que decide sola</div>
+      <div style="padding: 14px 18px; font-size: 13px; color: rgba(255,255,255,0.7); white-space: nowrap;">80% quiere sugerencias</div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 0; background: rgba(255,255,255,0.06); border-radius: 12px; overflow: hidden;">
+      <div style="flex: 1; padding: 14px 18px; display: flex; align-items: center; gap: 10px; background: rgba(16,185,129,0.12); border-left: 3px solid var(--success);">
+        <span style="font-size: 18px;">👁️</span>
+        <strong style="font-size: 15px; color: #6EE7B7;">Vista previa en tiempo real</strong>
+      </div>
+      <div style="padding: 0 12px; font-size: 14px; opacity: 0.4;">sobre</div>
+      <div style="flex: 1; padding: 14px 18px; opacity: 0.5; font-size: 14px;">Confirmación ciega</div>
+      <div style="padding: 14px 18px; font-size: 13px; color: rgba(255,255,255,0.7); white-space: nowrap;">Info fragmentada = abandono</div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 0; background: rgba(255,255,255,0.06); border-radius: 12px; overflow: hidden;">
+      <div style="flex: 1; padding: 14px 18px; display: flex; align-items: center; gap: 10px; background: rgba(6,156,184,0.12); border-left: 3px solid var(--teal);">
+        <span style="font-size: 18px;">📱</span>
+        <strong style="font-size: 15px; color: #5EEAD4;">Móvil primero</strong>
+      </div>
+      <div style="padding: 0 12px; font-size: 14px; opacity: 0.4;">sobre</div>
+      <div style="flex: 1; padding: 14px 18px; opacity: 0.5; font-size: 14px;">Escritorio primero</div>
+      <div style="padding: 14px 18px; font-size: 13px; color: rgba(255,255,255,0.7); white-space: nowrap;">51% inscribe desde celular</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 17: COMUNICACIÓN IA ===== -->
+<div class="slide bg-ai" style="position: relative; overflow: hidden; padding-top: 50px; padding-bottom: 30px;">
+  <!-- Background decorative elements -->
+  <div style="position: absolute; top: -80px; right: -80px; width: 300px; height: 300px; border-radius: 50%; background: rgba(255,255,255,0.04);"></div>
+  <div style="position: absolute; bottom: -120px; left: -60px; width: 400px; height: 400px; border-radius: 50%; background: rgba(255,255,255,0.03);"></div>
+  <div style="position: absolute; top: 50%; right: 10%; width: 150px; height: 150px; border-radius: 50%; background: rgba(255,255,255,0.02);"></div>
+
+  <span class="slide-number"><img src="logo-foris-blanco.svg">17 — Desarrollar: Patrón IA</span>
+
+  <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 8px;">
+    <div style="width: 56px; height: 56px; border-radius: 16px; background: rgba(255,255,255,0.15); backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: center; font-size: 30px; border: 1px solid rgba(255,255,255,0.2);">✨</div>
+    <div>
+      <h2 style="margin-bottom: 2px;">Albus IA</h2>
+      <p style="font-size: 18px; color: rgba(255,255,255,0.85); font-weight: 400;">Asistente que explica. Breve. Sugiere, no impone.</p>
+    </div>
+  </div>
+
+  <!-- Tono de voz -->
+  <div style="display: flex; gap: 10px; margin-top: 20px; margin-bottom: 28px;">
+    <div style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.15); border-radius: 50px; padding: 8px 16px; font-size: 14px; font-weight: 600;">💬 Dice "Detecté un cruce"</div>
+    <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 50px; padding: 8px 16px; font-size: 14px; opacity: 0.5; text-decoration: line-through;">No dice "Error de horario"</div>
+  </div>
+
+  <!-- 3 Screens with decreasing presence -->
+  <div style="display: flex; gap: 16px; align-items: stretch; flex: 1;">
+
+    <!-- Screen 1: Alta -->
+    <div style="flex: 1; background: rgba(0,0,0,0.2); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; padding: 24px; position: relative; overflow: hidden;">
+      <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #fff, rgba(255,255,255,0.3));"></div>
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px;">
+        <div style="font-size: 22px;">🔥</div>
+        <div style="font-size: 22px; font-weight: 900; color: #fff;">Alta</div>
+      </div>
+      <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.8); margin-bottom: 8px;">Propuesta con conflicto</div>
+      <p style="font-size: 15px; line-height: 1.5; color: #fff;">Explica qué recomendó, por qué, y que detectó un conflicto con opciones para resolverlo.</p>
+      <div style="margin-top: 14px; background: rgba(0,0,0,0.15); border-radius: 10px; padding: 10px 14px; font-size: 13px; font-style: italic; color: rgba(255,255,255,0.9);">
+        "Detecté un cruce entre Cálculo III y Mecánica de Fluidos. Tengo 3 opciones para resolverlo."
+      </div>
+    </div>
+
+    <!-- Screen 2: Media -->
+    <div style="flex: 1; background: rgba(0,0,0,0.15); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; padding: 24px; position: relative; overflow: hidden;">
+      <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, rgba(255,255,255,0.5), rgba(255,255,255,0.1));"></div>
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px;">
+        <div style="font-size: 22px;">💡</div>
+        <div style="font-size: 22px; font-weight: 900; color: rgba(255,255,255,0.9);">Media</div>
+      </div>
+      <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.8); margin-bottom: 8px;">Resolución</div>
+      <p style="font-size: 15px; line-height: 1.5; color: rgba(255,255,255,0.95);">Sugiere la mejor opción entre las disponibles y explica brevemente por qué.</p>
+      <div style="margin-top: 14px; background: rgba(0,0,0,0.12); border-radius: 10px; padding: 10px 14px; font-size: 13px; font-style: italic; color: rgba(255,255,255,0.85);">
+        "Recomiendo la Opción A: libera el cruce sin afectar otras materias."
+      </div>
+    </div>
+
+    <!-- Screen 3: Baja -->
+    <div style="flex: 1; background: rgba(0,0,0,0.1); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 24px; position: relative; overflow: hidden;">
+      <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, rgba(255,255,255,0.15), rgba(255,255,255,0.02));"></div>
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px;">
+        <div style="font-size: 22px;">🤫</div>
+        <div style="font-size: 22px; font-weight: 900; color: rgba(255,255,255,0.6);">Baja</div>
+      </div>
+      <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.7); margin-bottom: 8px;">Confirmación</div>
+      <p style="font-size: 15px; line-height: 1.5; color: rgba(255,255,255,0.75);">Ausente. Este momento es de Sofía, no de la IA.</p>
+      <div style="margin-top: 14px; background: rgba(0,0,0,0.1); border-radius: 10px; padding: 10px 14px; font-size: 13px; font-style: italic; color: rgba(255,255,255,0.5);">
+        — silencio —
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom insight -->
+  <div style="margin-top: auto; padding-top: 20px; text-align: center; font-size: 16px; color: rgba(255,255,255,0.8); font-weight: 500;">
+    Los estudiantes que entienden el rol de la IA la valoran <strong style="color: #fff;">significativamente más</strong>: <span style="font-size: 22px; font-weight: 900; color: #fff;">4.1</span>/5 vs <span style="font-size: 18px; opacity: 0.5;">3.2</span>/5
+  </div>
+</div>
+
+<!-- ===== 18: FLUJO ===== -->
+<div class="slide bg-mesh-light">
+  <span class="slide-number"><img src="logo-foris-dark.svg">18 — Desarrollar: Flujo</span>
+  <h2>Arquitectura del flujo</h2>
+  <p class="subtitle">3 pantallas. Sin callejones sin salida.</p>
+  <div class="flow mt-24">
+    <div class="flow__step" style="background: var(--gradient-alert); color: white; border: none;"><strong>1. Propuesta</strong><br><small>Conflicto detectado</small></div>
+    <span class="flow__arrow" style="color: var(--gray-400);">→</span>
+    <div class="flow__step" style="background: var(--gradient-ai); color: white; border: none;"><strong>2. Resolución</strong><br><small>Comparar y elegir</small></div>
+    <span class="flow__arrow" style="color: var(--gray-400);">→</span>
+    <div class="flow__step" style="background: linear-gradient(135deg, #10B981, #069cb8); color: white; border: none;"><strong>3. Confirmación</strong><br><small>Verificar y confirmar</small></div>
+  </div>
+  <table class="slide-table mt-24">
+    <thead><tr><th>Pantalla</th><th>Objetivo</th><th>Sofia debe poder...</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Propuesta</strong></td><td>Entender en 5 seg</td><td>Ver horario, entender cruce, saber que hay alternativas</td></tr>
+      <tr><td><strong>Resolución</strong></td><td>Elegir en &lt; 2 min</td><td>Comparar con datos críticos, previsualizar resultado</td></tr>
+      <tr><td><strong>Confirmación</strong></td><td>Confirmar en 1 click</td><td>Revisar resumen, confirmar o recuperarse de error</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ===== 19: ESTADOS ===== -->
+<div class="slide bg-dark">
+  <span class="slide-number"><img src="logo-foris-blanco.svg">19 — Entregar: Estados</span>
+  <h2>Estados diseñados en el prototipo</h2>
+  <p class="subtitle">Cada escenario que Sofía puede encontrar tiene una respuesta diseñada</p>
+
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px;">
+
+    <!-- Pantalla 1: Propuesta con conflicto -->
+    <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 18px; padding: 20px; border-top: 3px solid var(--warning);">
+      <div style="font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #FCD34D; margin-bottom: 14px;">⚠️ Propuesta con conflicto</div>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div style="display: flex; gap: 10px; align-items: flex-start;">
+          <span style="font-size: 20px;">📊</span>
+          <div><strong style="font-size: 14px; color: #fff;">Horario con cruce visible</strong><br><span style="font-size: 12px; color: rgba(255,255,255,0.7);">Grilla semanal con zona de conflicto resaltada en ámbar</span></div>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: flex-start;">
+          <span style="font-size: 20px;">🔔</span>
+          <div><strong style="font-size: 14px; color: #fff;">Alerta con salida</strong><br><span style="font-size: 12px; color: rgba(255,255,255,0.7);">"Materias cruzadas" + CTA "Resolver ahora"</span></div>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: flex-start;">
+          <span style="font-size: 20px;">⏱️</span>
+          <div><strong style="font-size: 14px; color: #fff;">Contador de tiempo</strong><br><span style="font-size: 12px; color: rgba(255,255,255,0.7);">Timer con tooltip de urgencia + "Usar Albus IA"</span></div>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: flex-start;">
+          <span style="font-size: 20px;">✨</span>
+          <div><strong style="font-size: 14px; color: #fff;">Barra de IA</strong><br><span style="font-size: 12px; color: rgba(255,255,255,0.7);">Propuesta de Albus IA + criterios + estadísticas</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pantalla 2: Resolución -->
+    <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 18px; padding: 20px; border-top: 3px solid var(--ai);">
+      <div style="font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--ai-light); margin-bottom: 14px;">🤖 Resolución de conflicto</div>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div style="display: flex; gap: 10px; align-items: flex-start;">
+          <span style="font-size: 20px;">🏆</span>
+          <div><strong style="font-size: 14px; color: #fff;">Sugerida por Albus IA</strong><br><span style="font-size: 12px; color: rgba(255,255,255,0.7);">Grupo de opciones con badge "Mejor opción"</span></div>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: flex-start;">
+          <span style="font-size: 20px;">👁️</span>
+          <div><strong style="font-size: 14px; color: #fff;">Vista previa del horario</strong><br><span style="font-size: 12px; color: rgba(255,255,255,0.7);">Modal "Ver en horario" antes de aplicar</span></div>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: flex-start;">
+          <span style="font-size: 20px;">🔴</span>
+          <div><strong style="font-size: 14px; color: #fff;">Validación en contexto</strong><br><span style="font-size: 12px; color: rgba(255,255,255,0.7);">Si una opción genera nuevo conflicto, alerta roja</span></div>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: flex-start;">
+          <span style="font-size: 20px;">✏️</span>
+          <div><strong style="font-size: 14px; color: #fff;">Edición manual</strong><br><span style="font-size: 12px; color: rgba(255,255,255,0.7);">Modo editar horario para ajustes manuales</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pantalla 3: Confirmación -->
+    <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 18px; padding: 20px; border-top: 3px solid var(--success);">
+      <div style="font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #6EE7B7; margin-bottom: 14px;">✅ Confirmación</div>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div style="display: flex; gap: 10px; align-items: flex-start;">
+          <span style="font-size: 20px;">🎉</span>
+          <div><strong style="font-size: 14px; color: #fff;">Éxito con folio</strong><br><span style="font-size: 12px; color: rgba(255,255,255,0.7);">Check animado + número de folio + horario confirmado</span></div>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: flex-start;">
+          <span style="font-size: 20px;">📋</span>
+          <div><strong style="font-size: 14px; color: #fff;">Resumen de cambios</strong><br><span style="font-size: 12px; color: rgba(255,255,255,0.7);">Materias con badge "Cambiada por IA" destacado</span></div>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: flex-start;">
+          <span style="font-size: 20px;">❌</span>
+          <div><strong style="font-size: 14px; color: #fff;">Error con alternativas</strong><br><span style="font-size: 12px; color: rgba(255,255,255,0.7);">Razón específica + opciones inmediatas + reserva temporal</span></div>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: flex-start;">
+          <span style="font-size: 20px;">📅</span>
+          <div><strong style="font-size: 14px; color: #fff;">Próximos pasos</strong><br><span style="font-size: 12px; color: rgba(255,255,255,0.7);">Fecha de inicio + periodo de ajuste + descargar PDF</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Urgencia -->
+  <div style="margin-top: 14px; background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(6,156,184,0.12)); border: 1px solid rgba(99,102,241,0.2); border-radius: 14px; padding: 14px 20px; display: flex; align-items: center; gap: 14px;">
+    <div style="font-size: 20px;">⏰</div>
+    <div>
+      <strong style="font-size: 14px; color: var(--ai-light);">Alerta de urgencia</strong>
+      <span style="font-size: 13px; color: rgba(255,255,255,0.85); margin-left: 10px;">→ Cuando el tiempo se acaba, aparece un tooltip con "Tu tiempo terminará pronto" + botón "Usar Albus IA" para resolver automáticamente</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 20: DEMO ===== -->
+<div class="slide bg-brand" style="padding-top: 50px; padding-bottom: 30px;">
+  <span class="slide-number"><img src="logo-foris-blanco.svg">20 — Entregar: Prototipo</span>
+
+  <div style="display: flex; align-items: center; gap: 16px;">
+    <h2 style="margin-bottom: 0;">Demo interactiva</h2>
+    <div style="display: flex; gap: 8px;">
+      <a href="prototype/index.html" target="_blank" class="link-card" style="margin: 0; padding: 8px 14px; font-size: 13px;">🖥 Prototipo →</a>
+      <a href="prototype/wireframes.html" target="_blank" class="link-card" style="margin: 0; padding: 8px 14px; font-size: 13px;">📐 Wireframes desktop →</a>
+      <a href="prototype/wireframes-mobile.html" target="_blank" class="link-card" style="margin: 0; padding: 8px 14px; font-size: 13px;">📱 Wireframes mobile →</a>
+    </div>
+  </div>
+
+  <!-- Features + Estados -->
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px;">
+    <div class="card" style="background: rgba(255,255,255,0.1); padding: 16px 18px;">
+      <h3 style="font-size: 15px;">✨ Features clave</h3>
+      <ul class="check-list" style="font-size: 13px;">
+        <li>Auto-resolución con IA (1 click)</li>
+        <li>Timer de urgencia con tooltip</li>
+        <li>Modo edición manual</li>
+        <li>Vista previa en tiempo real</li>
+        <li>Responsive móvil completo</li>
+      </ul>
+    </div>
+    <div class="card" style="background: rgba(255,255,255,0.1); padding: 16px 18px;">
+      <h3 style="font-size: 15px;">🔄 Estados cubiertos</h3>
+      <ul class="check-list" style="font-size: 13px;">
+        <li>Conflicto detectado por IA</li>
+        <li>Resolución con 3 opciones</li>
+        <li>Validación en contexto</li>
+        <li>Éxito con folio confirmado</li>
+        <li>Error con alternativas inmediatas</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Métricas de impacto -->
+  <div style="margin-top: 16px;">
+    <div style="font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: rgba(255,255,255,0.6); margin-bottom: 10px;">📊 Impacto esperado</div>
+    <div style="display: flex; gap: 10px;">
+      <div style="flex: 1; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.18); border-radius: 12px; padding: 16px; text-align: center;">
+        <div style="font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 0.5px;">🚪 Abandono</div>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px;">
+          <span style="font-size: 22px; font-weight: 900; color: #fff; opacity: 0.5; text-decoration: line-through;">28%</span>
+          <span style="font-size: 18px; color: #fff;">→</span>
+          <span style="font-size: 22px; font-weight: 900; color: #fff;">&lt;5%</span>
+        </div>
+      </div>
+      <div style="flex: 1; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.18); border-radius: 12px; padding: 16px; text-align: center;">
+        <div style="font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 0.5px;">⏱️ Resolución</div>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px;">
+          <span style="font-size: 22px; font-weight: 900; color: #fff; opacity: 0.5; text-decoration: line-through;">4.8m</span>
+          <span style="font-size: 18px; color: #fff;">→</span>
+          <span style="font-size: 22px; font-weight: 900; color: #fff;">&lt;2m</span>
+        </div>
+      </div>
+      <div style="flex: 1; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.18); border-radius: 12px; padding: 16px; text-align: center;">
+        <div style="font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 0.5px;">🎫 Tickets</div>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px;">
+          <span style="font-size: 22px; font-weight: 900; color: #fff; opacity: 0.5; text-decoration: line-through;">662</span>
+          <span style="font-size: 18px; color: #fff;">→</span>
+          <span style="font-size: 22px; font-weight: 900; color: #fff;">-60%</span>
+        </div>
+      </div>
+      <div style="flex: 1; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.18); border-radius: 12px; padding: 16px; text-align: center;">
+        <div style="font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 0.5px;">⭐ NPS</div>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px;">
+          <span style="font-size: 22px; font-weight: 900; color: #fff; opacity: 0.5; text-decoration: line-through;">+5</span>
+          <span style="font-size: 18px; color: #fff;">→</span>
+          <span style="font-size: 22px; font-weight: 900; color: #fff;">&gt;+25</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 22: ALCANCE + PRÓXIMOS PASOS ===== -->
+<div class="slide bg-dark">
+  <span class="slide-number"><img src="logo-foris-blanco.svg">21 — Alcance y próximos pasos</span>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 8px;">
+
+    <!-- Fuera de alcance -->
+    <div>
+      <h2 style="font-size: 28px;">Lo que quedó fuera</h2>
+      <p style="font-size: 14px; color: rgba(255,255,255,0.7); margin-bottom: 16px;">Y por qué</p>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 14px 16px; display: flex; align-items: flex-start; gap: 10px;">
+          <span style="font-size: 18px;">💬</span>
+          <div><strong style="font-size: 14px; color: #fff;">Chat conversacional con IA</strong><br><span style="font-size: 13px; color: rgba(255,255,255,0.7);">Demasiada complejidad para un momento de urgencia.</span></div>
+        </div>
+        <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 14px 16px; display: flex; align-items: flex-start; gap: 10px;">
+          <span style="font-size: 18px;">👨‍🏫</span>
+          <div><strong style="font-size: 14px; color: #fff;">Comparador de profesores</strong><br><span style="font-size: 13px; color: rgba(255,255,255,0.7);">Valioso pero fuera del flujo crítico.</span></div>
+        </div>
+        <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 14px 16px; display: flex; align-items: flex-start; gap: 10px;">
+          <span style="font-size: 18px;">🔔</span>
+          <div><strong style="font-size: 14px; color: #fff;">Notificaciones push de cupos</strong><br><span style="font-size: 13px; color: rgba(255,255,255,0.7);">Útil pre-inscripción, no durante el flujo.</span></div>
+        </div>
+        <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 14px 16px; display: flex; align-items: flex-start; gap: 10px;">
+          <span style="font-size: 18px;">🌙</span>
+          <div><strong style="font-size: 14px; color: #fff;">Modo oscuro</strong><br><span style="font-size: 13px; color: rgba(255,255,255,0.7);">Deseable, no prioritario.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Próximos pasos -->
+    <div>
+      <h2 style="font-size: 28px;">Próximos pasos</h2>
+      <p style="font-size: 14px; color: rgba(255,255,255,0.7); margin-bottom: 16px;">Iteraciones sugeridas</p>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div style="background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.15); border-radius: 12px; padding: 14px 16px; display: flex; align-items: flex-start; gap: 10px;">
+          <div style="width: 28px; height: 28px; border-radius: 8px; background: var(--success); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; flex-shrink: 0;">1</div>
+          <div><strong style="font-size: 14px; color: #6EE7B7;">Test de usabilidad</strong><br><span style="font-size: 13px; color: rgba(255,255,255,0.7);">5 estudiantes validando comprensión y tiempo de resolución.</span></div>
+        </div>
+        <div style="background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.15); border-radius: 12px; padding: 14px 16px; display: flex; align-items: flex-start; gap: 10px;">
+          <div style="width: 28px; height: 28px; border-radius: 8px; background: var(--ai); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; flex-shrink: 0;">2</div>
+          <div><strong style="font-size: 14px; color: var(--ai-light);">A/B test etiqueta IA</strong><br><span style="font-size: 13px; color: rgba(255,255,255,0.7);">"Sugerida por Albus" vs "Recomendada para ti".</span></div>
+        </div>
+        <div style="background: rgba(6,156,184,0.08); border: 1px solid rgba(6,156,184,0.15); border-radius: 12px; padding: 14px 16px; display: flex; align-items: flex-start; gap: 10px;">
+          <div style="width: 28px; height: 28px; border-radius: 8px; background: var(--teal); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; flex-shrink: 0;">3</div>
+          <div><strong style="font-size: 14px; color: #5EEAD4;">Analítica de cupos</strong><br><span style="font-size: 13px; color: rgba(255,255,255,0.7);">Medir si visibilidad de cupos reduce errores.</span></div>
+        </div>
+        <div style="background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.15); border-radius: 12px; padding: 14px 16px; display: flex; align-items: flex-start; gap: 10px;">
+          <div style="width: 28px; height: 28px; border-radius: 8px; background: var(--warning); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; flex-shrink: 0;">4</div>
+          <div><strong style="font-size: 14px; color: #FCD34D;">Expansión móvil</strong><br><span style="font-size: 13px; color: rgba(255,255,255,0.7);">Bottom sheets y patrones de swipe.</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 23: CIERRE ===== -->
+<div class="slide bg-brand">
+  <span class="slide-number"><img src="logo-foris-blanco.svg"></span>
+  <h1>Gracias</h1>
+  <div style="margin-top: 20px; display: flex; align-items: center; gap: 20px;">
+    <img src="adrian-photo.jpg" alt="Adrian" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid rgba(255,255,255,0.4);">
+    <div>
+      <strong style="font-size: 22px; color: #fff;">Adrián Rodríguez Sánchez</strong><br>
+      <span style="font-size: 16px; color: rgba(255,255,255,0.85);">Sr. UX/UI Designer</span>
+    </div>
+  </div>
+  <div style="margin-top: 32px; display: flex; flex-wrap: wrap; gap: 10px;">
+    <a href="prototype/index.html" target="_blank" class="link-card">🖥 Ver prototipo →</a>
+    <a href="prototype/wireframes.html" target="_blank" class="link-card">📐 Wireframes desktop →</a>
+    <a href="prototype/wireframes-mobile.html" target="_blank" class="link-card">📱 Wireframes mobile →</a>
+  </div>
+</div>
+
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <button class="nav__btn" onclick="prev()">←</button>
+  <span class="nav__count" id="counter">1 / 25</span>
+  <button class="nav__btn" onclick="next()">→</button>
+</nav>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+  function show(i) {
+    slides.forEach(s => s.classList.remove('active'));
+    slides[i].classList.add('active');
+    document.getElementById('counter').textContent = `${i + 1} / ${slides.length}`;
+    document.getElementById('progress').style.width = `${((i + 1) / slides.length) * 100}%`;
+  }
+  function next() { if (current < slides.length - 1) { current++; show(current); } }
+  function prev() { if (current > 0) { current--; show(current); } }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+  });
+  let touchStartX = 0;
+  document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+  document.addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) { diff > 0 ? next() : prev(); }
+  });
+  show(0);
+</script>
 </body>
 </html>
